@@ -17,39 +17,59 @@
                 -9.8000001907348633,
                 0
               ],
-              "identifier" : "F9610871-0955-494F-A5C3-51D1A281BAB3",
-              "material" : "ice",
+              "identifier" : "A8DBD0F2-3C4C-4B78-BD5C-1E3E4D52A07E",
+              "material" : "concrete",
               "overrides" : {
                 "children" : {
-                  "4A213441-135C-450E-8EF8-1A4EAB267C1D" : {
+                  "4BEE9AF6-D7FC-45F8-935C-15164AB29CEE" : null,
+                  "A9C54CEC-581B-45B5-A6B4-D3A15469C8C2" : {
                     "overrides" : {
                       "arguments" : [
                         [
                           "bevelRadius",
                           {
                             "typeName" : "Double",
-                            "value" : 1.0000000000000001e-05
+                            "value" : 0.025000000000000001
+                          }
+                        ],
+                        [
+                          "diameter",
+                          {
+                            "typeName" : "Double",
+                            "value" : 0.050000000000000003
+                          }
+                        ],
+                        [
+                          "height",
+                          {
+                            "typeName" : "Double",
+                            "value" : 0.02
                           }
                         ],
                         [
                           "material",
                           {
                             "typeName" : "String",
-                            "value" : "gold"
+                            "value" : "paintEnamelMatte"
+                          }
+                        ],
+                        [
+                          "materialColor",
+                          {
+                            "typeName" : "double4",
+                            "value" : [
+                              1,
+                              0.80000001192092896,
+                              0.60000002384185791,
+                              1
+                            ]
                           }
                         ],
                         [
                           "type",
                           {
                             "typeName" : "String",
-                            "value" : "box"
-                          }
-                        ],
-                        [
-                          "width",
-                          {
-                            "typeName" : "Double",
-                            "value" : 0.10000000000000001
+                            "value" : "cylinder"
                           }
                         ]
                       ],
@@ -62,28 +82,7 @@
                           "RuntimeIdentifier",
                           {
                             "typeName" : "UUID",
-                            "value" : "3788A5B5-0388-488A-8304-7B90FEBA6FAC"
-                          }
-                        ],
-                        [
-                          "entityName",
-                          {
-                            "typeName" : "String",
-                            "value" : "Steel Box"
-                          }
-                        ],
-                        [
-                          "rigidBody-enabled",
-                          {
-                            "typeName" : "Bool",
-                            "value" : false
-                          }
-                        ],
-                        [
-                          "rigidBody-motionType",
-                          {
-                            "typeName" : "REMotionType",
-                            "value" : "static"
+                            "value" : "62D90E74-DCA3-4107-B4ED-1EA14C81D2E6"
                           }
                         ]
                       ]
@@ -103,15 +102,13 @@
                         1,
                         0,
                         0,
-                        0.05000000074505806,
+                        0.0099999997764825821,
                         0,
                         1
                       ]
                     }
                   },
-                  "7F5F1ADC-E5E4-4EF5-A5B5-FC43B071FFA5" : null,
-                  "632E476F-1E55-4E30-9723-1C51DD2E8B89" : null,
-                  "B91C7CA3-4AB1-4253-9A84-07383168A8A8" : null
+                  "Cube" : null
                 },
                 "factory" : null,
                 "runtimeAttributes" : [
@@ -125,24 +122,24 @@
                 ]
               },
               "physicsMode" : "grid",
-              "title" : "Box",
+              "title" : "Scene",
               "viewTransform" : {
                 "cameraTransform" : [
-                  0.57647311687469482,
-                  -1.164153010102531e-10,
-                  -0.81711596250534058,
+                  0.93902832269668579,
+                  -1.4901161193847656e-08,
+                  0.34383973479270935,
                   0,
-                  -0.39884191751480103,
-                  0.87278246879577637,
-                  -0.28138190507888794,
+                  0.11330282688140869,
+                  0.94414776563644409,
+                  -0.30943068861961365,
                   0,
-                  0.7131645679473877,
-                  0.48810920119285583,
-                  0.50313574075698853,
+                  -0.32463538646697998,
+                  0.32952204346656799,
+                  0.88658159971237183,
                   0,
-                  1.5619666576385498,
-                  1.0008053779602051,
-                  0.64210695028305054,
+                  -0.14448289573192596,
+                  0.18472878634929657,
+                  0.40614190697669983,
                   1
                 ],
                 "sceneTransform" : [
