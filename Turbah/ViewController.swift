@@ -19,6 +19,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     var locationButton = VisualEffectButton()
     var settingsButton = VisualEffectButton()
     
+    var rightImage = UIImageView()
+    var leftImage = UIImageView()
+    
     override var prefersStatusBarHidden: Bool { return true }
     
     override func viewDidLoad() {
@@ -33,7 +36,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         
         placeButton.translatesAutoresizingMaskIntoConstraints = false
         placeButton.adjustsImageWhenHighlighted = false
-        placeButton.setImage(UIImage(systemName: "plus.circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 60)), for: .normal)
+        placeButton.setImage(UIImage(systemName: "plus.circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 60, weight: .light)), for: .normal)
         placeButton.tintColor = .white
         placeButton.addTarget(self, action: #selector(placeTurbah), for: .touchUpInside)
         view.addSubview(placeButton)
@@ -60,10 +63,22 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             settingsButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5),
             settingsButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5)
         ])
+        
+        rightImage.image = UIImage(systemName: "chevron.compact.right", withConfiguration: UIImage.SymbolConfiguration(pointSize: 50, weight: .medium))
+        leftImage.image = UIImage(systemName: "chevron.compact.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 50, weight: .medium))
+        [rightImage, leftImage].forEach {
+            $0.tintColor = .white
+            $0.alpha = 0
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview($0)
+            $0.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        }
+        rightImage.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true
+        leftImage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
     }
     
     @objc func placeTurbah() {
-        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+        hapticFeedback()
         if placeButton.transform == .identity {
             // Add
             let anchor = AnchorEntity(plane: .horizontal, minimumBounds: [0.2, 0.2])
@@ -87,7 +102,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     @objc func topButtonsClicked(_ sender: UIButton) {
-        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+        hapticFeedback(style: .medium)
     }
     
     
@@ -152,7 +167,26 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         
         ivCompassBack.transform = CGAffineTransform(rotationAngle: CGFloat(north));
         ivCompassNeedle.transform = CGAffineTransform(rotationAngle: CGFloat(directionOfKabah));
+        
+        if directionOfKabah > 0.2 {
+            didSendFeedback = false
+            leftImage.alpha = 0
+            rightImage.alpha = 1
+        } else if directionOfKabah < -0.2 {
+            didSendFeedback = false
+            rightImage.alpha = 0
+            leftImage.alpha = 1
+        } else {
+            if !didSendFeedback { hapticFeedback() }
+            didSendFeedback = true
+            leftImage.alpha = 0
+            rightImage.alpha = 0
+        }
+        
+        print("kabah", directionOfKabah)
     }
+    
+    var didSendFeedback = false
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         location = locations.last!

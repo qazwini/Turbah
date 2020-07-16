@@ -50,6 +50,7 @@ extension UIView {
     
 }
 
+
 extension CALayer {
     
     func roundCorners(radius: CGFloat = 15, corners: UIRectCorner = .allCorners) {
@@ -62,4 +63,9 @@ extension CALayer {
         self.mask = maskLayer
     }
     
+}
+
+
+func hapticFeedback(style: UIImpactFeedbackGenerator.FeedbackStyle = .light) {
+    UIImpactFeedbackGenerator(style: style).impactOccurred()
 }
