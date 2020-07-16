@@ -11,10 +11,10 @@ import RealityKit
 import ARKit
 import CoreLocation
 
-class ViewController: UIViewController, CLLocationManagerDelegate {
+class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOverlayViewDelegate {
     
     var arView = ARView()
-    var placeButton = UIButton()
+    var placeButtonView = UIVisualEffectView()
     
     var locationButton = VisualEffectButton()
     var settingsButton = VisualEffectButton()
@@ -27,37 +27,59 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        arView.addCoaching()
+        addCoaching()
         initManager()
     }
     
     func setupUI() {
         view = arView
         
-        placeButton.translatesAutoresizingMaskIntoConstraints = false
-        placeButton.adjustsImageWhenHighlighted = false
-        placeButton.setImage(UIImage(systemName: "plus.circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 60, weight: .light)), for: .normal)
-        placeButton.tintColor = .white
-        placeButton.addTarget(self, action: #selector(placeTurbah), for: .touchUpInside)
-        view.addSubview(placeButton)
+        let effect = UIBlurEffect(style: .systemThinMaterial)
+        placeButtonView.effect = effect
+        placeButtonView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(placeTurbah)))
+        placeButtonView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(placeButtonView)
         NSLayoutConstraint.activate([
-            placeButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            placeButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50)
+            placeButtonView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            placeButtonView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
+            placeButtonView.widthAnchor.constraint(equalToConstant: 60),
+            placeButtonView.heightAnchor.constraint(equalToConstant: 60)
+        ])
+        placeButtonView.layer.masksToBounds = true
+        placeButtonView.layer.cornerRadius = 30
+        
+        let vibrancyView = UIVisualEffectView(effect: UIVibrancyEffect(blurEffect: effect, style: .secondaryLabel))
+        placeButtonView.contentView.addSubview(vibrancyView)
+        vibrancyView.fillSuperview()
+        
+        let verticalLine = UIView()
+        let horizontalLine = UIView()
+        [verticalLine, horizontalLine].forEach {
+            $0.backgroundColor = .black
+            $0.layer.cornerRadius = 2
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            vibrancyView.contentView.addSubview($0)
+            $0.centerInSuperview()
+        }
+        NSLayoutConstraint.activate([
+            verticalLine.widthAnchor.constraint(equalToConstant: 4),
+            verticalLine.heightAnchor.constraint(equalToConstant: 32),
+            horizontalLine.widthAnchor.constraint(equalToConstant: 32),
+            horizontalLine.heightAnchor.constraint(equalToConstant: 4)
         ])
         
-        locationButton.button.setTitle("Ka'ba", for: .normal)
-        locationButton.button.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
+        locationButton.title = "Ka'ba"
         locationButton.tag = 0
-        locationButton.button.addTarget(self, action: #selector(topButtonsClicked(_:)), for: .touchUpInside)
+        locationButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(topButtonsClicked(_:))))
         view.addSubview(locationButton)
         NSLayoutConstraint.activate([
             locationButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5),
             locationButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5)
         ])
         
-        settingsButton.button.setImage(UIImage(systemName: "gear", withConfiguration: UIImage.SymbolConfiguration(pointSize: 18, weight: .semibold)), for: .normal)
+        settingsButton.image = UIImage(systemName: "gear", withConfiguration: UIImage.SymbolConfiguration(pointSize: 18, weight: .semibold))
         settingsButton.tag = 1
-        settingsButton.button.addTarget(self, action: #selector(topButtonsClicked(_:)), for: .touchUpInside)
+        settingsButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(topButtonsClicked(_:))))
         view.addSubview(settingsButton)
         NSLayoutConstraint.activate([
             settingsButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5),
@@ -79,7 +101,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     @objc func placeTurbah() {
         hapticFeedback()
-        if placeButton.transform == .identity {
+        if placeButtonView.transform == .identity {
             // Add
             let anchor = AnchorEntity(plane: .horizontal, minimumBounds: [0.2, 0.2])
             arView.scene.addAnchor(anchor)
@@ -90,19 +112,27 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             arView.scene.anchors.append(boxAnchor)
             
             UIView.animate(withDuration: 0.2) {
-                self.placeButton.transform = CGAffineTransform(rotationAngle: .pi / 4)
+                self.placeButtonView.transform = CGAffineTransform(rotationAngle: .pi / 4)
             }
         } else {
             // Remove
             arView.scene.anchors.removeAll()
             UIView.animate(withDuration: 0.2) {
-                self.placeButton.transform = .identity
+                self.placeButtonView.transform = .identity
             }
         }
     }
     
-    @objc func topButtonsClicked(_ sender: UIButton) {
+    @objc func topButtonsClicked(_ sender: UITapGestureRecognizer) {
         hapticFeedback(style: .medium)
+        if sender.view?.tag == 0 {
+            // Location
+        } else {
+            // Settings
+            let navVC = UINavigationController(rootViewController: SettingsVC())
+            navVC.navigationBar.prefersLargeTitles = true
+            present(navVC, animated: true)
+        }
     }
     
     
@@ -168,22 +198,22 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         ivCompassBack.transform = CGAffineTransform(rotationAngle: CGFloat(north));
         ivCompassNeedle.transform = CGAffineTransform(rotationAngle: CGFloat(directionOfKabah));
         
-        if directionOfKabah > 0.2 {
+        if directionOfKabah > 0.2 || directionOfKabah < -.pi {
             didSendFeedback = false
             leftImage.alpha = 0
             rightImage.alpha = 1
-        } else if directionOfKabah < -0.2 {
+        } else if directionOfKabah < -0.2 && directionOfKabah > -.pi {
             didSendFeedback = false
             rightImage.alpha = 0
             leftImage.alpha = 1
         } else {
-            if !didSendFeedback { hapticFeedback() }
-            didSendFeedback = true
+            if !didSendFeedback {
+                hapticFeedback(style: .medium)
+                didSendFeedback = true
+            }
             leftImage.alpha = 0
             rightImage.alpha = 0
         }
-        
-        print("kabah", directionOfKabah)
     }
     
     var didSendFeedback = false
@@ -217,21 +247,32 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         
         return radiansToDegrees(radiansBearing)
     }
-}
-
-extension ARView: ARCoachingOverlayViewDelegate {
+    
+    
+    // MARK: - AR Coaching
+    
     func addCoaching() {
         let coachingOverlay = ARCoachingOverlayView()
         coachingOverlay.delegate = self
-        coachingOverlay.session = self.session
+        coachingOverlay.session = arView.session
         coachingOverlay.goal = .horizontalPlane
         coachingOverlay.translatesAutoresizingMaskIntoConstraints = false
         
-        addSubview(coachingOverlay)
+        view.addSubview(coachingOverlay)
         coachingOverlay.fillSuperview()
     }
     
+    public func coachingOverlayViewWillActivate(_ coachingOverlayView: ARCoachingOverlayView) {
+        UIView.animate(withDuration: 0.2) {
+            self.settingsButton.alpha = 0
+            self.locationButton.alpha = 0
+        }
+    }
+    
     public func coachingOverlayViewDidDeactivate(_ coachingOverlayView: ARCoachingOverlayView) {
-        //Ready to add entities next?
+        UIView.animate(withDuration: 0.2) {
+            self.settingsButton.alpha = 1
+            self.locationButton.alpha = 1
+        }
     }
 }

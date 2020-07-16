@@ -14,6 +14,7 @@
 		FA7A251424BFA498003D8825 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA7A251224BFA498003D8825 /* LaunchScreen.storyboard */; };
 		FA8EC36124BFD452004FF5E2 /* VisualEffectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8EC36024BFD452004FF5E2 /* VisualEffectButton.swift */; };
 		FA8EC36324BFD48D004FF5E2 /* Super.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8EC36224BFD48D004FF5E2 /* Super.swift */; };
+		FA8EC36524C01C3B004FF5E2 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8EC36424C01C3B004FF5E2 /* SettingsVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		FA7A251524BFA498003D8825 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FA8EC36024BFD452004FF5E2 /* VisualEffectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectButton.swift; sourceTree = "<group>"; };
 		FA8EC36224BFD48D004FF5E2 /* Super.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Super.swift; sourceTree = "<group>"; };
+		FA8EC36424C01C3B004FF5E2 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,14 +62,31 @@
 			children = (
 				FA7A250724BFA497003D8825 /* AppDelegate.swift */,
 				FA8EC36224BFD48D004FF5E2 /* Super.swift */,
-				FA7A250924BFA497003D8825 /* ViewController.swift */,
-				FA8EC36024BFD452004FF5E2 /* VisualEffectButton.swift */,
+				FA8EC36724C01C7F004FF5E2 /* Controllers */,
+				FA8EC36824C01C87004FF5E2 /* Classes */,
 				FA57BA6B24BFB314009FC13E /* Turbah.rcproject */,
 				FA7A251024BFA498003D8825 /* Assets.xcassets */,
 				FA7A251224BFA498003D8825 /* LaunchScreen.storyboard */,
 				FA7A251524BFA498003D8825 /* Info.plist */,
 			);
 			path = Turbah;
+			sourceTree = "<group>";
+		};
+		FA8EC36724C01C7F004FF5E2 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				FA7A250924BFA497003D8825 /* ViewController.swift */,
+				FA8EC36424C01C3B004FF5E2 /* SettingsVC.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		FA8EC36824C01C87004FF5E2 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				FA8EC36024BFD452004FF5E2 /* VisualEffectButton.swift */,
+			);
+			path = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -145,6 +164,7 @@
 				FA57BA6C24BFB314009FC13E /* Turbah.rcproject in Sources */,
 				FA7A250A24BFA497003D8825 /* ViewController.swift in Sources */,
 				FA7A250824BFA497003D8825 /* AppDelegate.swift in Sources */,
+				FA8EC36524C01C3B004FF5E2 /* SettingsVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

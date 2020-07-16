@@ -10,10 +10,30 @@ import UIKit
 
 class VisualEffectButton: UIVisualEffectView {
     
-    var vibrancyView = UIVisualEffectView()
-    var button = UIButton()
+    var image: UIImage? {
+        didSet {
+            imageView = UIImageView()
+            imageView!.contentMode = .scaleAspectFit
+            imageView!.image = image
+            vibrancyView.contentView.addSubview(imageView!)
+            imageView!.centerInSuperview()
+        }
+    }
     
-    var visualEffectClicked: ((UITapGestureRecognizer) -> Void)?
+    var title: String? {
+        didSet {
+            titleLabel = UILabel()
+            titleLabel!.text = title
+            titleLabel!.font = .systemFont(ofSize: 16, weight: .semibold)
+            vibrancyView.contentView.addSubview(titleLabel!)
+            titleLabel!.centerInSuperview()
+        }
+    }
+    
+    var vibrancyView = UIVisualEffectView()
+    
+    var titleLabel: UILabel?
+    var imageView: UIImageView?
     
     private func setupUI() {
         let blurEffect = UIBlurEffect(style: .systemThinMaterial)
@@ -25,11 +45,6 @@ class VisualEffectButton: UIVisualEffectView {
         vibrancyView.effect = UIVibrancyEffect(blurEffect: blurEffect, style: .secondaryLabel)
         contentView.addSubview(vibrancyView)
         vibrancyView.fillSuperview()
-        
-        button.tintColor = .white
-        
-        vibrancyView.contentView.addSubview(button)
-        button.centerInSuperview()
     }
     
     override func layoutSubviews() {
