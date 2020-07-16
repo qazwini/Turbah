@@ -35,7 +35,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         view = arView
         
         placeButtonView.effect = blurEffect
-        placeButtonView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(placeTurbah)))
+        placeButtonView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(addRemovePressed)))
         placeButtonView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(placeButtonView)
         NSLayoutConstraint.activate([
@@ -98,7 +98,22 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         leftImage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
     }
     
-    @objc func placeTurbah() {
+    func placeTurbah() {
+        // Add
+        let anchor = AnchorEntity(plane: .horizontal, minimumBounds: [0.2, 0.2])
+        arView.scene.addAnchor(anchor)
+        
+        let boxAnchor = try! Turbah.loadScene()
+        
+        // Add the box anchor to the scene
+        arView.scene.anchors.append(boxAnchor)
+        
+        UIView.animate(withDuration: 0.2) {
+            self.placeButtonView.transform = CGAffineTransform(rotationAngle: .pi / 4)
+        }
+    }
+    
+    @objc func addRemovePressed() {
         hapticFeedback()
         if placeButtonView.transform == .identity {
             guard didSendFeedback else {
@@ -126,19 +141,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
                 
                 return
             }
-            
-            // Add
-            let anchor = AnchorEntity(plane: .horizontal, minimumBounds: [0.2, 0.2])
-            arView.scene.addAnchor(anchor)
-            
-            let boxAnchor = try! Turbah.loadScene()
-            
-            // Add the box anchor to the scene
-            arView.scene.anchors.append(boxAnchor)
-            
-            UIView.animate(withDuration: 0.2) {
-                self.placeButtonView.transform = CGAffineTransform(rotationAngle: .pi / 4)
-            }
+            placeTurbah()
         } else {
             // Remove
             arView.scene.anchors.removeAll()
@@ -307,5 +310,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
             self.settingsButton.alpha = 1
             self.locationButton.alpha = 1
         }
+        placeTurbah()
     }
 }

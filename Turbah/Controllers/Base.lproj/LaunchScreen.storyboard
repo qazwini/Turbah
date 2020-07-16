@@ -15,17 +15,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Turbah" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hU7-ma-xdz">
-                                <rect key="frame" x="180" y="437.5" width="54" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch" translatesAutoresizingMaskIntoConstraints="NO" id="wtx-H9-and">
+                                <rect key="frame" x="132" y="373" width="150" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="emH-qT-aXZ"/>
+                                    <constraint firstAttribute="width" constant="150" id="kdS-SO-ADJ"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" red="0.14901960784313725" green="0.12156862745098039" blue="0.41960784313725491" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="hU7-ma-xdz" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="TqG-oB-PLr"/>
-                            <constraint firstItem="hU7-ma-xdz" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="lfj-m0-VUh"/>
+                            <constraint firstItem="wtx-H9-and" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="UQu-F9-eXX"/>
+                            <constraint firstItem="wtx-H9-and" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="jlp-5D-2kg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -35,4 +36,7 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="launch" width="149.5" height="105.5"/>
+    </resources>
 </document>

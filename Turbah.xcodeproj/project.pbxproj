@@ -68,7 +68,6 @@
 				FA8EC36824C01C87004FF5E2 /* Classes */,
 				FA57BA6B24BFB314009FC13E /* Turbah.rcproject */,
 				FA7A251024BFA498003D8825 /* Assets.xcassets */,
-				FA7A251224BFA498003D8825 /* LaunchScreen.storyboard */,
 				FA7A251524BFA498003D8825 /* Info.plist */,
 			);
 			path = Turbah;
@@ -77,6 +76,7 @@
 		FA8EC36724C01C7F004FF5E2 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				FA7A251224BFA498003D8825 /* LaunchScreen.storyboard */,
 				FA7A250924BFA497003D8825 /* ViewController.swift */,
 				FA8EC36424C01C3B004FF5E2 /* SettingsVC.swift */,
 			);
