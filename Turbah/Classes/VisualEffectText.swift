@@ -1,49 +1,37 @@
 //
-//  VisualEffectButton.swift
+//  VisualEffectText.swift
 //  Turbah
 //
-//  Created by MMQ on 7/15/20.
+//  Created by MMQ on 7/16/20.
 //  Copyright © 2020 MMQ. All rights reserved.
 //
 
 import UIKit
 
-class VisualEffectButton: UIVisualEffectView {
-    
-    var image: UIImage? {
-        didSet {
-            imageView = UIImageView()
-            imageView!.contentMode = .scaleAspectFit
-            imageView!.image = image
-            vibrancyView.contentView.addSubview(imageView!)
-            imageView!.centerInSuperview()
-        }
-    }
+class VisualEffectText: UIVisualEffectView {
     
     var title: String? {
         didSet {
-            titleLabel = UILabel()
-            titleLabel!.text = title
-            titleLabel!.font = .systemFont(ofSize: 16, weight: .semibold)
-            vibrancyView.contentView.addSubview(titleLabel!)
-            titleLabel!.centerInSuperview()
+            titleLabel.text = title
         }
     }
     
     var vibrancyView = UIVisualEffectView()
     
-    var titleLabel: UILabel?
-    var imageView: UIImageView?
+    var titleLabel = UILabel()
     
     private func setupUI() {
         effect = blurEffect
         translatesAutoresizingMaskIntoConstraints = false
-        widthAnchor.constraint(equalToConstant: 80).isActive = true
         heightAnchor.constraint(equalToConstant: 47).isActive = true
         
         vibrancyView.effect = UIVibrancyEffect(blurEffect: blurEffect, style: .secondaryLabel)
         contentView.addSubview(vibrancyView)
         vibrancyView.fillSuperview()
+        
+        titleLabel.font = .systemFont(ofSize: 16, weight: .semibold)
+        vibrancyView.contentView.addSubview(titleLabel)
+        titleLabel.fillSuperview(padding: UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15))
     }
     
     override func layoutSubviews() {
@@ -61,3 +49,4 @@ class VisualEffectButton: UIVisualEffectView {
     }
     
 }
+

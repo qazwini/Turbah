@@ -8,6 +8,10 @@
 
 import UIKit
 
+var blurEffect: UIBlurEffect {
+    return UIBlurEffect(style: .systemThinMaterial)
+}
+
 extension UIView {
     
     func fillSuperview(padding: UIEdgeInsets = .zero) {

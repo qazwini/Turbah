@@ -34,8 +34,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
     func setupUI() {
         view = arView
         
-        let effect = UIBlurEffect(style: .systemThinMaterial)
-        placeButtonView.effect = effect
+        placeButtonView.effect = blurEffect
         placeButtonView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(placeTurbah)))
         placeButtonView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(placeButtonView)
@@ -48,7 +47,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         placeButtonView.layer.masksToBounds = true
         placeButtonView.layer.cornerRadius = 30
         
-        let vibrancyView = UIVisualEffectView(effect: UIVibrancyEffect(blurEffect: effect, style: .secondaryLabel))
+        let vibrancyView = UIVisualEffectView(effect: UIVibrancyEffect(blurEffect: blurEffect, style: .secondaryLabel))
         placeButtonView.contentView.addSubview(vibrancyView)
         vibrancyView.fillSuperview()
         
@@ -102,6 +101,32 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
     @objc func placeTurbah() {
         hapticFeedback()
         if placeButtonView.transform == .identity {
+            guard didSendFeedback else {
+                placeButtonView.isUserInteractionEnabled = false
+                
+                let veBackground = VisualEffectText(effect: blurEffect)
+                veBackground.alpha = 0
+                view.addSubview(veBackground)
+                veBackground.topAnchor.constraint(equalTo: view.topAnchor, constant: 71).isActive = true
+                veBackground.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+                veBackground.title = "Please face the qibla then place"
+                
+                UIView.animateKeyframes(withDuration: 4, delay: 0, options: .beginFromCurrentState, animations: {
+                    UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.05) {
+                        veBackground.alpha = 1
+                    }
+                    UIView.addKeyframe(withRelativeStartTime: 0.95, relativeDuration: 0.05) {
+                        veBackground.alpha = 0
+                    }
+                }, completion: { (completed) in
+                    guard completed else { return }
+                    veBackground.removeFromSuperview()
+                    self.placeButtonView.isUserInteractionEnabled = true
+                })
+                
+                return
+            }
+            
             // Add
             let anchor = AnchorEntity(plane: .horizontal, minimumBounds: [0.2, 0.2])
             arView.scene.addAnchor(anchor)
@@ -172,28 +197,28 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         locationManager.startUpdatingLocation()
         locationManager.startUpdatingHeading()
         
-        ivCompassBack.backgroundColor = .red
-        ivCompassBack.layer.cornerRadius = 40
-        ivCompassNeedle.backgroundColor = .blue
-        [ivCompassBack, ivCompassNeedle].forEach {
-            $0.translatesAutoresizingMaskIntoConstraints = false
-            view.addSubview($0)
-            $0.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-            $0.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        }
-        ivCompassBack.widthAnchor.constraint(equalToConstant: 80).isActive = true
-        ivCompassBack.heightAnchor.constraint(equalToConstant: 80).isActive = true
-        ivCompassNeedle.widthAnchor.constraint(equalToConstant: 20).isActive = true
-        ivCompassNeedle.heightAnchor.constraint(equalToConstant: 70).isActive = true
-        
-        let toppy = UIView()
-        toppy.backgroundColor = .yellow
-        toppy.translatesAutoresizingMaskIntoConstraints = false
-        ivCompassNeedle.addSubview(toppy)
-        toppy.topAnchor.constraint(equalTo: ivCompassNeedle.topAnchor, constant: 3).isActive = true
-        toppy.widthAnchor.constraint(equalTo: ivCompassNeedle.widthAnchor, constant: -6).isActive = true
-        toppy.heightAnchor.constraint(equalTo: toppy.widthAnchor).isActive = true
-        toppy.centerXAnchor.constraint(equalTo: ivCompassNeedle.centerXAnchor).isActive = true
+//        ivCompassBack.backgroundColor = .red
+//        ivCompassBack.layer.cornerRadius = 40
+//        ivCompassNeedle.backgroundColor = .blue
+//        [ivCompassBack, ivCompassNeedle].forEach {
+//            $0.translatesAutoresizingMaskIntoConstraints = false
+//            view.addSubview($0)
+//            $0.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+//            $0.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+//        }
+//        ivCompassBack.widthAnchor.constraint(equalToConstant: 80).isActive = true
+//        ivCompassBack.heightAnchor.constraint(equalToConstant: 80).isActive = true
+//        ivCompassNeedle.widthAnchor.constraint(equalToConstant: 20).isActive = true
+//        ivCompassNeedle.heightAnchor.constraint(equalToConstant: 70).isActive = true
+//        
+//        let toppy = UIView()
+//        toppy.backgroundColor = .yellow
+//        toppy.translatesAutoresizingMaskIntoConstraints = false
+//        ivCompassNeedle.addSubview(toppy)
+//        toppy.topAnchor.constraint(equalTo: ivCompassNeedle.topAnchor, constant: 3).isActive = true
+//        toppy.widthAnchor.constraint(equalTo: ivCompassNeedle.widthAnchor, constant: -6).isActive = true
+//        toppy.heightAnchor.constraint(equalTo: toppy.widthAnchor).isActive = true
+//        toppy.centerXAnchor.constraint(equalTo: ivCompassNeedle.centerXAnchor).isActive = true
         
     }
     
@@ -204,11 +229,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         ivCompassBack.transform = CGAffineTransform(rotationAngle: CGFloat(north));
         ivCompassNeedle.transform = CGAffineTransform(rotationAngle: CGFloat(directionOfKabah));
         
-        if directionOfKabah > 0.2 || directionOfKabah < -.pi {
+        let offAccept = 0.25
+        
+        if directionOfKabah > offAccept || directionOfKabah < -.pi {
             didSendFeedback = false
             leftImage.alpha = 0
             rightImage.alpha = 1
-        } else if directionOfKabah < -0.2 && directionOfKabah > -.pi {
+        } else if directionOfKabah < -offAccept && directionOfKabah > -.pi {
             didSendFeedback = false
             rightImage.alpha = 0
             leftImage.alpha = 1
