@@ -45,10 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = UIStoryboard(name: "LaunchScreen", bundle: nil).instantiateInitialViewController()
         window?.makeKeyAndVisible()
         
-        let navVC = UINavigationController(rootViewController: ViewController())
-        navVC.setNavigationBarHidden(true, animated: false)
-        
-        window?.rootViewController = navVC
+        window?.rootViewController = ViewController()
     }
 
 

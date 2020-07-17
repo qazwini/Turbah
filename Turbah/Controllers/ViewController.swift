@@ -14,21 +14,33 @@ import CoreLocation
 class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOverlayViewDelegate {
     
     var arView = ARView()
-    var placeButtonView = UIVisualEffectView()
     
+    var qiblaDirection: Float?
+    
+    var placeButtonView = UIVisualEffectView()
     var locationButton = VisualEffectButton()
     var settingsButton = VisualEffectButton()
     
     var rightImage = UIImageView()
     var leftImage = UIImageView()
     
+    var turbahAdded = false
+    
+    var errorOverlay: ErrorOverlay?
+    
     override var prefersStatusBarHidden: Bool { return true }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        guard AVCaptureDevice.authorizationStatus(for: .video) == .authorized || AVCaptureDevice.authorizationStatus(for: .video) == .notDetermined else { showErrorAlert(type: .camera); return }
+        guard requestLocationAuthorization() else { return }
         setupUI()
         addCoaching()
         initManager()
+        
+        let config = ARWorldTrackingConfiguration()
+        config.planeDetection = .horizontal
+        arView.session.run(config, options: [])
     }
     
     func setupUI() {
@@ -104,18 +116,22 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         arView.scene.addAnchor(anchor)
         
         let boxAnchor = try! Turbah.loadScene()
+        boxAnchor.position = [-0.6, -1, -2]
         
         // Add the box anchor to the scene
-        arView.scene.anchors.append(boxAnchor)
+        anchor.addChild(boxAnchor)
+//        arView.scene.anchors.append(boxAnchor)
         
         UIView.animate(withDuration: 0.2) {
             self.placeButtonView.transform = CGAffineTransform(rotationAngle: .pi / 4)
         }
+        
+        turbahAdded = true
     }
     
     @objc func addRemovePressed() {
         hapticFeedback()
-        if placeButtonView.transform == .identity {
+        if !turbahAdded {
             guard didSendFeedback else {
                 placeButtonView.isUserInteractionEnabled = false
                 
@@ -148,6 +164,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
             UIView.animate(withDuration: 0.2) {
                 self.placeButtonView.transform = .identity
             }
+            turbahAdded = false
         }
     }
     
@@ -169,6 +186,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
     var ivCompassBack = UIView()
     var ivCompassNeedle = UIView()
     
+    var location: CLLocation?
+    let locationManager = CLLocationManager()
+    var bearingOfKabah = Double()
     var selectedLocation: coordinates = .kabah
     
     struct coordinates {
@@ -187,43 +207,84 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         static let zainab = coordinates(lat: 33.4444, lon: 36.3409)
     }
     
-    var location: CLLocation?
-    let locationManager = CLLocationManager()
-    var bearingOfKabah = Double()
+    func addCompass() {
+        ivCompassBack.backgroundColor = .red
+        ivCompassBack.layer.cornerRadius = 40
+        ivCompassNeedle.backgroundColor = .blue
+        [ivCompassBack, ivCompassNeedle].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview($0)
+            $0.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+            $0.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        }
+        ivCompassBack.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        ivCompassBack.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        ivCompassNeedle.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        ivCompassNeedle.heightAnchor.constraint(equalToConstant: 70).isActive = true
+        
+        let toppy = UIView()
+        toppy.backgroundColor = .yellow
+        toppy.translatesAutoresizingMaskIntoConstraints = false
+        ivCompassNeedle.addSubview(toppy)
+        toppy.topAnchor.constraint(equalTo: ivCompassNeedle.topAnchor, constant: 3).isActive = true
+        toppy.widthAnchor.constraint(equalTo: ivCompassNeedle.widthAnchor, constant: -6).isActive = true
+        toppy.heightAnchor.constraint(equalTo: toppy.widthAnchor).isActive = true
+        toppy.centerXAnchor.constraint(equalTo: ivCompassNeedle.centerXAnchor).isActive = true
+    }
     
     func initManager() {
-        locationManager.requestWhenInUseAuthorization()
-        guard CLLocationManager.locationServicesEnabled() else { return }
-        
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         locationManager.startUpdatingLocation()
         locationManager.startUpdatingHeading()
         
-//        ivCompassBack.backgroundColor = .red
-//        ivCompassBack.layer.cornerRadius = 40
-//        ivCompassNeedle.backgroundColor = .blue
-//        [ivCompassBack, ivCompassNeedle].forEach {
-//            $0.translatesAutoresizingMaskIntoConstraints = false
-//            view.addSubview($0)
-//            $0.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-//            $0.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-//        }
-//        ivCompassBack.widthAnchor.constraint(equalToConstant: 80).isActive = true
-//        ivCompassBack.heightAnchor.constraint(equalToConstant: 80).isActive = true
-//        ivCompassNeedle.widthAnchor.constraint(equalToConstant: 20).isActive = true
-//        ivCompassNeedle.heightAnchor.constraint(equalToConstant: 70).isActive = true
-//        
-//        let toppy = UIView()
-//        toppy.backgroundColor = .yellow
-//        toppy.translatesAutoresizingMaskIntoConstraints = false
-//        ivCompassNeedle.addSubview(toppy)
-//        toppy.topAnchor.constraint(equalTo: ivCompassNeedle.topAnchor, constant: 3).isActive = true
-//        toppy.widthAnchor.constraint(equalTo: ivCompassNeedle.widthAnchor, constant: -6).isActive = true
-//        toppy.heightAnchor.constraint(equalTo: toppy.widthAnchor).isActive = true
-//        toppy.centerXAnchor.constraint(equalTo: ivCompassNeedle.centerXAnchor).isActive = true
-        
+        //addCompass()
     }
+    
+    func requestLocationAuthorization() -> Bool {
+        locationManager.requestWhenInUseAuthorization()
+        
+        switch CLLocationManager.authorizationStatus() {
+        case .authorizedAlways, .authorizedWhenInUse: return true
+        case .denied, .restricted:
+            showErrorAlert(type: .location)
+            return false
+        case .notDetermined:
+            return requestLocationAuthorization()
+        default: return false
+        }
+    }
+    
+    enum errorType {
+        case location, camera
+    }
+    
+    func showErrorAlert(type: errorType) {
+        errorOverlay = ErrorOverlay()
+        errorOverlay!.alpha = 0
+        errorOverlay!.message = (type == .location) ? "Location Services disabled" : "Camera permissions disabled"
+        errorOverlay!.retryButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(removeErrorOverlay)))
+        view.addSubview(errorOverlay!)
+        errorOverlay!.fillSuperview()
+        
+        UIView.animate(withDuration: 0.2) {
+            self.errorOverlay?.alpha = 1
+        }
+    }
+    
+    @objc func removeErrorOverlay() {
+        hapticFeedback()
+        guard requestLocationAuthorization(), AVCaptureDevice.authorizationStatus(for: .video) == .authorized else { return }
+        
+        UIView.animate(withDuration: 0.2, animations: {
+            self.errorOverlay?.alpha = 0
+        }) { _ in
+            self.errorOverlay?.removeFromSuperview()
+        }
+    }
+    
+    
+    var didSendFeedback = false
     
     func locationManager(_ manager: CLLocationManager, didUpdateHeading heading: CLHeading) {
         let north = -1 * heading.magneticHeading * Double.pi/180
@@ -252,13 +313,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         }
     }
     
-    var didSendFeedback = false
-    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         location = locations.last!
         bearingOfKabah = getBearingBetweenTwoPoints1(location!, lat: selectedLocation.lat, lon: selectedLocation.lon) //calculating the bearing of KABAH
     }
-    
     
     func degreesToRadians(_ degrees: Double) -> Double { return degrees * Double.pi / 180.0 }
     
@@ -300,6 +358,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
     
     public func coachingOverlayViewWillActivate(_ coachingOverlayView: ARCoachingOverlayView) {
         UIView.animate(withDuration: 0.2) {
+            self.placeButtonView.alpha = 0
             self.settingsButton.alpha = 0
             self.locationButton.alpha = 0
         }
@@ -307,6 +366,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
     
     public func coachingOverlayViewDidDeactivate(_ coachingOverlayView: ARCoachingOverlayView) {
         UIView.animate(withDuration: 0.2) {
+            self.placeButtonView.alpha = 1
             self.settingsButton.alpha = 1
             self.locationButton.alpha = 1
         }

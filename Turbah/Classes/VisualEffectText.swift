@@ -17,7 +17,6 @@ class VisualEffectText: UIVisualEffectView {
     }
     
     var vibrancyView = UIVisualEffectView()
-    
     var titleLabel = UILabel()
     
     private func setupUI() {

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FA51865524C133AD009064F6 /* SettingsFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA51865424C133AD009064F6 /* SettingsFooterView.swift */; };
+		FA51865724C13A56009064F6 /* CustomTurbah.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA51865624C13A56009064F6 /* CustomTurbah.swift */; };
 		FA57BA6C24BFB314009FC13E /* Turbah.rcproject in Sources */ = {isa = PBXBuildFile; fileRef = FA57BA6B24BFB314009FC13E /* Turbah.rcproject */; };
 		FA7A250824BFA497003D8825 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7A250724BFA497003D8825 /* AppDelegate.swift */; };
 		FA7A250A24BFA497003D8825 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7A250924BFA497003D8825 /* ViewController.swift */; };
@@ -16,9 +18,12 @@
 		FA8EC36324BFD48D004FF5E2 /* Super.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8EC36224BFD48D004FF5E2 /* Super.swift */; };
 		FA8EC36524C01C3B004FF5E2 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8EC36424C01C3B004FF5E2 /* SettingsVC.swift */; };
 		FA8EC36A24C031C7004FF5E2 /* VisualEffectText.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8EC36924C031C7004FF5E2 /* VisualEffectText.swift */; };
+		FACE7EB524C15494002FE5FC /* ErrorOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE7EB424C15494002FE5FC /* ErrorOverlay.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FA51865424C133AD009064F6 /* SettingsFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFooterView.swift; sourceTree = "<group>"; };
+		FA51865624C13A56009064F6 /* CustomTurbah.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTurbah.swift; sourceTree = "<group>"; };
 		FA57BA6B24BFB314009FC13E /* Turbah.rcproject */ = {isa = PBXFileReference; lastKnownFileType = file.rcproject; path = Turbah.rcproject; sourceTree = "<group>"; };
 		FA7A250424BFA497003D8825 /* Turbah.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Turbah.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA7A250724BFA497003D8825 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -30,6 +35,7 @@
 		FA8EC36224BFD48D004FF5E2 /* Super.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Super.swift; sourceTree = "<group>"; };
 		FA8EC36424C01C3B004FF5E2 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		FA8EC36924C031C7004FF5E2 /* VisualEffectText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectText.swift; sourceTree = "<group>"; };
+		FACE7EB424C15494002FE5FC /* ErrorOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorOverlay.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,8 +92,11 @@
 		FA8EC36824C01C87004FF5E2 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				FA51865624C13A56009064F6 /* CustomTurbah.swift */,
 				FA8EC36024BFD452004FF5E2 /* VisualEffectButton.swift */,
 				FA8EC36924C031C7004FF5E2 /* VisualEffectText.swift */,
+				FACE7EB424C15494002FE5FC /* ErrorOverlay.swift */,
+				FA51865424C133AD009064F6 /* SettingsFooterView.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -163,11 +172,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA8EC36324BFD48D004FF5E2 /* Super.swift in Sources */,
+				FACE7EB524C15494002FE5FC /* ErrorOverlay.swift in Sources */,
 				FA8EC36124BFD452004FF5E2 /* VisualEffectButton.swift in Sources */,
 				FA57BA6C24BFB314009FC13E /* Turbah.rcproject in Sources */,
+				FA51865724C13A56009064F6 /* CustomTurbah.swift in Sources */,
 				FA7A250A24BFA497003D8825 /* ViewController.swift in Sources */,
 				FA7A250824BFA497003D8825 /* AppDelegate.swift in Sources */,
 				FA8EC36A24C031C7004FF5E2 /* VisualEffectText.swift in Sources */,
+				FA51865524C133AD009064F6 /* SettingsFooterView.swift in Sources */,
 				FA8EC36524C01C3B004FF5E2 /* SettingsVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
