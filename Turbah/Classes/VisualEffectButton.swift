@@ -47,6 +47,7 @@ class VisualEffectButton: UIVisualEffectView {
     }
     
     override func layoutSubviews() {
+        super.layoutSubviews()
         layer.roundCorners(radius: 15)
     }
     

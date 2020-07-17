@@ -11,11 +11,11 @@ import RealityKit
 import ARKit
 import CoreLocation
 
-class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOverlayViewDelegate {
+class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOverlayViewDelegate, ARSessionDelegate {
     
     var arView = ARView()
     
-    var qiblaDirection: Float?
+    var qiblaDirection: Double?
     
     var placeButtonView = UIVisualEffectView()
     var locationButton = VisualEffectButton()
@@ -35,12 +35,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         guard AVCaptureDevice.authorizationStatus(for: .video) == .authorized || AVCaptureDevice.authorizationStatus(for: .video) == .notDetermined else { showErrorAlert(type: .camera); return }
         guard requestLocationAuthorization() else { return }
         setupUI()
-        addCoaching()
         initManager()
-        
-        let config = ARWorldTrackingConfiguration()
-        config.planeDetection = .horizontal
-        arView.session.run(config, options: [])
     }
     
     func setupUI() {
@@ -111,16 +106,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
     }
     
     func placeTurbah() {
-        // Add
-        let anchor = AnchorEntity(plane: .horizontal, minimumBounds: [0.2, 0.2])
-        arView.scene.addAnchor(anchor)
+        let turbah = try! Turbah.loadScene()
+        print("angles", arView.session.currentFrame?.camera.eulerAngles)
         
-        let boxAnchor = try! Turbah.loadScene()
-        boxAnchor.position = [-0.6, -1, -2]
+        arView.scene.anchors.append(turbah)
         
-        // Add the box anchor to the scene
-        anchor.addChild(boxAnchor)
-//        arView.scene.anchors.append(boxAnchor)
+        turbah.transform.translation = [-50, 0, -50]
         
         UIView.animate(withDuration: 0.2) {
             self.placeButtonView.transform = CGAffineTransform(rotationAngle: .pi / 4)
@@ -142,7 +133,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
                 veBackground.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
                 veBackground.title = "Please face the qibla then place"
                 
-                UIView.animateKeyframes(withDuration: 4, delay: 0, options: .beginFromCurrentState, animations: {
+                UIView.animateKeyframes(withDuration: 4, delay: 0, options: .calculationModeCubic, animations: {
                     UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.05) {
                         veBackground.alpha = 1
                     }
@@ -189,23 +180,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
     var location: CLLocation?
     let locationManager = CLLocationManager()
     var bearingOfKabah = Double()
-    var selectedLocation: coordinates = .kabah
-    
-    struct coordinates {
-        let lat: Double
-        let lon: Double
-        
-        static let kabah = coordinates(lat: 21.422487, lon: 39.826206)
-        static let aqsa = coordinates(lat: 31.7761, lon: 35.2358)
-        static let prophet = coordinates(lat: 24.4707, lon: 39.6307)
-        static let ali = coordinates(lat: 31.9957, lon: 44.3148)
-        static let hussain = coordinates(lat: 32.6164, lon: 44.0324)
-        static let reza = coordinates(lat: 36.2878, lon: 59.6155)
-        static let askariain = coordinates(lat: 34.19878, lon: 43.87338)
-        static let baqi = coordinates(lat: 24.4672, lon: 39.6138)
-        static let masuma = coordinates(lat: 34.6418, lon: 50.8790)
-        static let zainab = coordinates(lat: 33.4444, lon: 36.3409)
-    }
+    var selectedLocation: Coordinates = .kabah
     
     func addCompass() {
         ivCompassBack.backgroundColor = .red
@@ -285,6 +260,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
     
     
     var didSendFeedback = false
+    var isCoaching = false
     
     func locationManager(_ manager: CLLocationManager, didUpdateHeading heading: CLHeading) {
         let north = -1 * heading.magneticHeading * Double.pi/180
@@ -292,6 +268,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         
         ivCompassBack.transform = CGAffineTransform(rotationAngle: CGFloat(north));
         ivCompassNeedle.transform = CGAffineTransform(rotationAngle: CGFloat(directionOfKabah));
+        
+        qiblaDirection = directionOfKabah
         
         let offAccept = 0.25
         
@@ -306,6 +284,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         } else {
             if !didSendFeedback {
                 hapticFeedback(style: .medium)
+                if !isCoaching { addCoaching() }
                 didSendFeedback = true
             }
             leftImage.alpha = 0
@@ -315,7 +294,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         location = locations.last!
-        bearingOfKabah = getBearingBetweenTwoPoints1(location!, lat: selectedLocation.lat, lon: selectedLocation.lon) //calculating the bearing of KABAH
+        bearingOfKabah = getBearingBetweenTwoPoints1(location!, lat: selectedLocation.lat, lon: selectedLocation.lon)
     }
     
     func degreesToRadians(_ degrees: Double) -> Double { return degrees * Double.pi / 180.0 }
@@ -346,6 +325,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
     // MARK: - AR Coaching
     
     func addCoaching() {
+        isCoaching = true
         let coachingOverlay = ARCoachingOverlayView()
         coachingOverlay.delegate = self
         coachingOverlay.session = arView.session
@@ -354,9 +334,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         
         view.addSubview(coachingOverlay)
         coachingOverlay.fillSuperview()
+        
+        let config = ARWorldTrackingConfiguration()
+        config.planeDetection = .horizontal
+        arView.session.run(config, options: [.resetTracking])
     }
     
     public func coachingOverlayViewWillActivate(_ coachingOverlayView: ARCoachingOverlayView) {
+        isCoaching = true
         UIView.animate(withDuration: 0.2) {
             self.placeButtonView.alpha = 0
             self.settingsButton.alpha = 0
@@ -365,11 +350,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
     }
     
     public func coachingOverlayViewDidDeactivate(_ coachingOverlayView: ARCoachingOverlayView) {
+        isCoaching = false
         UIView.animate(withDuration: 0.2) {
             self.placeButtonView.alpha = 1
             self.settingsButton.alpha = 1
             self.locationButton.alpha = 1
         }
+        
+        guard didSendFeedback else { return }
+        arView.scene.anchors.removeAll()
         placeTurbah()
     }
 }

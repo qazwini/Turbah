@@ -34,7 +34,8 @@ class VisualEffectText: UIVisualEffectView {
     }
     
     override func layoutSubviews() {
-        layer.roundCorners(radius: 15)
+        super.layoutSubviews()
+        layer.roundCorners()
     }
     
     override init(effect: UIVisualEffect?) {

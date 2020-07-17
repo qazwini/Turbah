@@ -19,6 +19,8 @@
 		FA8EC36524C01C3B004FF5E2 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8EC36424C01C3B004FF5E2 /* SettingsVC.swift */; };
 		FA8EC36A24C031C7004FF5E2 /* VisualEffectText.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8EC36924C031C7004FF5E2 /* VisualEffectText.swift */; };
 		FACE7EB524C15494002FE5FC /* ErrorOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE7EB424C15494002FE5FC /* ErrorOverlay.swift */; };
+		FACE7EB724C173FE002FE5FC /* LocationsListMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE7EB624C173FE002FE5FC /* LocationsListMenu.swift */; };
+		FACE7EB924C176EB002FE5FC /* Coordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE7EB824C176EB002FE5FC /* Coordinates.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,8 @@
 		FA8EC36424C01C3B004FF5E2 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		FA8EC36924C031C7004FF5E2 /* VisualEffectText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectText.swift; sourceTree = "<group>"; };
 		FACE7EB424C15494002FE5FC /* ErrorOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorOverlay.swift; sourceTree = "<group>"; };
+		FACE7EB624C173FE002FE5FC /* LocationsListMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsListMenu.swift; sourceTree = "<group>"; };
+		FACE7EB824C176EB002FE5FC /* Coordinates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinates.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,11 +96,13 @@
 		FA8EC36824C01C87004FF5E2 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				FACE7EB824C176EB002FE5FC /* Coordinates.swift */,
 				FA51865624C13A56009064F6 /* CustomTurbah.swift */,
 				FA8EC36024BFD452004FF5E2 /* VisualEffectButton.swift */,
 				FA8EC36924C031C7004FF5E2 /* VisualEffectText.swift */,
 				FACE7EB424C15494002FE5FC /* ErrorOverlay.swift */,
 				FA51865424C133AD009064F6 /* SettingsFooterView.swift */,
+				FACE7EB624C173FE002FE5FC /* LocationsListMenu.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -174,6 +180,8 @@
 				FA8EC36324BFD48D004FF5E2 /* Super.swift in Sources */,
 				FACE7EB524C15494002FE5FC /* ErrorOverlay.swift in Sources */,
 				FA8EC36124BFD452004FF5E2 /* VisualEffectButton.swift in Sources */,
+				FACE7EB924C176EB002FE5FC /* Coordinates.swift in Sources */,
+				FACE7EB724C173FE002FE5FC /* LocationsListMenu.swift in Sources */,
 				FA57BA6C24BFB314009FC13E /* Turbah.rcproject in Sources */,
 				FA51865724C13A56009064F6 /* CustomTurbah.swift in Sources */,
 				FA7A250A24BFA497003D8825 /* ViewController.swift in Sources */,
