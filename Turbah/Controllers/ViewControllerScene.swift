@@ -1,19 +1,19 @@
 //
-//  ViewController.swift
+//  ViewControllerSprite.swift
 //  Turbah
 //
-//  Created by MMQ on 7/15/20.
+//  Created by MMQ on 7/18/20.
 //  Copyright © 2020 MMQ. All rights reserved.
 //
 
 import UIKit
-import RealityKit
+import SceneKit
 import ARKit
 import CoreLocation
 
-class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOverlayViewDelegate {
+class ViewControllerScene: UIViewController, ARCoachingOverlayViewDelegate, CLLocationManagerDelegate {
     
-    var arView = ARView()
+    var sceneView = ARSCNView()
     
     var qiblaDirection: Double?
     
@@ -39,7 +39,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
     }
     
     func setupUI() {
-        view = arView
+        view = sceneView
         
         placeButtonView.effect = blurEffect
         placeButtonView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(addRemovePressed)))
@@ -105,24 +105,68 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         leftImage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
     }
     
-    func placeTurbah() {
-        guard let turbah = try! Turbah.loadScene().turbah else { print("error"); return }
+    
+    // MARK: -  SceneView Methods
+    
+    func addTurbah() {
+        let box = SCNCylinder(radius: 0.1, height: 0.2)
         
-        let anchor = AnchorEntity(plane: .horizontal, minimumBounds: [0.2, 0.2])
-        anchor.position.z = -1
-        print(anchor.)
-        anchor.addChild(turbah)
-            
-        arView.debugOptions = [.showStatistics, .showFeaturePoints]
+        let boxNode = SCNNode()
+        boxNode.geometry = box
+        boxNode.position = SCNVector3(0, 0, -1)
+        
+        sceneView.scene.rootNode.addChildNode(boxNode)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let configuration = ARWorldTrackingConfiguration()
+        configuration.planeDetection = .horizontal
+        configuration.worldAlignment = .gravityAndHeading
+        sceneView.session.run(configuration)
+    }
+    
 
-        arView.scene.addAnchor(anchor)
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        sceneView.session.pause()
+    }
+    
+    
+    // MARK: - Coaching
+    
+    func addCoaching() {
+        let coachingOverlay = ARCoachingOverlayView()
+        coachingOverlay.delegate = self
+        coachingOverlay.session = sceneView.session
+        coachingOverlay.goal = .horizontalPlane
         
+        view.addSubview(coachingOverlay)
+        coachingOverlay.fillSuperview()
+    }
+    
+    func coachingOverlayViewWillActivate(_ coachingOverlayView: ARCoachingOverlayView) {
         UIView.animate(withDuration: 0.2) {
-            self.placeButtonView.transform = CGAffineTransform(rotationAngle: .pi / 4)
+            self.placeButtonView.alpha = 0
+            self.settingsButton.alpha = 0
+            self.locationButton.alpha = 0
+        }
+    }
+    
+    func coachingOverlayViewDidDeactivate(_ coachingOverlayView: ARCoachingOverlayView) {
+        UIView.animate(withDuration: 0.2) {
+            self.placeButtonView.alpha = 1
+            self.settingsButton.alpha = 1
+            self.locationButton.alpha = 1
         }
         
-        turbahAdded = true
+        guard didSendFeedback else { return }
+        //arView.scene.anchors.removeAll()
+        addTurbah()
     }
+    
+    
+    // MARK: - Buttons
     
     @objc func addRemovePressed() {
         hapticFeedback()
@@ -152,10 +196,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
                 
                 return
             }
-            placeTurbah()
+            addTurbah()
         } else {
             // Remove
-            arView.scene.anchors.removeAll()
+            //sceneView.scene.rootNode.childNodes.removeAll()
             UIView.animate(withDuration: 0.2) {
                 self.placeButtonView.transform = .identity
             }
@@ -306,19 +350,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        let config = ARWorldTrackingConfiguration()
-        config.planeDetection = .horizontal
-        config.worldAlignment = .gravityAndHeading
-        arView.session.run(config, options: [])
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        arView.session.pause()
-    }
-    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         location = locations.last!
         bearingOfKabah = getBearingBetweenTwoPoints1(location!, lat: selectedLocation.lat, lon: selectedLocation.lon)
@@ -348,37 +379,4 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         return radiansToDegrees(radiansBearing)
     }
     
-    
-    // MARK: - AR Coaching
-    
-    func addCoaching() {
-        didAddCoaching = true
-        let coachingOverlay = ARCoachingOverlayView()
-        coachingOverlay.delegate = self
-        coachingOverlay.session = arView.session
-        coachingOverlay.goal = .horizontalPlane
-        
-        view.addSubview(coachingOverlay)
-        coachingOverlay.fillSuperview()
-    }
-    
-    public func coachingOverlayViewWillActivate(_ coachingOverlayView: ARCoachingOverlayView) {
-        UIView.animate(withDuration: 0.2) {
-            self.placeButtonView.alpha = 0
-            self.settingsButton.alpha = 0
-            self.locationButton.alpha = 0
-        }
-    }
-    
-    public func coachingOverlayViewDidDeactivate(_ coachingOverlayView: ARCoachingOverlayView) {
-        UIView.animate(withDuration: 0.2) {
-            self.placeButtonView.alpha = 1
-            self.settingsButton.alpha = 1
-            self.locationButton.alpha = 1
-        }
-        
-        guard didSendFeedback else { return }
-        arView.scene.anchors.removeAll()
-        placeTurbah()
-    }
 }

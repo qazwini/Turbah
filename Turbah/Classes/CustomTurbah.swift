@@ -9,25 +9,27 @@
 import UIKit
 import RealityKit
 
-class CustomBox: Entity, HasModel, HasAnchoring, HasCollision {
+class CustomTurbah: Entity, HasModel, HasAnchoring, HasCollision {
     
-    required init(color: UIColor) {
+    required init(color: UIColor, size: Float) {
         super.init()
+        
+        let box = MeshResource.generateBox(size: size, cornerRadius: size/4)
+        let material = SimpleMaterial(color: color, isMetallic: false)
+        
         self.components[ModelComponent] = ModelComponent(
-            mesh: .generateSphere(radius: 0.1),
-            materials: [SimpleMaterial(
-                color: color,
-                isMetallic: false)
-            ]
+            mesh: box,
+            materials: [material]
         )
     }
     
-    convenience init(color: UIColor, position: SIMD3<Float>) {
-        self.init(color: color)
+    convenience init(color: UIColor, size: Float, position: SIMD3<Float>) {
+        self.init(color: color, size: size)
         self.position = position
     }
     
     required init() {
         fatalError("init() has not been implemented")
     }
+    
 }
