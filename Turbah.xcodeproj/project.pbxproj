@@ -22,6 +22,7 @@
 		FACE7EB724C173FE002FE5FC /* LocationsListMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE7EB624C173FE002FE5FC /* LocationsListMenu.swift */; };
 		FACE7EB924C176EB002FE5FC /* Coordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE7EB824C176EB002FE5FC /* Coordinates.swift */; };
 		FACE7EBB24C3B97D002FE5FC /* ViewControllerScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE7EBA24C3B97D002FE5FC /* ViewControllerScene.swift */; };
+		FACE7EC124C4006D002FE5FC /* CompassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE7EC024C4006D002FE5FC /* CompassView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		FACE7EB624C173FE002FE5FC /* LocationsListMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsListMenu.swift; sourceTree = "<group>"; };
 		FACE7EB824C176EB002FE5FC /* Coordinates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinates.swift; sourceTree = "<group>"; };
 		FACE7EBA24C3B97D002FE5FC /* ViewControllerScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerScene.swift; sourceTree = "<group>"; };
+		FACE7EC024C4006D002FE5FC /* CompassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompassView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +103,7 @@
 			children = (
 				FACE7EB824C176EB002FE5FC /* Coordinates.swift */,
 				FA51865624C13A56009064F6 /* CustomTurbah.swift */,
+				FACE7EC024C4006D002FE5FC /* CompassView.swift */,
 				FA8EC36024BFD452004FF5E2 /* VisualEffectButton.swift */,
 				FA8EC36924C031C7004FF5E2 /* VisualEffectText.swift */,
 				FACE7EB424C15494002FE5FC /* ErrorOverlay.swift */,
@@ -187,6 +190,7 @@
 				FACE7EB724C173FE002FE5FC /* LocationsListMenu.swift in Sources */,
 				FA57BA6C24BFB314009FC13E /* Turbah.rcproject in Sources */,
 				FA51865724C13A56009064F6 /* CustomTurbah.swift in Sources */,
+				FACE7EC124C4006D002FE5FC /* CompassView.swift in Sources */,
 				FA7A250A24BFA497003D8825 /* ViewController.swift in Sources */,
 				FA7A250824BFA497003D8825 /* AppDelegate.swift in Sources */,
 				FA8EC36A24C031C7004FF5E2 /* VisualEffectText.swift in Sources */,

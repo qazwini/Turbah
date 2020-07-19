@@ -47,7 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let tabs = UITabBarController()
         tabs.setViewControllers([ViewController(), ViewControllerScene()], animated: false)
-        window?.rootViewController = tabs//ViewController()
+        window?.rootViewController = ViewController() //tabs
     }
 
 

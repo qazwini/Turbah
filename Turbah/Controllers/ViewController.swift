@@ -15,9 +15,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
     
     var arView = ARView()
     
-    var qiblaDirection: Double?
+    var qiblaDirection: Double = 0.0
     
     var placeButtonView = UIVisualEffectView()
+    var compassView = CompassView()
     var locationButton = VisualEffectButton()
     var settingsButton = VisualEffectButton()
     
@@ -36,23 +37,28 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         guard requestLocationAuthorization() else { return }
         setupUI()
         initManager()
+        addCompass()
     }
     
     func setupUI() {
         view = arView
         
-        placeButtonView.effect = blurEffect
-        placeButtonView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(addRemovePressed)))
-        placeButtonView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(placeButtonView)
-        NSLayoutConstraint.activate([
-            placeButtonView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            placeButtonView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
-            placeButtonView.widthAnchor.constraint(equalToConstant: 60),
-            placeButtonView.heightAnchor.constraint(equalToConstant: 60)
-        ])
-        placeButtonView.layer.masksToBounds = true
-        placeButtonView.layer.cornerRadius = 30
+        view.addSubview(compassView)
+        compassView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        compassView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50).isActive = true
+        
+//        placeButtonView.effect = blurEffect
+//        placeButtonView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(addRemovePressed)))
+//        placeButtonView.translatesAutoresizingMaskIntoConstraints = false
+//        view.addSubview(placeButtonView)
+//        NSLayoutConstraint.activate([
+//            placeButtonView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//            placeButtonView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
+//            placeButtonView.widthAnchor.constraint(equalToConstant: 60),
+//            placeButtonView.heightAnchor.constraint(equalToConstant: 60)
+//        ])
+//        placeButtonView.layer.masksToBounds = true
+//        placeButtonView.layer.cornerRadius = 30
         
         let vibrancyView = UIVisualEffectView(effect: UIVibrancyEffect(blurEffect: blurEffect, style: .secondaryLabel))
         placeButtonView.contentView.addSubview(vibrancyView)
@@ -105,21 +111,24 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         leftImage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
     }
     
+    let anchor = AnchorEntity(plane: .horizontal, minimumBounds: [0.2, 0.2])
+    
     func placeTurbah() {
         guard let turbah = try! Turbah.loadScene().turbah else { print("error"); return }
         
-        let anchor = AnchorEntity(plane: .horizontal, minimumBounds: [0.2, 0.2])
-        anchor.position.z = -1
-        print(anchor.)
         anchor.addChild(turbah)
-            
-        arView.debugOptions = [.showStatistics, .showFeaturePoints]
 
         arView.scene.addAnchor(anchor)
         
         UIView.animate(withDuration: 0.2) {
             self.placeButtonView.transform = CGAffineTransform(rotationAngle: .pi / 4)
         }
+        
+        print("before", anchor.position)
+        print("euler", arView.session.currentFrame!.camera.eulerAngles)
+        anchor.position.z = -1
+        anchor.position.x = Float(bearingOfKabah / 180)
+        print("after", anchor.position)
         
         turbahAdded = true
     }
@@ -129,14 +138,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         if !turbahAdded {
             guard didSendFeedback else {
                 placeButtonView.isUserInteractionEnabled = false
-                
+
                 let veBackground = VisualEffectText(effect: blurEffect)
                 veBackground.alpha = 0
                 view.addSubview(veBackground)
                 veBackground.topAnchor.constraint(equalTo: view.topAnchor, constant: 71).isActive = true
                 veBackground.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
                 veBackground.title = "Please face the qibla then place"
-                
+
                 UIView.animateKeyframes(withDuration: 4, delay: 0, options: .calculationModeCubic, animations: {
                     UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.05) {
                         veBackground.alpha = 1
@@ -149,7 +158,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
                     veBackground.removeFromSuperview()
                     self.placeButtonView.isUserInteractionEnabled = true
                 })
-                
+
                 return
             }
             placeTurbah()
@@ -275,15 +284,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         
         ivCompassBack.transform = CGAffineTransform(rotationAngle: CGFloat(north));
         ivCompassNeedle.transform = CGAffineTransform(rotationAngle: CGFloat(directionOfKabah));
+        compassView.kabaImageView.transform = CGAffineTransform(rotationAngle: CGFloat(directionOfKabah));
         
         qiblaDirection = directionOfKabah
         
-//        print("angles", arView.session.currentFrame?.camera.eulerAngles.y ?? 0.0)
-//        print("headeing", heading.magneticHeading)
-//        print("kaba", Double(arView.session.currentFrame?.camera.eulerAngles.y ?? 0.0) * Double.pi/180 + north)
-//        print("qibla", qiblaDirection!)
-//        print("north", north)
-//        print("bearing", bearingOfKabah)
+        //print("anchor", anchor.position)
+        print("qibla", directionOfKabah)
+        //print("north", north)
+        //print("bearing", bearingOfKabah)
+        //print("")
         
         let offAccept = 0.25
         
