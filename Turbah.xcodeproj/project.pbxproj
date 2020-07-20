@@ -20,10 +20,10 @@
 		FA8EC36A24C031C7004FF5E2 /* VisualEffectText.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8EC36924C031C7004FF5E2 /* VisualEffectText.swift */; };
 		FAA121EE24C50C4A009F12C2 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA121ED24C50C4A009F12C2 /* UserDefaults.swift */; };
 		FAA121F124C50CAC009F12C2 /* SegmentedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA121F024C50CAC009F12C2 /* SegmentedCell.swift */; };
+		FAA121F324C52F2F009F12C2 /* ContactCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA121F224C52F2F009F12C2 /* ContactCell.swift */; };
 		FACE7EB524C15494002FE5FC /* ErrorOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE7EB424C15494002FE5FC /* ErrorOverlay.swift */; };
 		FACE7EB724C173FE002FE5FC /* LocationsListMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE7EB624C173FE002FE5FC /* LocationsListMenu.swift */; };
 		FACE7EB924C176EB002FE5FC /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE7EB824C176EB002FE5FC /* Location.swift */; };
-		FACE7EBB24C3B97D002FE5FC /* ViewControllerScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE7EBA24C3B97D002FE5FC /* ViewControllerScene.swift */; };
 		FACE7EC124C4006D002FE5FC /* CompassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE7EC024C4006D002FE5FC /* CompassView.swift */; };
 		FACE7EC324C411FF002FE5FC /* LocationListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE7EC224C411FF002FE5FC /* LocationListCell.swift */; };
 /* End PBXBuildFile section */
@@ -44,10 +44,10 @@
 		FA8EC36924C031C7004FF5E2 /* VisualEffectText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectText.swift; sourceTree = "<group>"; };
 		FAA121ED24C50C4A009F12C2 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		FAA121F024C50CAC009F12C2 /* SegmentedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedCell.swift; sourceTree = "<group>"; };
+		FAA121F224C52F2F009F12C2 /* ContactCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactCell.swift; sourceTree = "<group>"; };
 		FACE7EB424C15494002FE5FC /* ErrorOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorOverlay.swift; sourceTree = "<group>"; };
 		FACE7EB624C173FE002FE5FC /* LocationsListMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsListMenu.swift; sourceTree = "<group>"; };
 		FACE7EB824C176EB002FE5FC /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
-		FACE7EBA24C3B97D002FE5FC /* ViewControllerScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerScene.swift; sourceTree = "<group>"; };
 		FACE7EC024C4006D002FE5FC /* CompassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompassView.swift; sourceTree = "<group>"; };
 		FACE7EC224C411FF002FE5FC /* LocationListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationListCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -98,7 +98,6 @@
 			isa = PBXGroup;
 			children = (
 				FA7A250924BFA497003D8825 /* ViewController.swift */,
-				FACE7EBA24C3B97D002FE5FC /* ViewControllerScene.swift */,
 				FA8EC36424C01C3B004FF5E2 /* SettingsVC.swift */,
 			);
 			path = Controllers;
@@ -126,6 +125,7 @@
 			children = (
 				FA51865424C133AD009064F6 /* SettingsFooterView.swift */,
 				FAA121F024C50CAC009F12C2 /* SegmentedCell.swift */,
+				FAA121F224C52F2F009F12C2 /* ContactCell.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -201,6 +201,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA8EC36324BFD48D004FF5E2 /* Super.swift in Sources */,
+				FAA121F324C52F2F009F12C2 /* ContactCell.swift in Sources */,
 				FACE7EB524C15494002FE5FC /* ErrorOverlay.swift in Sources */,
 				FA8EC36124BFD452004FF5E2 /* VisualEffectButton.swift in Sources */,
 				FACE7EB924C176EB002FE5FC /* Location.swift in Sources */,
@@ -216,7 +217,6 @@
 				FA8EC36A24C031C7004FF5E2 /* VisualEffectText.swift in Sources */,
 				FA51865524C133AD009064F6 /* SettingsFooterView.swift in Sources */,
 				FA8EC36524C01C3B004FF5E2 /* SettingsVC.swift in Sources */,
-				FACE7EBB24C3B97D002FE5FC /* ViewControllerScene.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

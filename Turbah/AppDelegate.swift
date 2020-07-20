@@ -45,9 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = UIStoryboard(name: "LaunchScreen", bundle: nil).instantiateInitialViewController()
         window?.makeKeyAndVisible()
         
-        let tabs = UITabBarController()
-        tabs.setViewControllers([ViewController(), ViewControllerScene()], animated: false)
-        window?.rootViewController = ViewController() //tabs
+        window?.rootViewController = ViewController()
     }
 
 }

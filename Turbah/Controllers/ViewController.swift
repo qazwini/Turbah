@@ -152,8 +152,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
             locationsView = LocationsListMenu()
             locationsView!.rowClicked = { location in
                 self.transparentViewClicked()
-                self.locationButton.newTitle = location.1
-                self.selectedLocation = location.0
+                self.locationButton.newTitle = location.name
+                self.selectedLocation = location
             }
             locationsView!.alpha = 0
             view.addSubview(locationsView!)
@@ -193,7 +193,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
     let locationManager = CLLocationManager()
     var bearingOfKabah = Double()
     var distanceOfKabah = Double()
-    var selectedLocation: Coordinates = .kabah
+    var selectedLocation: Locations = .kabah
     
     func initManager() {
         locationManager.delegate = self
@@ -262,8 +262,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        distanceOfKabah = locations.last!.distance(from: CLLocation(latitude: selectedLocation.lat, longitude: selectedLocation.lon))
-        bearingOfKabah = getBearingBetween(locations.last!, selectedLocation)
+        distanceOfKabah = locations.last!.distance(from: CLLocation(latitude: selectedLocation.coordinates.lat, longitude: selectedLocation.coordinates.lon))
+        bearingOfKabah = getBearingBetween(locations.last!, selectedLocation.coordinates)
     }
     
     func getBearingBetween(_ point1: CLLocation, _ coordinates: Coordinates) -> Double {
@@ -292,9 +292,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
     func locationManager(_ manager: CLLocationManager, didUpdateHeading heading: CLHeading) {
         let chosenHeading = (save.northType == 0) ? heading.magneticHeading : heading.trueHeading
         let north = chosenHeading.degreesToRadians
-        let directionOfKabah = north - bearingOfKabah//degreesToRadians(bearingOfKabah) + north
+        let directionOfKabah = north - bearingOfKabah
         
         print("qibla degreees:", directionOfKabah.radiansToDegrees)
+        print("qibla radians:", -directionOfKabah)
+        print("")
         
         compassView.kabaImageView.transform = CGAffineTransform(rotationAngle: CGFloat(-directionOfKabah));
         
@@ -351,7 +353,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
             self.locationButton.alpha = 1
         }
         
-        guard didSendFeedback, selectedLocation == Coordinates.kabah else { return }
+        guard didSendFeedback, selectedLocation == .kabah else { return }
         arView.scene.anchors.removeAll()
         placeTurbah()
     }

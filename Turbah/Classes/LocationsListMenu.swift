@@ -10,9 +10,9 @@ import UIKit
 
 class LocationsListMenu: UITableView, UITableViewDelegate, UITableViewDataSource {
     
-    var rowClicked: (((Coordinates, String)) -> Void)?
+    var rowClicked: ((Locations) -> Void)?
     
-    let locations = Coordinates.locations
+    let locations = Locations.allLocations
     let cellHeight: CGFloat = 47
     
     var height: CGFloat { return cellHeight * CGFloat(locations.count) }
@@ -55,7 +55,7 @@ class LocationsListMenu: UITableView, UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: LocationListCell.id, for: indexPath) as! LocationListCell
-        cell.titleLabel.text = locations[indexPath.row].1
+        cell.titleLabel.text = locations[indexPath.row].name
         if indexPath.row == locations.count - 1 { cell.separatorInset.left = width }
         return cell
     }
