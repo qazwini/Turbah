@@ -11,34 +11,37 @@ import Foundation
 struct Coordinates {
     let lat: Double
     let lon: Double
-    var distanceFromKabah: Double?
+}
+
+enum Locations: String {
+    case kabah = "Ka'ba"
+    case aqsa = "Masjid Al-Aqsa"
+    case prophet = "Masjid Al-Nabawi"
+    case ali = "Imam Ali Shrine"
+    case hussain = "Imam Hussain Shrine"
+    case reza = "Imam Ridha Shrine"
+    case askariain = "Askarian Shrine"
+    case baqi = "Baqi'"
+    case masuma = "Sayedah Ma'suma Shrine"
+    case zainab = "Sayedah Zainab Shrine"
+    case test = "Test"
     
-    //Provided by Adhan: static let kabah = Coordinates(lat: 21.4225241, lon: 39.8261818)
-    static let kabah = Coordinates(lat: 21.422487, lon: 39.826206)
-    static let aqsa = Coordinates(lat: 31.7761, lon: 35.2358)
-    static let prophet = Coordinates(lat: 24.4707, lon: 39.6307)
-    static let ali = Coordinates(lat: 31.9957, lon: 44.3148)
-    static let hussain = Coordinates(lat: 32.6164, lon: 44.0324)
-    static let reza = Coordinates(lat: 36.2878, lon: 59.6155)
-    static let askariain = Coordinates(lat: 34.19878, lon: 43.87338)
-    static let baqi = Coordinates(lat: 24.4672, lon: 39.6138)
-    static let masuma = Coordinates(lat: 34.6418, lon: 50.8790)
-    static let zainab = Coordinates(lat: 33.4444, lon: 36.3409)
-    static let test = Coordinates(lat: 41.6528, lon: 83.5379)
-    
-    static let locations: [(Coordinates, String)] = [
-        (.kabah, "Ka'ba"),
-        (.aqsa, "Masjid Al-Aqsa"),
-        (.prophet, "Masjid Al-Nabawi"),
-        (.ali, "Imam Ali Shrine"),
-        (.hussain, "Imam Hussain Shrine"),
-        (.reza, "Imam Ridha Shrine"),
-        (.askariain, "Askarian Shrine"),
-        (.baqi, "Baqi'"),
-        (.masuma, "Sayedah Ma'suma Shrine"),
-        (.zainab, "Sayedah Zainab Shrine"),
-        (.test, "Test")
-    ]
+    var coodinates: Coordinates {
+        switch self {
+        //Adhan's coordinates for Kabah: Coordinates(lat: 21.4225241, lon: 39.8261818)
+        case .kabah: return Coordinates(lat: 21.422487, lon: 39.826206)
+        case .aqsa: return Coordinates(lat: 31.7761, lon: 35.2358)
+        case .prophet: return Coordinates(lat: 24.4707, lon: 39.6307)
+        case .ali: return Coordinates(lat: 31.9957, lon: 44.3148)
+        case .hussain: return Coordinates(lat: 32.6164, lon: 44.0324)
+        case .reza: return Coordinates(lat: 36.2878, lon: 59.6155)
+        case .askariain: return Coordinates(lat: 34.19878, lon: 43.87338)
+        case .baqi: return Coordinates(lat: 24.4672, lon: 39.6138)
+        case .masuma: return Coordinates(lat: 34.6418, lon: 50.8790)
+        case .zainab: return Coordinates(lat: 33.4444, lon: 36.3409)
+        case .test: return Coordinates(lat: 41.6528, lon: 83.5379)
+        }
+    }
 }
 
 extension Double {
@@ -48,4 +51,3 @@ extension Double {
     var metersToMiles: Double { return self / 1609.34 }
     var metersToKilometers: Double { return self / 1000 }
 }
-

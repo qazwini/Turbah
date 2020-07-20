@@ -264,8 +264,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         distanceOfKabah = locations.last!.distance(from: CLLocation(latitude: selectedLocation.lat, longitude: selectedLocation.lon))
         bearingOfKabah = getBearingBetween(locations.last!, selectedLocation)
-        
-        //print(Int(distanceOfKabah.metersToMiles), "miles away")
     }
     
     func getBearingBetween(_ point1: CLLocation, _ coordinates: Coordinates) -> Double {
@@ -300,12 +298,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         
         compassView.kabaImageView.transform = CGAffineTransform(rotationAngle: CGFloat(-directionOfKabah));
         
-        let offAccept = 0.25
+        compassView.isPointingAtQibla = (directionOfKabah < 0.1 && directionOfKabah > -0.1)
         
-        if directionOfKabah < 0.1 && directionOfKabah > -0.1 {
-            // Indicate that I am currently facing Qibla
-            print("passed")
-        }
+        let offAccept = 0.25
         
         if directionOfKabah > offAccept || directionOfKabah < -.pi {
             didSendFeedback = false
@@ -356,7 +351,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
             self.locationButton.alpha = 1
         }
         
-        guard didSendFeedback else { return }
+        guard didSendFeedback, selectedLocation == Coordinates.kabah else { return }
         arView.scene.anchors.removeAll()
         placeTurbah()
     }

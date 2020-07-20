@@ -10,6 +10,15 @@ import UIKit
 
 class CompassView: UIVisualEffectView {
     
+    var isPointingAtQibla: Bool = false {
+        didSet {
+            guard self.isPointingAtQibla != oldValue else { return }
+            UIView.animate(withDuration: 0.2) {
+                self.backgroundColor = self.isPointingAtQibla ? UIColor.green.withAlphaComponent(0.1) : nil
+            }
+        }
+    }
+    
     var vibrancyView = UIVisualEffectView()
     
     var personGradImageView = UIImageView()
