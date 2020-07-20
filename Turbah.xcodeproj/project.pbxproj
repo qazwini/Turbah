@@ -18,11 +18,14 @@
 		FA8EC36324BFD48D004FF5E2 /* Super.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8EC36224BFD48D004FF5E2 /* Super.swift */; };
 		FA8EC36524C01C3B004FF5E2 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8EC36424C01C3B004FF5E2 /* SettingsVC.swift */; };
 		FA8EC36A24C031C7004FF5E2 /* VisualEffectText.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8EC36924C031C7004FF5E2 /* VisualEffectText.swift */; };
+		FAA121EE24C50C4A009F12C2 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA121ED24C50C4A009F12C2 /* UserDefaults.swift */; };
+		FAA121F124C50CAC009F12C2 /* SegmentedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA121F024C50CAC009F12C2 /* SegmentedCell.swift */; };
 		FACE7EB524C15494002FE5FC /* ErrorOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE7EB424C15494002FE5FC /* ErrorOverlay.swift */; };
 		FACE7EB724C173FE002FE5FC /* LocationsListMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE7EB624C173FE002FE5FC /* LocationsListMenu.swift */; };
-		FACE7EB924C176EB002FE5FC /* Coordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE7EB824C176EB002FE5FC /* Coordinates.swift */; };
+		FACE7EB924C176EB002FE5FC /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE7EB824C176EB002FE5FC /* Location.swift */; };
 		FACE7EBB24C3B97D002FE5FC /* ViewControllerScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE7EBA24C3B97D002FE5FC /* ViewControllerScene.swift */; };
 		FACE7EC124C4006D002FE5FC /* CompassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE7EC024C4006D002FE5FC /* CompassView.swift */; };
+		FACE7EC324C411FF002FE5FC /* LocationListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE7EC224C411FF002FE5FC /* LocationListCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,11 +42,14 @@
 		FA8EC36224BFD48D004FF5E2 /* Super.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Super.swift; sourceTree = "<group>"; };
 		FA8EC36424C01C3B004FF5E2 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		FA8EC36924C031C7004FF5E2 /* VisualEffectText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectText.swift; sourceTree = "<group>"; };
+		FAA121ED24C50C4A009F12C2 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
+		FAA121F024C50CAC009F12C2 /* SegmentedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedCell.swift; sourceTree = "<group>"; };
 		FACE7EB424C15494002FE5FC /* ErrorOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorOverlay.swift; sourceTree = "<group>"; };
 		FACE7EB624C173FE002FE5FC /* LocationsListMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsListMenu.swift; sourceTree = "<group>"; };
-		FACE7EB824C176EB002FE5FC /* Coordinates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinates.swift; sourceTree = "<group>"; };
+		FACE7EB824C176EB002FE5FC /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		FACE7EBA24C3B97D002FE5FC /* ViewControllerScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerScene.swift; sourceTree = "<group>"; };
 		FACE7EC024C4006D002FE5FC /* CompassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompassView.swift; sourceTree = "<group>"; };
+		FACE7EC224C411FF002FE5FC /* LocationListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationListCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,16 +107,27 @@
 		FA8EC36824C01C87004FF5E2 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				FACE7EB824C176EB002FE5FC /* Coordinates.swift */,
+				FAA121EF24C50C8E009F12C2 /* Settings */,
+				FACE7EB824C176EB002FE5FC /* Location.swift */,
 				FA51865624C13A56009064F6 /* CustomTurbah.swift */,
 				FACE7EC024C4006D002FE5FC /* CompassView.swift */,
 				FA8EC36024BFD452004FF5E2 /* VisualEffectButton.swift */,
 				FA8EC36924C031C7004FF5E2 /* VisualEffectText.swift */,
 				FACE7EB424C15494002FE5FC /* ErrorOverlay.swift */,
-				FA51865424C133AD009064F6 /* SettingsFooterView.swift */,
 				FACE7EB624C173FE002FE5FC /* LocationsListMenu.swift */,
+				FACE7EC224C411FF002FE5FC /* LocationListCell.swift */,
+				FAA121ED24C50C4A009F12C2 /* UserDefaults.swift */,
 			);
 			path = Classes;
+			sourceTree = "<group>";
+		};
+		FAA121EF24C50C8E009F12C2 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				FA51865424C133AD009064F6 /* SettingsFooterView.swift */,
+				FAA121F024C50CAC009F12C2 /* SegmentedCell.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -186,9 +203,12 @@
 				FA8EC36324BFD48D004FF5E2 /* Super.swift in Sources */,
 				FACE7EB524C15494002FE5FC /* ErrorOverlay.swift in Sources */,
 				FA8EC36124BFD452004FF5E2 /* VisualEffectButton.swift in Sources */,
-				FACE7EB924C176EB002FE5FC /* Coordinates.swift in Sources */,
+				FACE7EB924C176EB002FE5FC /* Location.swift in Sources */,
 				FACE7EB724C173FE002FE5FC /* LocationsListMenu.swift in Sources */,
+				FAA121EE24C50C4A009F12C2 /* UserDefaults.swift in Sources */,
 				FA57BA6C24BFB314009FC13E /* Turbah.rcproject in Sources */,
+				FAA121F124C50CAC009F12C2 /* SegmentedCell.swift in Sources */,
+				FACE7EC324C411FF002FE5FC /* LocationListCell.swift in Sources */,
 				FA51865724C13A56009064F6 /* CustomTurbah.swift in Sources */,
 				FACE7EC124C4006D002FE5FC /* CompassView.swift in Sources */,
 				FA7A250A24BFA497003D8825 /* ViewController.swift in Sources */,

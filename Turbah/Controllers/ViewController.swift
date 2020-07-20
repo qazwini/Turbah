@@ -15,11 +15,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
     
     var arView = ARView()
     
-    var qiblaDirection: Double = 0.0
-    
     var compassView = CompassView()
     var locationButton = VisualEffectButton()
     var settingsButton = VisualEffectButton()
+    
+    var locationsView: LocationsListMenu?
+    var transparentView: UIView?
     
     var rightImage = UIImageView()
     var leftImage = UIImageView()
@@ -89,9 +90,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         print("before", anchor.position)
         print("euler", arView.session.currentFrame!.camera.eulerAngles)
         let cameraAngles = arView.session.currentFrame!.camera.transform.columns.3
-        let decreaseValue: Float = 4.0
-        anchor.position.z = (-1.0 / decreaseValue) + cameraAngles.z
-        anchor.position.x = (Float(sin(bearingOfKabah)) / decreaseValue) + cameraAngles.x
+        let decreaseValue: Float = 4
+        anchor.position.z = (-1.0 / decreaseValue)// + cameraAngles.z
+        anchor.position.x = (Float(sin(bearingOfKabah.radiansToDegrees)) / decreaseValue)// + cameraAngles.x
+        //anchor.position.y += cameraAngles.y
         print("after", anchor.position)
         
         turbahAdded = true
@@ -137,6 +139,33 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         hapticFeedback(style: .medium)
         if sender.view?.tag == 0 {
             // Location
+            arView.gestureRecognizers?.forEach { $0.cancelsTouchesInView = false }
+            
+            transparentView = UIView()
+            transparentView!.backgroundColor = nil
+            let gesture = UITapGestureRecognizer(target: self, action: #selector(transparentViewClicked))
+            gesture.cancelsTouchesInView = false
+            transparentView!.addGestureRecognizer(gesture)
+            view.addSubview(transparentView!)
+            transparentView!.fillSuperview()
+            
+            locationsView = LocationsListMenu()
+            locationsView!.rowClicked = { location in
+                self.transparentViewClicked()
+                self.locationButton.newTitle = location.1
+                self.selectedLocation = location.0
+            }
+            locationsView!.alpha = 0
+            view.addSubview(locationsView!)
+            NSLayoutConstraint.activate([
+                locationsView!.topAnchor.constraint(equalTo: locationButton.bottomAnchor, constant: 5),
+                locationsView!.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5)
+            ])
+            view.layoutIfNeeded()
+            
+            UIView.animate(withDuration: 0.2) {
+                self.locationsView!.alpha = 1
+            }
         } else {
             // Settings
             let navVC = UINavigationController(rootViewController: SettingsVC())
@@ -145,11 +174,25 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         }
     }
     
+    @objc func transparentViewClicked() {
+        UIView.animate(withDuration: 0.2, animations: {
+            self.locationsView?.alpha = 0
+        }) { _ in
+            self.locationsView?.removeFromSuperview()
+            self.transparentView?.removeFromSuperview()
+            self.locationsView = nil
+            self.transparentView = nil
+            
+            self.arView.gestureRecognizers?.forEach { $0.cancelsTouchesInView = true }
+        }
+    }
+    
     
     // MARK: - Qibla Methods
     
     let locationManager = CLLocationManager()
     var bearingOfKabah = Double()
+    var distanceOfKabah = Double()
     var selectedLocation: Coordinates = .kabah
     
     func initManager() {
@@ -200,27 +243,69 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         }
     }
     
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        removeErrorOverlay()
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let config = ARWorldTrackingConfiguration()
+        config.planeDetection = .horizontal
+        config.worldAlignment = .gravityAndHeading
+        arView.session.run(config)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        arView.session.pause()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        distanceOfKabah = locations.last!.distance(from: CLLocation(latitude: selectedLocation.lat, longitude: selectedLocation.lon))
+        bearingOfKabah = getBearingBetween(locations.last!, selectedLocation)
+        
+        //print(Int(distanceOfKabah.metersToMiles), "miles away")
+    }
+    
+    func getBearingBetween(_ point1: CLLocation, _ coordinates: Coordinates) -> Double {
+        let lat1 = point1.coordinate.latitude.degreesToRadians
+        let lon1 = point1.coordinate.longitude.degreesToRadians
+        
+        let lat2 = coordinates.lat.degreesToRadians
+        let lon2 = coordinates.lon.degreesToRadians
+        
+        let dLon = lon2 - lon1
+        
+        let y = sin(dLon) * cos(lat2)
+        let x = cos(lat1) * sin(lat2) - sin(lat1) * cos(lat2) * cos(dLon)
+        var radiansBearing = atan2(y, x)
+        
+        if radiansBearing < 0.0 {
+            radiansBearing += 2 * .pi
+        }
+        
+        return radiansBearing
+    }
     
     var didSendFeedback = false
     var didAddCoaching = false
     
     func locationManager(_ manager: CLLocationManager, didUpdateHeading heading: CLHeading) {
-        let north = -1 * heading.magneticHeading * Double.pi/180
-        let directionOfKabah = bearingOfKabah * Double.pi/180 + north
+        let chosenHeading = (save.northType == 0) ? heading.magneticHeading : heading.trueHeading
+        let north = chosenHeading.degreesToRadians
+        let directionOfKabah = north - bearingOfKabah//degreesToRadians(bearingOfKabah) + north
         
-        compassView.kabaImageView.transform = CGAffineTransform(rotationAngle: CGFloat(directionOfKabah));
+        print("qibla degreees:", directionOfKabah.radiansToDegrees)
         
-        qiblaDirection = directionOfKabah
-        
-        print(arView.session.currentFrame?.camera.transform.columns.3 ?? "")
-        //print("anchor", anchor.position)
-        print("qibla", directionOfKabah)
-        print("sin", sin(bearingOfKabah))
-        //print("north", north)
-        //print("bearing", bearingOfKabah)
-        print("")
+        compassView.kabaImageView.transform = CGAffineTransform(rotationAngle: CGFloat(-directionOfKabah));
         
         let offAccept = 0.25
+        
+        if directionOfKabah < 0.1 && directionOfKabah > -0.1 {
+            // Indicate that I am currently facing Qibla
+            print("passed")
+        }
         
         if directionOfKabah > offAccept || directionOfKabah < -.pi {
             didSendFeedback = false
@@ -239,47 +324,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
             leftImage.alpha = 0
             rightImage.alpha = 0
         }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        let config = ARWorldTrackingConfiguration()
-        config.planeDetection = .horizontal
-        config.worldAlignment = .gravityAndHeading
-        arView.session.run(config, options: [])
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        arView.session.pause()
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        bearingOfKabah = getBearingBetweenTwoPoints1(locations.last!, lat: selectedLocation.lat, lon: selectedLocation.lon)
-    }
-    
-    func degreesToRadians(_ degrees: Double) -> Double { return degrees * .pi / 180.0 }
-    
-    func radiansToDegrees(_ radians: Double) -> Double { return radians * 180.0 / .pi }
-    
-    func getBearingBetweenTwoPoints1(_ point1: CLLocation, lat: Double, lon: Double) -> Double {
-        let lat1 = degreesToRadians(point1.coordinate.latitude)
-        let lon1 = degreesToRadians(point1.coordinate.longitude)
-        
-        let lat2 = degreesToRadians(lat);
-        let lon2 = degreesToRadians(lon);
-        
-        let dLon = lon2 - lon1;
-        
-        let y = sin(dLon) * cos(lat2);
-        let x = cos(lat1) * sin(lat2) - sin(lat1) * cos(lat2) * cos(dLon);
-        var radiansBearing = atan2(y, x);
-        
-        if radiansBearing < 0.0 {
-            radiansBearing += 2 * Double.pi;
-        }
-        
-        return radiansToDegrees(radiansBearing)
     }
     
     
@@ -301,6 +345,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
             self.compassView.alpha = 0
             self.settingsButton.alpha = 0
             self.locationButton.alpha = 0
+            self.transparentViewClicked()
         }
     }
     

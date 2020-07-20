@@ -24,9 +24,18 @@ class VisualEffectButton: UIVisualEffectView {
         didSet {
             titleLabel = UILabel()
             titleLabel!.text = title
+            titleLabel?.textAlignment = .center
             titleLabel!.font = .systemFont(ofSize: 16, weight: .semibold)
             vibrancyView.contentView.addSubview(titleLabel!)
-            titleLabel!.centerInSuperview()
+            titleLabel!.fillSuperview(padding: UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15))
+        }
+    }
+    
+    var newTitle: String? {
+        didSet {
+            guard let titleLabel = self.titleLabel, let newTitle = self.newTitle else { return }
+            titleLabel.text = newTitle
+            layoutIfNeeded()
         }
     }
     
@@ -38,7 +47,7 @@ class VisualEffectButton: UIVisualEffectView {
     private func setupUI() {
         effect = blurEffect
         translatesAutoresizingMaskIntoConstraints = false
-        widthAnchor.constraint(equalToConstant: 80).isActive = true
+        widthAnchor.constraint(greaterThanOrEqualToConstant: 80).isActive = true
         heightAnchor.constraint(equalToConstant: 47).isActive = true
         
         vibrancyView.effect = UIVibrancyEffect(blurEffect: blurEffect, style: .secondaryLabel)

@@ -8,53 +8,69 @@
 
 import UIKit
 
-class LocationsListMenu: UIVisualEffectView, UITableViewDelegate, UITableViewDataSource {
+class LocationsListMenu: UITableView, UITableViewDelegate, UITableViewDataSource {
     
-    var locationObjects = [Coordinates]()
+    var rowClicked: (((Coordinates, String)) -> Void)?
     
-    var tableView = UITableView()
-    var totalHeight: CGFloat {
-        return height * CGFloat(locationObjects.count)
-    }
-    var height: CGFloat = 55
+    let locations = Coordinates.locations
+    let cellHeight: CGFloat = 47
+    
+    var height: CGFloat { return cellHeight * CGFloat(locations.count) }
+    let width: CGFloat = 250
     
     private func setupUI() {
         translatesAutoresizingMaskIntoConstraints = false
-        effect = blurEffect
+        isUserInteractionEnabled = true
+        widthAnchor.constraint(equalToConstant: width).isActive = true
+        heightAnchor.constraint(equalToConstant: height).isActive = true
         
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellID")
+        delegate = self
+        dataSource = self
+        isScrollEnabled = false
+        backgroundColor = nil
+        backgroundView = UIVisualEffectView(effect: blurEffect)
+        separatorEffect = UIVibrancyEffect(blurEffect: blurEffect, style: .separator)
+        separatorInset = .zero
+        delaysContentTouches = false
+        register(LocationListCell.self, forCellReuseIdentifier: LocationListCell.id)
     }
     
-    override init(effect: UIVisualEffect?) {
-        super.init(effect: effect)
+    override init(frame: CGRect, style: UITableView.Style) {
+        super.init(frame: frame, style: style)
+        setupUI()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        setupUI()
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        layer.roundCorners()
+        layer.roundCorners(radius: 15)
     }
     
     
     // MARK: - TableView Methods
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cellID", for: indexPath)
-        cell.textLabel?.text = "y\(indexPath.row)lo"
+        let cell = tableView.dequeueReusableCell(withIdentifier: LocationListCell.id, for: indexPath) as! LocationListCell
+        cell.titleLabel.text = locations[indexPath.row].1
+        if indexPath.row == locations.count - 1 { cell.separatorInset.left = width }
         return cell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return locationObjects.count
+        return locations.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return height
+        return cellHeight
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        rowClicked?(locations[indexPath.row])
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
 }

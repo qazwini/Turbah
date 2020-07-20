@@ -8,6 +8,8 @@
 
 import UIKit
 
+let save = UserDefaults.standard
+
 var blurEffect: UIBlurEffect {
     return UIBlurEffect(style: .systemThinMaterial)
 }
@@ -50,6 +52,21 @@ extension UIView {
         if size.height != 0 {
             heightAnchor.constraint(equalToConstant: size.height).isActive = true
         }
+    }
+    
+}
+
+
+extension UIView {
+    
+    func setAnchorPointV3(anchorPoint: CGPoint) {
+       let oldOrigin = frame.origin
+       layer.anchorPoint = anchorPoint
+       let newOrigin = frame.origin
+
+       let translation = CGPoint(x: newOrigin.x - oldOrigin.x, y: newOrigin.y - oldOrigin.y)
+
+       center = CGPoint(x: center.x - translation.x, y: center.y - translation.y)
     }
     
 }
