@@ -1,5 +1,5 @@
 //
-//  Coordinates.swift
+//  Location.swift
 //  Turbah
 //
 //  Created by MMQ on 7/17/20.
@@ -60,6 +60,23 @@ enum Locations {
         case .test:      return "Test"
         }
     }
+    
+    var imageString: String {
+        switch self {
+        case .kabah:     return "Launch"
+        case .aqsa:      return "Launch"
+        case .prophet:   return "Launch"
+        case .ali:       return "Launch"
+        case .hussain:   return "Launch"
+        case .reza:      return "Launch"
+        case .askariain: return "Launch"
+        case .baqi:      return "Launch"
+        case .masuma:    return "Launch"
+        case .zainab:    return "Launch"
+        case .test:      return "Launch"
+        }
+    }
+    
 }
 
 extension Double {

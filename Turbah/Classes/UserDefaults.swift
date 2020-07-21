@@ -10,12 +10,13 @@ import Foundation
 
 extension UserDefaults {
     
-    var northType: Int {
+    enum northTypeEnum { case trueNorth, magneticNorth }
+    var northType: northTypeEnum {
         get {
-            return save.integer(forKey: "NorthType")
+            return (save.integer(forKey: "NorthType") == 0) ? .trueNorth : .magneticNorth
         }
         set {
-            save.set(newValue, forKey: "NorthType")
+            save.set((newValue == .trueNorth) ? 0 : 1, forKey: "NorthType")
         }
     }
     

@@ -9,7 +9,7 @@
 import UIKit
 import RealityKit
 
-class CustomTurbah: Entity, HasModel, HasAnchoring, HasCollision {
+class CustomTurbah: Entity, HasModel, HasAnchoring {
     
     required init(color: UIColor, size: Float) {
         super.init()
@@ -28,8 +28,6 @@ class CustomTurbah: Entity, HasModel, HasAnchoring, HasCollision {
         self.position = position
     }
     
-    required init() {
-        fatalError("init() has not been implemented")
-    }
+    required init() { fatalError("init() has not been implemented") }
     
 }

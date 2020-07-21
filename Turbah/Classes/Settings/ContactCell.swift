@@ -25,8 +25,8 @@ class ContactCell: UITableViewCell {
         ])
         
         stack.axis = .horizontal
-        stack.alignment = .fill
-        stack.distribution = .fill
+        stack.alignment = .center
+        stack.distribution = .fillProportionally
         stack.spacing = 15
         stack.addArrangedSubview(iconImageView)
         stack.addArrangedSubview(infoLabel)

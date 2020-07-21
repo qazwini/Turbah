@@ -168,7 +168,7 @@ class SettingsVC: UITableViewController, MFMailComposeViewControllerDelegate {
     
     
     @objc private func northTypeChanged(_ sender: UISegmentedControl) {
-        save.northType = sender.selectedSegmentIndex
+        save.northType = (sender.selectedSegmentIndex == 0) ? .trueNorth : .magneticNorth
     }
 
 }

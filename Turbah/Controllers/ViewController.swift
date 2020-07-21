@@ -82,31 +82,27 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
     
     func placeTurbah() {
         guard let turbah = try! Turbah.loadScene().turbah else { print("error"); return }
-        
         anchor.addChild(turbah)
-
         arView.scene.addAnchor(anchor)
         
-        print("before", anchor.position)
-        print("euler", arView.session.currentFrame!.camera.eulerAngles)
         let cameraAngles = arView.session.currentFrame!.camera.transform.columns.3
         
         let decreaseValue: Double = 3
         
-        anchor.position.z = Float(-1 * cos(bearingOfKabah) / decreaseValue) //(-1.0 / decreaseValue)// + cameraAngles.z
-        anchor.position.x = Float(sin(bearingOfKabah) / decreaseValue) //(Float(sin(bearingOfKabah.radiansToDegrees)) / decreaseValue)// + cameraAngles.x
-        //anchor.position.y += cameraAngles.y
+        anchor.position.z = Float(-1 * cos(bearingOfKabah) / decreaseValue) + cameraAngles.z
+        anchor.position.x = Float(sin(bearingOfKabah) / decreaseValue) + cameraAngles.x
+        anchor.position.y += cameraAngles.y
         print("after", anchor.position)
         
         let anchorAngles = anchor.transform.matrix.columns.3
         
-        //print("""
-        //
-        //camera:   \(cameraAngles)
-        //anchor:   \(anchorAngles)
-        //distance: \(length(cameraAngles - anchorAngles) * 3.28084) feet
-        //
-        //""")
+        print("""
+        
+        camera:   \(cameraAngles)
+        anchor:   \(anchorAngles)
+        distance: \(length(cameraAngles - anchorAngles) * 3.28084) feet
+        
+        """)
         
         turbahAdded = true
     }
@@ -264,7 +260,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         super.viewWillAppear(animated)
         let config = ARWorldTrackingConfiguration()
         config.planeDetection = .horizontal
-        config.worldAlignment = .gravityAndHeading
+        config.worldAlignment = (save.northType == .trueNorth) ? .gravityAndHeading : .gravity
         arView.session.run(config)
     }
     
@@ -302,13 +298,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
     var didAddCoaching = false
     
     func locationManager(_ manager: CLLocationManager, didUpdateHeading heading: CLHeading) {
-        let chosenHeading = (save.northType == 0) ? heading.magneticHeading : heading.trueHeading
+        let chosenHeading = (save.northType == .trueNorth) ? heading.trueHeading : heading.magneticHeading
         let north = chosenHeading.degreesToRadians
         let directionOfKabah = north - bearingOfKabah
         
         //print("qibla degreees:", directionOfKabah.radiansToDegrees)
-        print("qibla radians:", directionOfKabah)
+        print("phone", arView.session.currentFrame?.camera.transform.columns.3 ?? "")
         print("anchor", anchor.transform.matrix.columns.3)
+        print("")
         
         compassView.kabaImageView.transform = CGAffineTransform(rotationAngle: CGFloat(-directionOfKabah));
         compassView.isPointingAtQibla = (directionOfKabah < 0.1 && directionOfKabah > -0.1)

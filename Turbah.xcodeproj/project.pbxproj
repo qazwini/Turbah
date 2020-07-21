@@ -21,6 +21,8 @@
 		FAA121EE24C50C4A009F12C2 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA121ED24C50C4A009F12C2 /* UserDefaults.swift */; };
 		FAA121F124C50CAC009F12C2 /* SegmentedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA121F024C50CAC009F12C2 /* SegmentedCell.swift */; };
 		FAA121F324C52F2F009F12C2 /* ContactCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA121F224C52F2F009F12C2 /* ContactCell.swift */; };
+		FAA121FA24C69ADA009F12C2 /* ImageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA121F924C69ADA009F12C2 /* ImageEntity.swift */; };
+		FAA121FC24C6A935009F12C2 /* DistanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA121FB24C6A935009F12C2 /* DistanceCell.swift */; };
 		FACE7EB524C15494002FE5FC /* ErrorOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE7EB424C15494002FE5FC /* ErrorOverlay.swift */; };
 		FACE7EB724C173FE002FE5FC /* LocationsListMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE7EB624C173FE002FE5FC /* LocationsListMenu.swift */; };
 		FACE7EB924C176EB002FE5FC /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE7EB824C176EB002FE5FC /* Location.swift */; };
@@ -45,6 +47,8 @@
 		FAA121ED24C50C4A009F12C2 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		FAA121F024C50CAC009F12C2 /* SegmentedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedCell.swift; sourceTree = "<group>"; };
 		FAA121F224C52F2F009F12C2 /* ContactCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactCell.swift; sourceTree = "<group>"; };
+		FAA121F924C69ADA009F12C2 /* ImageEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEntity.swift; sourceTree = "<group>"; };
+		FAA121FB24C6A935009F12C2 /* DistanceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceCell.swift; sourceTree = "<group>"; };
 		FACE7EB424C15494002FE5FC /* ErrorOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorOverlay.swift; sourceTree = "<group>"; };
 		FACE7EB624C173FE002FE5FC /* LocationsListMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsListMenu.swift; sourceTree = "<group>"; };
 		FACE7EB824C176EB002FE5FC /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
@@ -108,6 +112,7 @@
 			children = (
 				FAA121EF24C50C8E009F12C2 /* Settings */,
 				FACE7EB824C176EB002FE5FC /* Location.swift */,
+				FAA121F924C69ADA009F12C2 /* ImageEntity.swift */,
 				FA51865624C13A56009064F6 /* CustomTurbah.swift */,
 				FACE7EC024C4006D002FE5FC /* CompassView.swift */,
 				FA8EC36024BFD452004FF5E2 /* VisualEffectButton.swift */,
@@ -126,6 +131,7 @@
 				FA51865424C133AD009064F6 /* SettingsFooterView.swift */,
 				FAA121F024C50CAC009F12C2 /* SegmentedCell.swift */,
 				FAA121F224C52F2F009F12C2 /* ContactCell.swift */,
+				FAA121FB24C6A935009F12C2 /* DistanceCell.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -146,6 +152,8 @@
 			dependencies = (
 			);
 			name = Turbah;
+			packageProductDependencies = (
+			);
 			productName = Turbah;
 			productReference = FA7A250424BFA497003D8825 /* Turbah.app */;
 			productType = "com.apple.product-type.application";
@@ -174,6 +182,8 @@
 				Base,
 			);
 			mainGroup = FA7A24FB24BFA497003D8825;
+			packageReferences = (
+			);
 			productRefGroup = FA7A250524BFA497003D8825 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -200,9 +210,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAA121FA24C69ADA009F12C2 /* ImageEntity.swift in Sources */,
 				FA8EC36324BFD48D004FF5E2 /* Super.swift in Sources */,
 				FAA121F324C52F2F009F12C2 /* ContactCell.swift in Sources */,
 				FACE7EB524C15494002FE5FC /* ErrorOverlay.swift in Sources */,
+				FAA121FC24C6A935009F12C2 /* DistanceCell.swift in Sources */,
 				FA8EC36124BFD452004FF5E2 /* VisualEffectButton.swift in Sources */,
 				FACE7EB924C176EB002FE5FC /* Location.swift in Sources */,
 				FACE7EB724C173FE002FE5FC /* LocationsListMenu.swift in Sources */,
