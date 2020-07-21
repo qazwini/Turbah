@@ -11,7 +11,6 @@ import Foundation
 struct Coordinates {
     let lat: Double
     let lon: Double
-    var dist: Double?
 }
 
 enum Locations {

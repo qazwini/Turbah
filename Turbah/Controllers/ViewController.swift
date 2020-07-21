@@ -90,11 +90,23 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         print("before", anchor.position)
         print("euler", arView.session.currentFrame!.camera.eulerAngles)
         let cameraAngles = arView.session.currentFrame!.camera.transform.columns.3
-        let decreaseValue: Float = 4
-        anchor.position.z = (-1.0 / decreaseValue)// + cameraAngles.z
-        anchor.position.x = (Float(sin(bearingOfKabah.radiansToDegrees)) / decreaseValue)// + cameraAngles.x
+        
+        let decreaseValue: Double = 3
+        
+        anchor.position.z = Float(-1 * cos(bearingOfKabah) / decreaseValue) //(-1.0 / decreaseValue)// + cameraAngles.z
+        anchor.position.x = Float(sin(bearingOfKabah) / decreaseValue) //(Float(sin(bearingOfKabah.radiansToDegrees)) / decreaseValue)// + cameraAngles.x
         //anchor.position.y += cameraAngles.y
         print("after", anchor.position)
+        
+        let anchorAngles = anchor.transform.matrix.columns.3
+        
+        //print("""
+        //
+        //camera:   \(cameraAngles)
+        //anchor:   \(anchorAngles)
+        //distance: \(length(cameraAngles - anchorAngles) * 3.28084) feet
+        //
+        //""")
         
         turbahAdded = true
     }
@@ -294,21 +306,20 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         let north = chosenHeading.degreesToRadians
         let directionOfKabah = north - bearingOfKabah
         
-        print("qibla degreees:", directionOfKabah.radiansToDegrees)
-        print("qibla radians:", -directionOfKabah)
-        print("")
+        //print("qibla degreees:", directionOfKabah.radiansToDegrees)
+        print("qibla radians:", directionOfKabah)
+        print("anchor", anchor.transform.matrix.columns.3)
         
         compassView.kabaImageView.transform = CGAffineTransform(rotationAngle: CGFloat(-directionOfKabah));
-        
         compassView.isPointingAtQibla = (directionOfKabah < 0.1 && directionOfKabah > -0.1)
         
         let offAccept = 0.25
         
-        if directionOfKabah > offAccept || directionOfKabah < -.pi {
+        if -directionOfKabah > offAccept || -directionOfKabah < -.pi {
             didSendFeedback = false
             leftImage.alpha = 0
             rightImage.alpha = 1
-        } else if directionOfKabah < -offAccept && directionOfKabah > -.pi {
+        } else if -directionOfKabah < -offAccept && -directionOfKabah > -.pi {
             didSendFeedback = false
             rightImage.alpha = 0
             leftImage.alpha = 1

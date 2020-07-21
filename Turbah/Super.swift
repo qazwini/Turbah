@@ -10,6 +10,8 @@ import UIKit
 
 let save = UserDefaults.standard
 
+let appURL = "http://itunes.apple.com/app/id1523945049"
+
 var blurEffect: UIBlurEffect {
     return UIBlurEffect(style: .systemThinMaterial)
 }
@@ -57,18 +59,8 @@ extension UIView {
 }
 
 
-extension UIView {
-    
-    func setAnchorPointV3(anchorPoint: CGPoint) {
-       let oldOrigin = frame.origin
-       layer.anchorPoint = anchorPoint
-       let newOrigin = frame.origin
-
-       let translation = CGPoint(x: newOrigin.x - oldOrigin.x, y: newOrigin.y - oldOrigin.y)
-
-       center = CGPoint(x: center.x - translation.x, y: center.y - translation.y)
-    }
-    
+extension UITableViewCell {
+    static let cellID = "cellID"
 }
 
 

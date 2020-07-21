@@ -8,6 +8,7 @@
 
 import UIKit
 import MessageUI
+import SafariServices
 
 class SettingsVC: UITableViewController, MFMailComposeViewControllerDelegate {
     
@@ -18,6 +19,7 @@ class SettingsVC: UITableViewController, MFMailComposeViewControllerDelegate {
         enum sectionNames {
             case general
             case contact
+            case bottom
         }
     }
     
@@ -27,6 +29,8 @@ class SettingsVC: UITableViewController, MFMailComposeViewControllerDelegate {
         enum cellNames {
             case northType
             case contact
+            case terms
+            case share
             case red
         }
     }
@@ -36,15 +40,15 @@ class SettingsVC: UITableViewController, MFMailComposeViewControllerDelegate {
             cell(name: .northType),
             cell(name: .red),
             cell(name: .red),
-            cell(name: .red),
-            cell(name: .red),
-            cell(name: .red),
-            cell(name: .red),
             cell(name: .red)
         ]),
         section(name: .contact, cells: [
             cell(name: .contact),
             cell(name: .contact)
+        ]),
+        section(name: .bottom, cells: [
+            cell(name: .terms),
+            cell(name: .share)
         ])
     ]
     
@@ -56,9 +60,10 @@ class SettingsVC: UITableViewController, MFMailComposeViewControllerDelegate {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(donePressed))
         
         tableView = UITableView(frame: self.tableView.frame, style: .insetGrouped)
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellID")
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.cellID)
         tableView.register(SegmentedCell.self, forCellReuseIdentifier: SegmentedCell.id)
         tableView.register(ContactCell.self, forCellReuseIdentifier: ContactCell.id)
+        //tableView.sectionHeaderHeight = 70
     }
     
     @objc func donePressed() {
@@ -77,8 +82,16 @@ class SettingsVC: UITableViewController, MFMailComposeViewControllerDelegate {
             cell.iconImageView.image = contactInfo[indexPath.row].0
             cell.infoLabel.text = contactInfo[indexPath.row].1
             return cell
+        case .terms:
+            let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.cellID, for: indexPath)
+            cell.textLabel?.text = "Terms and Privacy Policy"
+            return cell
+        case .share:
+            let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.cellID, for: indexPath)
+            cell.textLabel?.text = "Share"
+            return cell
         case .red:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "cellID", for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.cellID, for: indexPath)
             cell.textLabel?.text = "y\(indexPath.row)lo"
             return cell
         }
@@ -94,27 +107,23 @@ class SettingsVC: UITableViewController, MFMailComposeViewControllerDelegate {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch sectionArray[section].name {
-        case .general: return nil
+        case .general, .bottom: return nil
         case .contact: return "Contact"
         }
     }
     
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        if section == (tableView.numberOfSections - 1) {
+        if section == tableView.numberOfSections - 1 {
             return SettingsFooterView()
         }
         return nil
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 70
     }
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         if section == (tableView.numberOfSections - 1) {
             return 75
         }
-        return .leastNormalMagnitude
+        return 20
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -144,19 +153,18 @@ class SettingsVC: UITableViewController, MFMailComposeViewControllerDelegate {
                     }
                 }
             }
+        case .terms:
+            guard let url = URL(string: "http://alqazwini.org/turbah/privacyandterms.html") else { return }
+            let safariView = SFSafariViewController(url: url)
+            present(safariView, animated: true)
+        case .share:
+            let activityVC = UIActivityViewController(activityItems: [appURL, "Turbah - تـربـة"], applicationActivities: nil)
+            activityVC.popoverPresentationController?.sourceView = self.view
+            present(activityVC, animated: true)
         default: break
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
-//    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        switch sectionArray[indexPath.section].cells[indexPath.row].name {
-//        case .northType:
-//            return UITableView.automaticDimension
-//        default:
-//            return 55
-//        }
-//    }
     
     
     @objc private func northTypeChanged(_ sender: UISegmentedControl) {
