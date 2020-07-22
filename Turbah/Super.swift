@@ -10,7 +10,8 @@ import UIKit
 
 let save = UserDefaults.standard
 
-let appURL = "http://itunes.apple.com/app/id1523945049"
+let appURL = "https://apps.apple.com/app/id1523945049"
+let developerURL = "https://apps.apple.com/developer/id1510691402"
 
 var blurEffect: UIBlurEffect {
     return UIBlurEffect(style: .systemThinMaterial)

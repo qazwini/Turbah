@@ -274,9 +274,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         distanceOfKabah = locations.last!.distance(from: CLLocation(latitude: selectedLocation.coordinates.lat, longitude: selectedLocation.coordinates.lon))
         bearingOfKabah = getBearingBetween(locations.last!, selectedLocation.coordinates)
-        
-        print("my func", getBearingBetween(locations.last!, selectedLocation.coordinates).radiansToDegrees)
-        print("")
     }
     
     func getBearingBetween(_ point1: CLLocation, _ coordinates: Coordinates) -> Double {

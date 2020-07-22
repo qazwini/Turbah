@@ -32,6 +32,7 @@ class SettingsVC: UITableViewController, MFMailComposeViewControllerDelegate {
             case northType
             case distance
             case contact
+            case ourApps
             case terms
             case share
         }
@@ -48,11 +49,12 @@ class SettingsVC: UITableViewController, MFMailComposeViewControllerDelegate {
         ]),
         section(name: .bottom, cells: [
             cell(name: .terms),
+            cell(name: .ourApps),
             cell(name: .share)
         ])
     ]
     
-    let contactInfo = [(UIImage(named: "contactemail"), "mmqazwini@yahoo.com"), (UIImage(named: "contactinstagram"), "@mmqazwini")]
+    let contactInfo = [("contactemail", "mmqazwini@yahoo.com"), ("contactinstagram", "@mmqazwini")]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,8 +94,12 @@ class SettingsVC: UITableViewController, MFMailComposeViewControllerDelegate {
             return cell
         case .contact:
             let cell = tableView.dequeueReusableCell(withIdentifier: ContactCell.id, for: indexPath) as! ContactCell
-            cell.iconImageView.image = contactInfo[indexPath.row].0
+            cell.iconImageView.image = UIImage(named: contactInfo[indexPath.row].0)
             cell.infoLabel.text = contactInfo[indexPath.row].1
+            return cell
+        case .ourApps:
+            let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.cellID, for: indexPath)
+            cell.textLabel?.text = "Our apps"
             return cell
         case .terms:
             let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.cellID, for: indexPath)
@@ -162,6 +168,9 @@ class SettingsVC: UITableViewController, MFMailComposeViewControllerDelegate {
                     }
                 }
             }
+        case .ourApps:
+            guard let url = URL(string: developerURL) else { return }
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
         case .terms:
             guard let url = URL(string: "http://alqazwini.org/turbah/privacyandterms.html") else { return }
             let safariView = SFSafariViewController(url: url)
