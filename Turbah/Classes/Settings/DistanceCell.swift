@@ -24,9 +24,10 @@ class DistanceCell: UITableViewCell {
         distanceSlider.minimumValue = 1
         distanceSlider.maximumValue = 5
         distanceSlider.value = save.distance
-        distanceSlider.minimumTrackTintColor = reverseColor
         distanceSlider.setThumbImage(#imageLiteral(resourceName: "thumb").withTintColor(reverseColor), for: .normal)
-        distanceSlider.addTarget(self, action: #selector(sliderValueChanged(_:_:)), for: .valueChanged)
+        distanceSlider.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
+        distanceSlider.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(sliderTapped(_:))))
+        distanceSlider.setMinimumTrackImage(#imageLiteral(resourceName: "thumb"), for: .normal)
         distanceSlider.translatesAutoresizingMaskIntoConstraints = false
         distanceSlider.heightAnchor.constraint(equalToConstant: 12).isActive = true
         
@@ -40,9 +41,22 @@ class DistanceCell: UITableViewCell {
         stack.fillSuperview(padding: UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15))
     }
     
-    @objc private func sliderValueChanged(_ sender: UISlider, _ event: UIEvent) {
+    @objc private func sliderValueChanged(_ sender: UISlider) {
         let rounded = round(sender.value)
         sender.value = rounded
+        guard rounded != save.distance else { return }
+        hapticFeedback()
+        save.distance = rounded
+    }
+    
+    @objc private func sliderTapped(_ sender: UITapGestureRecognizer) {
+        print("tapped")
+        let pointTapped: CGPoint = sender.location(in: self.contentView)
+        let positionOfSlider: CGPoint = distanceSlider.frame.origin
+        let widthOfSlider: CGFloat = distanceSlider.frame.size.width
+        let newValue = ((pointTapped.x - positionOfSlider.x) * CGFloat(distanceSlider.maximumValue) / widthOfSlider)
+        let rounded = Float(round(newValue))
+        distanceSlider.setValue(Float(round(newValue)), animated: true)
         guard rounded != save.distance else { return }
         hapticFeedback()
         save.distance = rounded
