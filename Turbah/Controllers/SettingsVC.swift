@@ -12,6 +12,8 @@ import SafariServices
 
 class SettingsVC: UITableViewController, MFMailComposeViewControllerDelegate {
     
+    var didEnterMainView: (()->Void)?
+    
     struct section {
         var name: sectionNames
         var cells: [cell]
@@ -67,6 +69,15 @@ class SettingsVC: UITableViewController, MFMailComposeViewControllerDelegate {
     @objc func donePressed() {
         dismiss(animated: true, completion: nil)
     }
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        didEnterMainView?()
+    }
+    
+    
+    // MARK: - TableView Methods
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch sectionArray[indexPath.section].cells[indexPath.row].name {

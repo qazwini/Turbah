@@ -51,9 +51,9 @@ class DistanceCell: UITableViewCell {
     
     @objc private func sliderTapped(_ sender: UITapGestureRecognizer) {
         print("tapped")
-        let pointTapped: CGPoint = sender.location(in: self.contentView)
-        let positionOfSlider: CGPoint = distanceSlider.frame.origin
-        let widthOfSlider: CGFloat = distanceSlider.frame.size.width
+        let pointTapped = sender.location(in: self.contentView)
+        let positionOfSlider = distanceSlider.frame.origin
+        let widthOfSlider = distanceSlider.frame.size.width
         let newValue = ((pointTapped.x - positionOfSlider.x) * CGFloat(distanceSlider.maximumValue) / widthOfSlider)
         let rounded = Float(round(newValue))
         distanceSlider.setValue(Float(round(newValue)), animated: true)

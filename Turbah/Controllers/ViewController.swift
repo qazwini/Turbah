@@ -110,7 +110,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
     @objc func addRemovePressed() {
         hapticFeedback()
         if !turbahAdded {
+            // Insert
             guard didSendFeedback else {
+                guard selectedLocation == .kabah else { return }
+                
                 compassView.isUserInteractionEnabled = false
 
                 let veBackground = VisualEffectText(effect: blurEffect)
@@ -158,10 +161,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
             transparentView!.fillSuperview()
             
             locationsView = LocationsListMenu()
-            locationsView!.rowClicked = { location in
+            locationsView!.didSelectNewLocation = { location in
                 self.transparentViewClicked()
                 self.locationButton.newTitle = location.name
                 self.selectedLocation = location
+                self.compassView.location = location
             }
             locationsView!.alpha = 0
             view.addSubview(locationsView!)
@@ -176,7 +180,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
             }
         } else {
             // Settings
-            let navVC = UINavigationController(rootViewController: SettingsVC())
+            arView.pause()
+            let settingsVC = SettingsVC()
+            settingsVC.didEnterMainView = { self.arView.run() }
+            let navVC = UINavigationController(rootViewController: settingsVC)
             navVC.navigationBar.prefersLargeTitles = true
             present(navVC, animated: true)
         }
@@ -223,9 +230,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         }
     }
     
-    enum errorType {
-        case location, camera
-    }
+    enum errorType { case location, camera }
     
     func showErrorAlert(type: errorType) {
         errorOverlay = ErrorOverlay()
@@ -258,20 +263,20 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let config = ARWorldTrackingConfiguration()
-        config.planeDetection = .horizontal
-        config.worldAlignment = save.trueNorth ? .gravityAndHeading : .gravity
-        arView.session.run(config)
+        arView.run()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        arView.session.pause()
+        arView.pause()
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         distanceOfKabah = locations.last!.distance(from: CLLocation(latitude: selectedLocation.coordinates.lat, longitude: selectedLocation.coordinates.lon))
         bearingOfKabah = getBearingBetween(locations.last!, selectedLocation.coordinates)
+        
+        print("my func", getBearingBetween(locations.last!, selectedLocation.coordinates).radiansToDegrees)
+        print("")
     }
     
     func getBearingBetween(_ point1: CLLocation, _ coordinates: Coordinates) -> Double {
@@ -343,6 +348,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         
         view.addSubview(coachingOverlay)
         coachingOverlay.fillSuperview()
+        
+        arView.run()
     }
     
     public func coachingOverlayViewWillActivate(_ coachingOverlayView: ARCoachingOverlayView) {
@@ -365,4 +372,20 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         arView.scene.anchors.removeAll()
         placeTurbah()
     }
+}
+
+
+fileprivate extension ARView {
+    
+    func run() {
+        let config = ARWorldTrackingConfiguration()
+        config.planeDetection = .horizontal
+        config.worldAlignment = save.trueNorth ? .gravityAndHeading : .gravity
+        session.run(config, options: [.removeExistingAnchors, .resetTracking])
+    }
+    
+    func pause() {
+        session.pause()
+    }
+    
 }

@@ -10,6 +10,13 @@ import UIKit
 
 class CompassView: UIVisualEffectView {
     
+    var location: Locations = .kabah {
+        didSet {
+            guard oldValue != location else { return }
+            kabaImageView.image = UIImage(named: location.compassIconString)?.withRenderingMode(.alwaysTemplate)
+        }
+    }
+    
     var isPointingAtQibla: Bool = false {
         didSet {
             guard self.isPointingAtQibla != oldValue else { return }
@@ -37,7 +44,7 @@ class CompassView: UIVisualEffectView {
         vibrancyView.fillSuperview()
         
         personGradImageView.image = UIImage(named: "radar")?.withRenderingMode(.alwaysTemplate)
-        kabaImageView.image = UIImage(named: "kaba")?.withRenderingMode(.alwaysTemplate)
+        kabaImageView.image = UIImage(named: location.compassIconString)?.withRenderingMode(.alwaysTemplate)
         
         vibrancyView.contentView.addSubview(personGradImageView)
         personGradImageView.fillSuperview()

@@ -10,7 +10,7 @@ import UIKit
 
 class LocationsListMenu: UITableView, UITableViewDelegate, UITableViewDataSource {
     
-    var rowClicked: ((Locations) -> Void)?
+    var didSelectNewLocation: ((Locations) -> Void)?
     
     let locations = Locations.allLocations
     let cellHeight: CGFloat = 47
@@ -70,7 +70,7 @@ class LocationsListMenu: UITableView, UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        rowClicked?(locations[indexPath.row])
+        didSelectNewLocation?(locations[indexPath.row])
         tableView.deselectRow(at: indexPath, animated: true)
     }
     

@@ -1,5 +1,5 @@
 //
-//  CustomSlider.swift
+//  TickedSlider.swift
 //  Turbah
 //
 //  Created by MMQ on 7/21/20.
