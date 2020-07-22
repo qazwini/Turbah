@@ -11,20 +11,17 @@ import UIKit
 class TickedSlider: UISlider {
     
     var pathHeight: CGFloat = 2
-    var tickColor: UIColor = UIColor { ($0.userInterfaceStyle == .dark) ? UIColor(hexString: "3D3D42") : UIColor(hexString: "EEEEEE")  }//.separator//#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+    var tickColor: UIColor = UIColor { ($0.userInterfaceStyle == .dark) ? UIColor(hexString: "3D3D42") : UIColor(hexString: "DDDDDD")  }//.separator//#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
     var tickWidth: CGFloat = 10
 
     var trackRect: CGRect {
-        var returnRect = trackRect(forBounds: bounds)
-        returnRect.origin.x += 2
-        returnRect.size.width -= 4
-        return returnRect
+        return trackRect(forBounds: bounds)
     }
     var pathWidth: CGFloat {
-        return bounds.size.width - 4
+        return bounds.size.width - 2*pathHeight
     }
     var tickDistance: Double {
-        return (Double(pathWidth) / Double(ticks - 1)) - 1
+        return (Double(pathWidth) / Double(ticks - 1))
     }
     var ticks: Int {
         return Int(maximumValue - minimumValue) + 1

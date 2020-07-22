@@ -14,6 +14,9 @@ class DistanceCell: UITableViewCell {
     
     private var stack = UIStackView()
     var titleLabel = UILabel()
+    var sliderStack = UIStackView()
+    var smallIcon = UIImageView()
+    var largeIcon = UIImageView()
     var distanceSlider = TickedSlider()
     
     private func setupUI() {
@@ -27,16 +30,31 @@ class DistanceCell: UITableViewCell {
         distanceSlider.setThumbImage(#imageLiteral(resourceName: "thumb").withTintColor(reverseColor), for: .normal)
         distanceSlider.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
         distanceSlider.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(sliderTapped(_:))))
-        distanceSlider.setMinimumTrackImage(#imageLiteral(resourceName: "thumb"), for: .normal)
         distanceSlider.translatesAutoresizingMaskIntoConstraints = false
-        distanceSlider.heightAnchor.constraint(equalToConstant: 12).isActive = true
+        
+        smallIcon.image = #imageLiteral(resourceName: "shortDistance").withTintColor(distanceSlider.tickColor)
+        largeIcon.image = #imageLiteral(resourceName: "longDistance").withTintColor(distanceSlider.tickColor)
+        
+        NSLayoutConstraint.activate([
+            distanceSlider.heightAnchor.constraint(equalToConstant: 12),
+            smallIcon.widthAnchor.constraint(equalToConstant: 20),
+            largeIcon.widthAnchor.constraint(equalToConstant: 20),
+        ])
+        
+        sliderStack.axis = .horizontal
+        sliderStack.alignment = .fill
+        sliderStack.distribution = .fill
+        sliderStack.spacing = 15
+        sliderStack.addArrangedSubview(smallIcon)
+        sliderStack.addArrangedSubview(distanceSlider)
+        sliderStack.addArrangedSubview(largeIcon)
         
         stack.axis = .vertical
         stack.alignment = .fill
         stack.distribution = .fill
         stack.spacing = 10
         stack.addArrangedSubview(titleLabel)
-        stack.addArrangedSubview(distanceSlider)
+        stack.addArrangedSubview(sliderStack)
         contentView.addSubview(stack)
         stack.fillSuperview(padding: UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15))
     }
