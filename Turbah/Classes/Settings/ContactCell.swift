@@ -30,7 +30,7 @@ class ContactCell: UITableViewCell {
         stack.spacing = 15
         stack.addArrangedSubview(iconImageView)
         stack.addArrangedSubview(infoLabel)
-        addSubview(stack)
+        contentView.addSubview(stack)
         stack.fillSuperview(padding: UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15))
     }
 

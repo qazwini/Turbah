@@ -10,13 +10,21 @@ import Foundation
 
 extension UserDefaults {
     
-    enum northTypeEnum { case trueNorth, magneticNorth }
-    var northType: northTypeEnum {
+    var trueNorth: Bool {
         get {
-            return (save.integer(forKey: "NorthType") == 0) ? .trueNorth : .magneticNorth
+            return save.bool(forKey: "NorthType")
         }
         set {
-            save.set((newValue == .trueNorth) ? 0 : 1, forKey: "NorthType")
+            save.set(newValue, forKey: "NorthType")
+        }
+    }
+    
+    var distance: Float {
+        get {
+            return save.float(forKey: "TurbahDistance")
+        }
+        set {
+            save.set(newValue, forKey: "TurbahDistance")
         }
     }
     

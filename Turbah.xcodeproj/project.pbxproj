@@ -23,6 +23,7 @@
 		FAA121F324C52F2F009F12C2 /* ContactCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA121F224C52F2F009F12C2 /* ContactCell.swift */; };
 		FAA121FA24C69ADA009F12C2 /* ImageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA121F924C69ADA009F12C2 /* ImageEntity.swift */; };
 		FAA121FC24C6A935009F12C2 /* DistanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA121FB24C6A935009F12C2 /* DistanceCell.swift */; };
+		FAA121FE24C7A4E6009F12C2 /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA121FD24C7A4E6009F12C2 /* CustomSlider.swift */; };
 		FACE7EB524C15494002FE5FC /* ErrorOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE7EB424C15494002FE5FC /* ErrorOverlay.swift */; };
 		FACE7EB724C173FE002FE5FC /* LocationsListMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE7EB624C173FE002FE5FC /* LocationsListMenu.swift */; };
 		FACE7EB924C176EB002FE5FC /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE7EB824C176EB002FE5FC /* Location.swift */; };
@@ -49,6 +50,7 @@
 		FAA121F224C52F2F009F12C2 /* ContactCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactCell.swift; sourceTree = "<group>"; };
 		FAA121F924C69ADA009F12C2 /* ImageEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEntity.swift; sourceTree = "<group>"; };
 		FAA121FB24C6A935009F12C2 /* DistanceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceCell.swift; sourceTree = "<group>"; };
+		FAA121FD24C7A4E6009F12C2 /* CustomSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
 		FACE7EB424C15494002FE5FC /* ErrorOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorOverlay.swift; sourceTree = "<group>"; };
 		FACE7EB624C173FE002FE5FC /* LocationsListMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsListMenu.swift; sourceTree = "<group>"; };
 		FACE7EB824C176EB002FE5FC /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 				FAA121F024C50CAC009F12C2 /* SegmentedCell.swift */,
 				FAA121F224C52F2F009F12C2 /* ContactCell.swift */,
 				FAA121FB24C6A935009F12C2 /* DistanceCell.swift */,
+				FAA121FD24C7A4E6009F12C2 /* CustomSlider.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -221,6 +224,7 @@
 				FAA121EE24C50C4A009F12C2 /* UserDefaults.swift in Sources */,
 				FA57BA6C24BFB314009FC13E /* Turbah.rcproject in Sources */,
 				FAA121F124C50CAC009F12C2 /* SegmentedCell.swift in Sources */,
+				FAA121FE24C7A4E6009F12C2 /* CustomSlider.swift in Sources */,
 				FACE7EC324C411FF002FE5FC /* LocationListCell.swift in Sources */,
 				FA51865724C13A56009064F6 /* CustomTurbah.swift in Sources */,
 				FACE7EC124C4006D002FE5FC /* CompassView.swift in Sources */,

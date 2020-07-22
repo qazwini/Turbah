@@ -91,7 +91,6 @@ extension UIView {
 }
 
 
-
 func hapticFeedback(style: UIImpactFeedbackGenerator.FeedbackStyle = .light) {
     UIImpactFeedbackGenerator(style: style).impactOccurred()
 }

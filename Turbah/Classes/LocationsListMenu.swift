@@ -15,7 +15,7 @@ class LocationsListMenu: UITableView, UITableViewDelegate, UITableViewDataSource
     let locations = Locations.allLocations
     let cellHeight: CGFloat = 47
     
-    var height: CGFloat { return cellHeight * CGFloat(locations.count) }
+    var height: CGFloat { return cellHeight * CGFloat(min(locations.count, 10)) }
     let width: CGFloat = 250
     
     private func setupUI() {
@@ -26,7 +26,8 @@ class LocationsListMenu: UITableView, UITableViewDelegate, UITableViewDataSource
         
         delegate = self
         dataSource = self
-        isScrollEnabled = false
+        alwaysBounceVertical = false
+        verticalScrollIndicatorInsets = UIEdgeInsets(top: 7.5, left: 0, bottom: 7.5, right: 0)
         backgroundColor = nil
         backgroundView = UIVisualEffectView(effect: blurEffect)
         separatorEffect = UIVibrancyEffect(blurEffect: blurEffect, style: .separator)

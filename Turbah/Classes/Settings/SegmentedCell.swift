@@ -17,8 +17,8 @@ class SegmentedCell: UITableViewCell {
     private func setupUI() {
         segmentedControl.insertSegment(withTitle: "True North", at: 0, animated: false)
         segmentedControl.insertSegment(withTitle: "Magnetic North", at: 1, animated: false)
-        segmentedControl.selectedSegmentIndex = (save.northType == .trueNorth) ? 0 : 1
-        addSubview(segmentedControl)
+        segmentedControl.selectedSegmentIndex = save.trueNorth ? 0 : 1
+        contentView.addSubview(segmentedControl)
         segmentedControl.fillSuperview(padding: UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15))
     }
 

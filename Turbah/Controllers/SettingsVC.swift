@@ -28,19 +28,17 @@ class SettingsVC: UITableViewController, MFMailComposeViewControllerDelegate {
         
         enum cellNames {
             case northType
+            case distance
             case contact
             case terms
             case share
-            case red
         }
     }
     
     let sectionArray = [
         section(name: .general, cells: [
-            cell(name: .northType),
-            cell(name: .red),
-            cell(name: .red),
-            cell(name: .red)
+            cell(name: .distance),
+            cell(name: .northType)
         ]),
         section(name: .contact, cells: [
             cell(name: .contact),
@@ -57,13 +55,13 @@ class SettingsVC: UITableViewController, MFMailComposeViewControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Settings"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(donePressed))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(donePressed))
         
-        tableView = UITableView(frame: self.tableView.frame, style: .insetGrouped)
+        tableView = UITableView(frame: tableView.frame, style: .insetGrouped)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.cellID)
         tableView.register(SegmentedCell.self, forCellReuseIdentifier: SegmentedCell.id)
         tableView.register(ContactCell.self, forCellReuseIdentifier: ContactCell.id)
-        //tableView.sectionHeaderHeight = 70
+        tableView.register(DistanceCell.self, forCellReuseIdentifier: DistanceCell.id)
     }
     
     @objc func donePressed() {
@@ -77,6 +75,10 @@ class SettingsVC: UITableViewController, MFMailComposeViewControllerDelegate {
             cell.selectionStyle = .none
             cell.segmentedControl.addTarget(self, action: #selector(northTypeChanged(_:)), for: .valueChanged)
             return cell
+        case .distance:
+            let cell = tableView.dequeueReusableCell(withIdentifier: DistanceCell.id, for: indexPath) as! DistanceCell
+            cell.selectionStyle = .none
+            return cell
         case .contact:
             let cell = tableView.dequeueReusableCell(withIdentifier: ContactCell.id, for: indexPath) as! ContactCell
             cell.iconImageView.image = contactInfo[indexPath.row].0
@@ -89,10 +91,6 @@ class SettingsVC: UITableViewController, MFMailComposeViewControllerDelegate {
         case .share:
             let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.cellID, for: indexPath)
             cell.textLabel?.text = "Share"
-            return cell
-        case .red:
-            let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.cellID, for: indexPath)
-            cell.textLabel?.text = "y\(indexPath.row)lo"
             return cell
         }
     }
@@ -168,7 +166,7 @@ class SettingsVC: UITableViewController, MFMailComposeViewControllerDelegate {
     
     
     @objc private func northTypeChanged(_ sender: UISegmentedControl) {
-        save.northType = (sender.selectedSegmentIndex == 0) ? .trueNorth : .magneticNorth
+        save.trueNorth = sender.selectedSegmentIndex == 0
     }
 
 }

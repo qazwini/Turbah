@@ -87,10 +87,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         
         let cameraAngles = arView.session.currentFrame!.camera.transform.columns.3
         
-        let decreaseValue: Double = 3
+        let decreaseValue: Float = 6 - save.distance
         
-        anchor.position.z = Float(-1 * cos(bearingOfKabah) / decreaseValue) + cameraAngles.z
-        anchor.position.x = Float(sin(bearingOfKabah) / decreaseValue) + cameraAngles.x
+        anchor.position.z = Float(-1 * cos(Float(bearingOfKabah)) / decreaseValue) + cameraAngles.z
+        anchor.position.x = Float(sin(Float(bearingOfKabah)) / decreaseValue) + cameraAngles.x
         anchor.position.y += cameraAngles.y
         print("after", anchor.position)
         
@@ -260,7 +260,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         super.viewWillAppear(animated)
         let config = ARWorldTrackingConfiguration()
         config.planeDetection = .horizontal
-        config.worldAlignment = (save.northType == .trueNorth) ? .gravityAndHeading : .gravity
+        config.worldAlignment = save.trueNorth ? .gravityAndHeading : .gravity
         arView.session.run(config)
     }
     
@@ -298,14 +298,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
     var didAddCoaching = false
     
     func locationManager(_ manager: CLLocationManager, didUpdateHeading heading: CLHeading) {
-        let chosenHeading = (save.northType == .trueNorth) ? heading.trueHeading : heading.magneticHeading
+        let chosenHeading = save.trueNorth ? heading.trueHeading : heading.magneticHeading
         let north = chosenHeading.degreesToRadians
         let directionOfKabah = north - bearingOfKabah
         
         //print("qibla degreees:", directionOfKabah.radiansToDegrees)
-        print("phone", arView.session.currentFrame?.camera.transform.columns.3 ?? "")
-        print("anchor", anchor.transform.matrix.columns.3)
-        print("")
+        //print("phone", arView.session.currentFrame?.camera.transform.columns.3 ?? "")
+        //print("anchor", anchor.transform.matrix.columns.3)
+        //print("")
         
         compassView.kabaImageView.transform = CGAffineTransform(rotationAngle: CGFloat(-directionOfKabah));
         compassView.isPointingAtQibla = (directionOfKabah < 0.1 && directionOfKabah > -0.1)
