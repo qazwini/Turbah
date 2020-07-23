@@ -21,7 +21,7 @@ class TickedSlider: UISlider {
         return bounds.size.width - 2*pathHeight
     }
     var tickDistance: Double {
-        return (Double(pathWidth) / Double(ticks - 1))
+        return Double(pathWidth) / Double(ticks - 1)
     }
     var ticks: Int {
         return Int(maximumValue - minimumValue) + 1
@@ -50,7 +50,7 @@ class TickedSlider: UISlider {
         for index in 1...ticks {
             let x = CGFloat(Double(index - 1) * tickDistance)
             let y = bounds.midY - CGFloat(8 / 2)
-            let stepPath = UIBezierPath(rect: CGRect(x: x+2, y: y, width: 2, height: 8))
+            let stepPath = UIBezierPath(rect: CGRect(x: x + pathHeight/2, y: y, width: 2, height: 8))
 
             context?.addPath(stepPath.cgPath)
             context?.fillPath()

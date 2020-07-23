@@ -68,7 +68,6 @@ class DistanceCell: UITableViewCell {
     }
     
     @objc private func sliderTapped(_ sender: UITapGestureRecognizer) {
-        print("tapped")
         let pointTapped = sender.location(in: self.contentView)
         let positionOfSlider = distanceSlider.frame.origin
         let widthOfSlider = distanceSlider.frame.size.width

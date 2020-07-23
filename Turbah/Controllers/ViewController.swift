@@ -42,7 +42,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
     func setupUI() {
         view = arView
         
-        compassView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(addRemovePressed)))
+        compassView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(redoRun)))
         view.addSubview(compassView)
         compassView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         compassView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50).isActive = true
@@ -78,7 +78,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         leftImage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
     }
     
-    let anchor = AnchorEntity(plane: .horizontal, minimumBounds: [0.2, 0.2])
+    let anchor = AnchorEntity(plane: .horizontal)
     
     func placeTurbah() {
         guard let turbah = try! Turbah.loadScene().turbah else { print("error"); return }
@@ -87,12 +87,18 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         
         let cameraAngles = arView.session.currentFrame!.camera.transform.columns.3
         
-        let decreaseValue: Float = 6 - save.distance
+        let decreaseValue = 6 - save.distance
         
-        anchor.position.z = Float(-1 * cos(Float(bearingOfKabah)) / decreaseValue) + cameraAngles.z
-        anchor.position.x = Float(sin(Float(bearingOfKabah)) / decreaseValue) + cameraAngles.x
-        anchor.position.y += cameraAngles.y
+        anchor.position.z = -1 * cos(Float(bearingOfKabah)) / decreaseValue + cameraAngles.z
+        anchor.position.x = sin(Float(bearingOfKabah)) / decreaseValue + cameraAngles.x
+        // Is Y adjustment needed?
+        //anchor.position.y += cameraAngles.y
         print("after", anchor.position)
+        
+        let x = sin(Float(bearingOfKabah)) / decreaseValue + cameraAngles.z
+        let z = -1 * cos(Float(bearingOfKabah)) / decreaseValue + cameraAngles.x
+        
+        print("angle", atan(x/z) * 180 / .pi)
         
         let anchorAngles = anchor.transform.matrix.columns.3
         
@@ -100,11 +106,51 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         
         camera:   \(cameraAngles)
         anchor:   \(anchorAngles)
-        distance: \(length(cameraAngles - anchorAngles) * 3.28084) feet
+        distance: \(length(cameraAngles - anchorAngles) / 3.28084) feet
         
         """)
         
         turbahAdded = true
+    }
+    
+    @objc private func redoRun() {
+        hapticFeedback()
+        guard save.didRerunTutorial else {
+            save.didRerunTutorial = true
+            let alert = UIAlertController(title: "Tap to rerun", message: "Tapping this button will calibrate then place the turbah.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
+            return
+        }
+        guard didSendFeedback else {
+            guard selectedLocation == .kabah else { return }
+            
+            compassView.isUserInteractionEnabled = false
+
+            let veBackground = VisualEffectText(effect: blurEffect)
+            veBackground.alpha = 0
+            view.addSubview(veBackground)
+            veBackground.topAnchor.constraint(equalTo: view.topAnchor, constant: 71).isActive = true
+            veBackground.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+            veBackground.title = "Please face the Qibla then tap"
+
+            UIView.animateKeyframes(withDuration: 3, delay: 0, options: .calculationModeCubic, animations: {
+                UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1/15) {
+                    veBackground.alpha = 1
+                }
+                UIView.addKeyframe(withRelativeStartTime: 14/15, relativeDuration: 1/15) {
+                    veBackground.alpha = 0
+                }
+            }, completion: { completed in
+                guard completed else { return }
+                veBackground.removeFromSuperview()
+                self.compassView.isUserInteractionEnabled = true
+            })
+
+            return
+        }
+        if !didAddCoaching { addCoaching() }
+        arView.run()
     }
     
     @objc func addRemovePressed() {
@@ -166,6 +212,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
                 self.locationButton.newTitle = location.name
                 self.selectedLocation = location
                 self.compassView.location = location
+                
+                self.arView.scene.anchors.removeAll()
+                self.turbahAdded = false
             }
             locationsView!.alpha = 0
             view.addSubview(locationsView!)

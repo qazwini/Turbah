@@ -73,8 +73,8 @@ class SettingsVC: UITableViewController, MFMailComposeViewControllerDelegate {
     }
     
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         didEnterMainView?()
     }
     
@@ -135,6 +135,9 @@ class SettingsVC: UITableViewController, MFMailComposeViewControllerDelegate {
     }
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if sectionArray[section].name == .general {
+            return UITableView.automaticDimension
+        }
         if section == (tableView.numberOfSections - 1) {
             return 75
         }
@@ -186,7 +189,15 @@ class SettingsVC: UITableViewController, MFMailComposeViewControllerDelegate {
     
     
     @objc private func northTypeChanged(_ sender: UISegmentedControl) {
-        save.trueNorth = sender.selectedSegmentIndex == 0
+        if sender.selectedSegmentIndex == 1 {
+            let alert = UIAlertController(title: "Inaccurate Results", message: "Using Magnetic North may lead to innacurate results.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in sender.selectedSegmentIndex = 0 }))
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in save.trueNorth = sender.selectedSegmentIndex == 0 }))
+            present(alert, animated: true)
+            return
+        } else {
+            save.trueNorth = sender.selectedSegmentIndex == 0
+        }
     }
 
 }

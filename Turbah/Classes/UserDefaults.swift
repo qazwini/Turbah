@@ -28,4 +28,14 @@ extension UserDefaults {
         }
     }
     
+    
+    var didRerunTutorial: Bool {
+        get {
+            return save.bool(forKey: "DidFirstARViewConfigRerun")
+        }
+        set {
+            save.set(newValue, forKey: "DidFirstARViewConfigRerun")
+        }
+    }
+    
 }

@@ -115,3 +115,7 @@ extension Double {
     var metersToMiles: Double { return self / 1609.34 }
     var metersToKilometers: Double { return self / 1000 }
 }
+
+extension Float {
+    var metersToFeet: Float { return self / 3.28084 }
+}
