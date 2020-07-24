@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		FA51865524C133AD009064F6 /* SettingsFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA51865424C133AD009064F6 /* SettingsFooterView.swift */; };
-		FA51865724C13A56009064F6 /* CustomTurbah.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA51865624C13A56009064F6 /* CustomTurbah.swift */; };
 		FA57BA6C24BFB314009FC13E /* Turbah.rcproject in Sources */ = {isa = PBXBuildFile; fileRef = FA57BA6B24BFB314009FC13E /* Turbah.rcproject */; };
 		FA7A250824BFA497003D8825 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7A250724BFA497003D8825 /* AppDelegate.swift */; };
 		FA7A250A24BFA497003D8825 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7A250924BFA497003D8825 /* ViewController.swift */; };
@@ -33,7 +32,6 @@
 
 /* Begin PBXFileReference section */
 		FA51865424C133AD009064F6 /* SettingsFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFooterView.swift; sourceTree = "<group>"; };
-		FA51865624C13A56009064F6 /* CustomTurbah.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTurbah.swift; sourceTree = "<group>"; };
 		FA57BA6B24BFB314009FC13E /* Turbah.rcproject */ = {isa = PBXFileReference; lastKnownFileType = file.rcproject; path = Turbah.rcproject; sourceTree = "<group>"; };
 		FA7A250424BFA497003D8825 /* Turbah.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Turbah.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA7A250724BFA497003D8825 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -114,7 +112,6 @@
 			children = (
 				FACE7EB824C176EB002FE5FC /* Location.swift */,
 				FAA121F924C69ADA009F12C2 /* ImageEntity.swift */,
-				FA51865624C13A56009064F6 /* CustomTurbah.swift */,
 				FAA121ED24C50C4A009F12C2 /* UserDefaults.swift */,
 				FAA121EF24C50C8E009F12C2 /* Settings */,
 				FAA1220124C7DFEB009F12C2 /* Views */,
@@ -234,7 +231,6 @@
 				FAA121F124C50CAC009F12C2 /* SegmentedCell.swift in Sources */,
 				FAA121FE24C7A4E6009F12C2 /* TickedSlider.swift in Sources */,
 				FACE7EC324C411FF002FE5FC /* LocationListCell.swift in Sources */,
-				FA51865724C13A56009064F6 /* CustomTurbah.swift in Sources */,
 				FACE7EC124C4006D002FE5FC /* CompassView.swift in Sources */,
 				FA7A250A24BFA497003D8825 /* ViewController.swift in Sources */,
 				FA7A250824BFA497003D8825 /* AppDelegate.swift in Sources */,

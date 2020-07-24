@@ -386,7 +386,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
     // MARK: - AR Coaching
     
     func addCoaching() {
-        didAddCoaching = true
         let coachingOverlay = ARCoachingOverlayView()
         coachingOverlay.delegate = self
         coachingOverlay.session = arView.session
@@ -399,6 +398,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
     }
     
     public func coachingOverlayViewWillActivate(_ coachingOverlayView: ARCoachingOverlayView) {
+        didAddCoaching = true
         UIView.animate(withDuration: 0.2) {
             self.compassView.alpha = 0
             self.settingsButton.alpha = 0
@@ -415,7 +415,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         }
         
         guard didSendFeedback, selectedLocation == .kabah else { return }
-        arView.scene.anchors.removeAll()
         placeTurbah()
     }
 }
@@ -426,7 +425,7 @@ fileprivate extension ARView {
     func run() {
         let config = ARWorldTrackingConfiguration()
         config.planeDetection = .horizontal
-        config.worldAlignment = save.trueNorth ? .gravityAndHeading : .gravity
+        config.worldAlignment = .gravityAndHeading //save.trueNorth ? .gravityAndHeading : .gravity
         session.run(config, options: [.removeExistingAnchors, .resetTracking])
     }
     

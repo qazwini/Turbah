@@ -21,6 +21,7 @@ extension UIView {
     
     func fillSuperview(padding: UIEdgeInsets = .zero) {
         translatesAutoresizingMaskIntoConstraints = false
+        
         if let superviewTopAnchor = superview?.topAnchor {
             topAnchor.constraint(equalTo: superviewTopAnchor, constant: padding.top).isActive = true
         }
@@ -40,6 +41,7 @@ extension UIView {
     
     func centerInSuperview(size: CGSize = .zero) {
         translatesAutoresizingMaskIntoConstraints = false
+        
         if let superviewCenterXAnchor = superview?.centerXAnchor {
             centerXAnchor.constraint(equalTo: superviewCenterXAnchor).isActive = true
         }
@@ -108,8 +110,7 @@ extension UIImage {
             let filter = CIFilter(name: "CIBlendWithAlphaMask", parameters: [kCIInputImageKey: inputImage, kCIInputBackgroundImageKey: backgroundImage, kCIInputMaskImageKey: inputMaskImage]),
             let filterOutput = filter.outputImage,
             let outputImage = CIContext().createCGImage(filterOutput, from: inputMaskImage.extent) else { return nil }
-        let finalOutputImage = UIImage(cgImage: outputImage)
-        return finalOutputImage
+        return UIImage(cgImage: outputImage)
     }
     
 }

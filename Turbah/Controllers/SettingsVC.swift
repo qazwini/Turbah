@@ -175,7 +175,7 @@ class SettingsVC: UITableViewController, MFMailComposeViewControllerDelegate {
             guard let url = URL(string: developerURL) else { return }
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         case .terms:
-            guard let url = URL(string: "http://alqazwini.org/turbah/privacyandterms.html") else { return }
+            guard let url = URL(string: "https://momodesu.com/turbah/termsprivacy.html") else { return }
             let safariView = SFSafariViewController(url: url)
             present(safariView, animated: true)
         case .share:
@@ -198,6 +198,10 @@ class SettingsVC: UITableViewController, MFMailComposeViewControllerDelegate {
         } else {
             save.trueNorth = sender.selectedSegmentIndex == 0
         }
+    }
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
     }
 
 }

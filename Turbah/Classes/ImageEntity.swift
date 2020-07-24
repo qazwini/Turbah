@@ -6,9 +6,9 @@
 //  Copyright © 2020 MMQ. All rights reserved.
 //
 
-import UIKit
-import RealityKit
-
+//import UIKit
+//import RealityKit
+//
 //class ImageEntity: Entity, HasModel, HasAnchoring {
 //    
 //    let location: Locations
