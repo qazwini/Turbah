@@ -256,7 +256,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
     var calibrateView: CalibrateView?
     
     func showCalibrateView() {
-        guard !save.didShowCalibration else { return }
+        //guard !save.didShowCalibration else { return }
         
         calibrateView = CalibrateView()
         calibrateView!.alpha = 0
@@ -264,10 +264,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         
         view.addSubview(calibrateView!)
         calibrateView!.centerInSuperview()
+        calibrateView!.widthAnchor.constraint(equalToConstant: 273).isActive = true
         
         UIView.animate(withDuration: 0.2, delay: 0.5, options: [], animations: {
             self.calibrateView?.alpha = 1
-        })
+        }) { _ in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+                self.removeCalibrateView()
+            }
+        }
     }
     
     @objc func removeCalibrateView() {
