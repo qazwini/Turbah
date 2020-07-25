@@ -94,6 +94,19 @@ extension UIView {
 }
 
 
+extension UIDevice {
+    var hasNotch: Bool {
+        return (UIApplication.shared.mainWindow?.safeAreaInsets.bottom ?? 0) > 0
+    }
+}
+
+extension UIApplication {
+    var mainWindow: UIWindow? {
+        return UIApplication.shared.windows.first { $0.isKeyWindow }
+    }
+}
+
+
 func hapticFeedback(style: UIImpactFeedbackGenerator.FeedbackStyle = .light) {
     UIImpactFeedbackGenerator(style: style).impactOccurred()
 }

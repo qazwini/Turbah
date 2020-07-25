@@ -39,6 +39,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         initManager()
     }
     
+    var buttonMargins: CGSize {
+        return UIDevice.current.hasNotch ? CGSize(width: 14, height: 0) : CGSize(width: 5, height: 5)
+    }
+    
     func setupUI() {
         view = arView
         
@@ -52,8 +56,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         locationButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(topButtonsClicked(_:))))
         view.addSubview(locationButton)
         NSLayoutConstraint.activate([
-            locationButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5),
-            locationButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5)
+            locationButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: buttonMargins.height),
+            locationButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: buttonMargins.width)
         ])
         
         settingsButton.image = UIImage(systemName: "gear", withConfiguration: UIImage.SymbolConfiguration(pointSize: 18, weight: .semibold))
@@ -61,8 +65,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         settingsButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(topButtonsClicked(_:))))
         view.addSubview(settingsButton)
         NSLayoutConstraint.activate([
-            settingsButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5),
-            settingsButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5)
+            settingsButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: buttonMargins.height),
+            settingsButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -buttonMargins.width)
         ])
         
         rightImage.image = UIImage(systemName: "chevron.compact.right", withConfiguration: UIImage.SymbolConfiguration(pointSize: 50, weight: .medium))
@@ -220,7 +224,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
             view.addSubview(locationsView!)
             NSLayoutConstraint.activate([
                 locationsView!.topAnchor.constraint(equalTo: locationButton.bottomAnchor, constant: 5),
-                locationsView!.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5)
+                locationsView!.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: buttonMargins.width)
             ])
             view.layoutIfNeeded()
             
@@ -267,14 +271,16 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
     }
     
     func requestLocationAuthorization() -> Bool {
-        locationManager.requestWhenInUseAuthorization()
+        guard CLLocationManager.locationServicesEnabled() else { showErrorAlert(type: .location); return false }
         
         switch CLLocationManager.authorizationStatus() {
         case .authorizedAlways, .authorizedWhenInUse: return true
         case .denied, .restricted:
             showErrorAlert(type: .location)
             return false
-        case .notDetermined: return requestLocationAuthorization()
+        case .notDetermined:
+            locationManager.requestWhenInUseAuthorization()
+            return true
         default: return false
         }
     }
@@ -306,6 +312,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        switch CLLocationManager.authorizationStatus() {
+        case .denied, .restricted: showErrorAlert(type: .location)
+        default: break
+        }
         removeErrorOverlay()
     }
     
