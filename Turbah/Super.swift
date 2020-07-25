@@ -17,6 +17,10 @@ var blurEffect: UIBlurEffect {
     return UIBlurEffect(style: .systemThinMaterial)
 }
 
+func hapticFeedback(style: UIImpactFeedbackGenerator.FeedbackStyle = .light) {
+    UIImpactFeedbackGenerator(style: style).impactOccurred()
+}
+
 extension UIView {
     
     func fillSuperview(padding: UIEdgeInsets = .zero) {
@@ -63,7 +67,9 @@ extension UIView {
 
 
 extension UITableViewCell {
+    
     static let cellID = "cellID"
+    
 }
 
 
@@ -95,20 +101,19 @@ extension UIView {
 
 
 extension UIDevice {
+    
     var hasNotch: Bool {
         return (UIApplication.shared.mainWindow?.safeAreaInsets.bottom ?? 0) > 0
     }
+    
 }
 
 extension UIApplication {
+    
     var mainWindow: UIWindow? {
         return UIApplication.shared.windows.first { $0.isKeyWindow }
     }
-}
-
-
-func hapticFeedback(style: UIImpactFeedbackGenerator.FeedbackStyle = .light) {
-    UIImpactFeedbackGenerator(style: style).impactOccurred()
+    
 }
 
 

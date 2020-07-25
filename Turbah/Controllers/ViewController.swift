@@ -29,6 +29,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
     
     var errorOverlay: ErrorOverlay?
     
+    var buttonMargins: CGSize {
+        return UIDevice.current.hasNotch ? CGSize(width: 14, height: 0) : CGSize(width: 5, height: 5)
+    }
+    
     override var prefersStatusBarHidden: Bool { return true }
     
     override func viewDidLoad() {
@@ -36,11 +40,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         guard AVCaptureDevice.authorizationStatus(for: .video) == .authorized || AVCaptureDevice.authorizationStatus(for: .video) == .notDetermined else { showErrorAlert(type: .camera); return }
         guard requestLocationAuthorization() else { return }
         setupUI()
+        showCalibrateView()
         initManager()
-    }
-    
-    var buttonMargins: CGSize {
-        return UIDevice.current.hasNotch ? CGSize(width: 14, height: 0) : CGSize(width: 5, height: 5)
     }
     
     func setupUI() {
@@ -55,19 +56,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         locationButton.tag = 0
         locationButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(topButtonsClicked(_:))))
         view.addSubview(locationButton)
-        NSLayoutConstraint.activate([
-            locationButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: buttonMargins.height),
-            locationButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: buttonMargins.width)
-        ])
+        locationButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: buttonMargins.height).isActive = true
+        locationButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: buttonMargins.width).isActive = true
         
         settingsButton.image = UIImage(systemName: "gear", withConfiguration: UIImage.SymbolConfiguration(pointSize: 18, weight: .semibold))
         settingsButton.tag = 1
         settingsButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(topButtonsClicked(_:))))
         view.addSubview(settingsButton)
-        NSLayoutConstraint.activate([
-            settingsButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: buttonMargins.height),
-            settingsButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -buttonMargins.width)
-        ])
+        settingsButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: buttonMargins.height).isActive = true
+        settingsButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -buttonMargins.width).isActive = true
         
         rightImage.image = UIImage(systemName: "chevron.compact.right", withConfiguration: UIImage.SymbolConfiguration(pointSize: 50, weight: .medium))
         leftImage.image = UIImage(systemName: "chevron.compact.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 50, weight: .medium))
@@ -180,7 +177,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
                     UIView.addKeyframe(withRelativeStartTime: 0.95, relativeDuration: 0.05) {
                         veBackground.alpha = 0
                     }
-                }, completion: { (completed) in
+                }, completion: { completed in
                     guard completed else { return }
                     veBackground.removeFromSuperview()
                     self.compassView.isUserInteractionEnabled = true
@@ -222,11 +219,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
             }
             locationsView!.alpha = 0
             view.addSubview(locationsView!)
-            NSLayoutConstraint.activate([
-                locationsView!.topAnchor.constraint(equalTo: locationButton.bottomAnchor, constant: 5),
-                locationsView!.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: buttonMargins.width)
-            ])
-            view.layoutIfNeeded()
+            locationsView!.topAnchor.constraint(equalTo: locationButton.bottomAnchor, constant: 5).isActive = true
+            locationsView!.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: buttonMargins.width).isActive = true
             
             UIView.animate(withDuration: 0.2) {
                 self.locationsView!.alpha = 1
@@ -251,7 +245,37 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
             self.locationsView = nil
             self.transparentView = nil
             
+            // FIXME: Remove this but make sure nothing is ruined
             self.arView.gestureRecognizers?.forEach { $0.cancelsTouchesInView = true }
+        }
+    }
+    
+    
+    // MARK: - First Time Compass Turotial
+    
+    var calibrateView: CalibrateView?
+    
+    func showCalibrateView() {
+        guard !save.didShowCalibration else { return }
+        
+        calibrateView = CalibrateView()
+        calibrateView!.alpha = 0
+        calibrateView!.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(removeCalibrateView)))
+        
+        view.addSubview(calibrateView!)
+        calibrateView!.centerInSuperview()
+        
+        UIView.animate(withDuration: 0.2, delay: 0.5, options: [], animations: {
+            self.calibrateView?.alpha = 1
+        })
+    }
+    
+    @objc func removeCalibrateView() {
+        UIView.animate(withDuration: 0.2, animations: {
+            self.calibrateView?.alpha = 0
+        }) { _ in
+            self.calibrateView?.removeFromSuperview()
+            self.calibrateView = nil
         }
     }
     

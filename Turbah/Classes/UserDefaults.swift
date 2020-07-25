@@ -38,4 +38,13 @@ extension UserDefaults {
         }
     }
     
+    var didShowCalibration: Bool {
+        get {
+            return save.bool(forKey: "DidShowCalibrationTutorial")
+        }
+        set {
+            save.set(newValue, forKey: "DidShowCalibrationTutorial")
+        }
+    }
+    
 }

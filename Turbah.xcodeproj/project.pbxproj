@@ -20,9 +20,10 @@
 		FAA121EE24C50C4A009F12C2 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA121ED24C50C4A009F12C2 /* UserDefaults.swift */; };
 		FAA121F124C50CAC009F12C2 /* SegmentedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA121F024C50CAC009F12C2 /* SegmentedCell.swift */; };
 		FAA121F324C52F2F009F12C2 /* ContactCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA121F224C52F2F009F12C2 /* ContactCell.swift */; };
-		FAA121FA24C69ADA009F12C2 /* ImageEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA121F924C69ADA009F12C2 /* ImageEntity.swift */; };
 		FAA121FC24C6A935009F12C2 /* DistanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA121FB24C6A935009F12C2 /* DistanceCell.swift */; };
 		FAA121FE24C7A4E6009F12C2 /* TickedSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA121FD24C7A4E6009F12C2 /* TickedSlider.swift */; };
+		FAA1220524CCD508009F12C2 /* CalibrateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA1220424CCD508009F12C2 /* CalibrateView.swift */; };
+		FAA1220724CCDD90009F12C2 /* Conversions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA1220624CCDD90009F12C2 /* Conversions.swift */; };
 		FACE7EB524C15494002FE5FC /* ErrorOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE7EB424C15494002FE5FC /* ErrorOverlay.swift */; };
 		FACE7EB724C173FE002FE5FC /* LocationsListMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE7EB624C173FE002FE5FC /* LocationsListMenu.swift */; };
 		FACE7EB924C176EB002FE5FC /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE7EB824C176EB002FE5FC /* Location.swift */; };
@@ -46,9 +47,10 @@
 		FAA121ED24C50C4A009F12C2 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		FAA121F024C50CAC009F12C2 /* SegmentedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedCell.swift; sourceTree = "<group>"; };
 		FAA121F224C52F2F009F12C2 /* ContactCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactCell.swift; sourceTree = "<group>"; };
-		FAA121F924C69ADA009F12C2 /* ImageEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEntity.swift; sourceTree = "<group>"; };
 		FAA121FB24C6A935009F12C2 /* DistanceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceCell.swift; sourceTree = "<group>"; };
 		FAA121FD24C7A4E6009F12C2 /* TickedSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickedSlider.swift; sourceTree = "<group>"; };
+		FAA1220424CCD508009F12C2 /* CalibrateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibrateView.swift; sourceTree = "<group>"; };
+		FAA1220624CCDD90009F12C2 /* Conversions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversions.swift; sourceTree = "<group>"; };
 		FACE7EB424C15494002FE5FC /* ErrorOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorOverlay.swift; sourceTree = "<group>"; };
 		FACE7EB624C173FE002FE5FC /* LocationsListMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsListMenu.swift; sourceTree = "<group>"; };
 		FACE7EB824C176EB002FE5FC /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
@@ -111,7 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				FACE7EB824C176EB002FE5FC /* Location.swift */,
-				FAA121F924C69ADA009F12C2 /* ImageEntity.swift */,
+				FAA1220624CCDD90009F12C2 /* Conversions.swift */,
 				FAA121ED24C50C4A009F12C2 /* UserDefaults.swift */,
 				FAA121EF24C50C8E009F12C2 /* Settings */,
 				FAA1220124C7DFEB009F12C2 /* Views */,
@@ -140,6 +142,7 @@
 				FACE7EB424C15494002FE5FC /* ErrorOverlay.swift */,
 				FACE7EB624C173FE002FE5FC /* LocationsListMenu.swift */,
 				FACE7EC224C411FF002FE5FC /* LocationListCell.swift */,
+				FAA1220424CCD508009F12C2 /* CalibrateView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -218,14 +221,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FAA121FA24C69ADA009F12C2 /* ImageEntity.swift in Sources */,
 				FA8EC36324BFD48D004FF5E2 /* Super.swift in Sources */,
 				FAA121F324C52F2F009F12C2 /* ContactCell.swift in Sources */,
 				FACE7EB524C15494002FE5FC /* ErrorOverlay.swift in Sources */,
 				FAA121FC24C6A935009F12C2 /* DistanceCell.swift in Sources */,
 				FA8EC36124BFD452004FF5E2 /* VisualEffectButton.swift in Sources */,
+				FAA1220724CCDD90009F12C2 /* Conversions.swift in Sources */,
 				FACE7EB924C176EB002FE5FC /* Location.swift in Sources */,
 				FACE7EB724C173FE002FE5FC /* LocationsListMenu.swift in Sources */,
+				FAA1220524CCD508009F12C2 /* CalibrateView.swift in Sources */,
 				FAA121EE24C50C4A009F12C2 /* UserDefaults.swift in Sources */,
 				FA57BA6C24BFB314009FC13E /* Turbah.rcproject in Sources */,
 				FAA121F124C50CAC009F12C2 /* SegmentedCell.swift in Sources */,
