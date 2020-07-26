@@ -11,7 +11,7 @@ import UIKit
 class TickedSlider: UISlider {
     
     var pathHeight: CGFloat = 2
-    var tickColor: UIColor = UIColor { ($0.userInterfaceStyle == .dark) ? UIColor(hexString: "3D3D42") : UIColor(hexString: "DDDDDD")  }//.separator//#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+    var tickColor: UIColor = UIColor { ($0.userInterfaceStyle == .dark) ? UIColor(hexString: "3D3D42") : UIColor(hexString: "DDDDDD")  }
     var tickWidth: CGFloat = 10
 
     var trackRect: CGRect {

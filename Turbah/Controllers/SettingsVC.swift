@@ -100,14 +100,17 @@ class SettingsVC: UITableViewController, MFMailComposeViewControllerDelegate {
         case .ourApps:
             let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.cellID, for: indexPath)
             cell.textLabel?.text = "Our apps"
+            cell.textLabel?.font = .systemFont(ofSize: UIFont.labelFontSize)
             return cell
         case .terms:
             let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.cellID, for: indexPath)
             cell.textLabel?.text = "Terms and Privacy Policy"
+            cell.textLabel?.font = .systemFont(ofSize: UIFont.labelFontSize)
             return cell
         case .share:
             let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.cellID, for: indexPath)
             cell.textLabel?.text = "Share"
+            cell.textLabel?.font = .systemFont(ofSize: UIFont.labelFontSize)
             return cell
         }
     }

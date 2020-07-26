@@ -44,6 +44,16 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         initManager()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if didAddCoaching { arView.run() }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        arView.pause()
+    }
+    
     func setupUI() {
         view = arView
         
@@ -246,7 +256,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
             self.transparentView = nil
             
             // FIXME: Remove this but make sure nothing is ruined
-            self.arView.gestureRecognizers?.forEach { $0.cancelsTouchesInView = true }
+            //self.arView.gestureRecognizers?.forEach { $0.cancelsTouchesInView = true }
         }
     }
     
@@ -256,7 +266,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
     var calibrateView: CalibrateView?
     
     func showCalibrateView() {
-        //guard !save.didShowCalibration else { return }
+        guard !save.didShowCalibration else { return }
+        save.didShowCalibration = true
         
         calibrateView = CalibrateView()
         calibrateView!.alpha = 0
@@ -269,7 +280,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         UIView.animate(withDuration: 0.2, delay: 0.5, options: [], animations: {
             self.calibrateView?.alpha = 1
         }) { _ in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
                 self.removeCalibrateView()
             }
         }
@@ -346,17 +357,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         default: break
         }
         removeErrorOverlay()
-    }
-    
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        arView.run()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        arView.pause()
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

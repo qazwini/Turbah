@@ -67,9 +67,7 @@ extension UIView {
 
 
 extension UITableViewCell {
-    
     static let cellID = "cellID"
-    
 }
 
 
