@@ -6,20 +6,38 @@
   Copyright © 2020 MMQ. All rights reserved.
 */
 
-"Ka'ba" = "Ka'ba";
-"Masjid Al-Nabawi" = "Masjid Al-Nabawi";
-"Masjid Al-Aqsa" = "Masjid Al-Aqsa";
-"Baqi'" = "Baqi'";
-"Imam Ali Shrine" = "Imam Ali Shrine";
-"Imam Hussain Shrine" = "Imam Hussain Shrine";
-"Imam Ridha Shrine" = "Imam Ridha Shrine";
-"Askariain Shrine" = "Askariain Shrine";
-"Sayedah Ma'suma Shrine" = "Sayedah Ma'suma Shrine";
-"Sayedah Zainab Shrine" = "Sayedah Zainab Shrine";
+"Kaba" = "Ka'ba";
+"MasjidAlNabawi" = "Masjid Al-Nabawi";
+"MasjidAlAqsa" = "Masjid Al-Aqsa";
+"Baqi" = "Baqi'";
+"ImamAliShrine" = "Imam Ali Shrine";
+"ImamHussainShrine" = "Imam Hussain Shrine";
+"ImamRidhaShrine" = "Imam Ridha Shrine";
+"AskariainShrine" = "Askariain Shrine";
+"SayedahMasumaShrine" = "Sayedah Ma'suma Shrine";
+"SayedahZainabShrine" = "Sayedah Zainab Shrine";
 
+
+"Settings" = "Settings";
+"Contact" = "Contact";
 "TurbahDistance" = "Turbah distance";
 "TrueNorth" = "True North";
 "MagneticNorth" = "Magnetic North";
+"OurApps" = "Our apps";
+"TermsPrivacy" = "Terms and Privacy Policy";
+"Share" = "Share";
+"EmailTitle" = "Turbah AR Qibla";
+"UnableSendTitle" = "Unable to send message";
+"UnableSendMessage" = "Unable to send message. Please check your internet connection and try again.";
 
 "Settings" = "Settings";
 "Retry" = "Retry";
+
+"FaceQiblaMessage" = "Please face the Qibla then tap";
+
+"RerunTitle" = "Tap to rerun";
+"RerunMessage" = "Tapping this button will calibrate then place the turbah.";
+"Ok" = "Ok";
+
+"LocationDisabled" = "Location Services disabled";
+"CameraDisabled" = "Camera permissions disabled";

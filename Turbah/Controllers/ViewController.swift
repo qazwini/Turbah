@@ -59,7 +59,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         compassView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         compassView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50).isActive = true
         
-        locationButton.title = "Ka'ba"
+        locationButton.title = "Kaba".localized()
         locationButton.tag = 0
         locationButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(topButtonsClicked(_:))))
         view.addSubview(locationButton)
@@ -125,8 +125,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         hapticFeedback()
         guard save.didRerunTutorial else {
             save.didRerunTutorial = true
-            let alert = UIAlertController(title: "Tap to rerun", message: "Tapping this button will calibrate then place the turbah.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            let alert = UIAlertController(title: "RerunTitle".localized(), message: "RerunMessage".localized(), preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok".localized(), style: .default, handler: nil))
             present(alert, animated: true, completion: nil)
             return
         }
@@ -140,7 +140,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
             view.addSubview(veBackground)
             veBackground.topAnchor.constraint(equalTo: view.topAnchor, constant: 71).isActive = true
             veBackground.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-            veBackground.title = "Please face the Qibla then tap"
+            veBackground.title = "FaceQiblaMessage".localized()
 
             UIView.animateKeyframes(withDuration: 3, delay: 0, options: .calculationModeCubic, animations: {
                 UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1/15) {
@@ -159,45 +159,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         }
         if !didAddCoaching { addCoaching() }
         arView.run()
-    }
-    
-    @objc func addRemovePressed() {
-        hapticFeedback()
-        if !turbahAdded {
-            // Insert
-            guard didSendFeedback else {
-                guard selectedLocation == .kabah else { return }
-                
-                compassView.isUserInteractionEnabled = false
-
-                let veBackground = VisualEffectText(effect: blurEffect)
-                veBackground.alpha = 0
-                view.addSubview(veBackground)
-                veBackground.topAnchor.constraint(equalTo: view.topAnchor, constant: 71).isActive = true
-                veBackground.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-                veBackground.title = "Please face the qibla then place"
-
-                UIView.animateKeyframes(withDuration: 4, delay: 0, options: .calculationModeCubic, animations: {
-                    UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.05) {
-                        veBackground.alpha = 1
-                    }
-                    UIView.addKeyframe(withRelativeStartTime: 0.95, relativeDuration: 0.05) {
-                        veBackground.alpha = 0
-                    }
-                }, completion: { completed in
-                    guard completed else { return }
-                    veBackground.removeFromSuperview()
-                    self.compassView.isUserInteractionEnabled = true
-                })
-
-                return
-            }
-            placeTurbah()
-        } else {
-            // Remove
-            arView.scene.anchors.removeAll()
-            turbahAdded = false
-        }
     }
     
     @objc func topButtonsClicked(_ sender: UITapGestureRecognizer) {
@@ -327,7 +288,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
     func showErrorAlert(type: errorType) {
         errorOverlay = ErrorOverlay()
         errorOverlay!.alpha = 0
-        errorOverlay!.message = (type == .location) ? "Location Services disabled" : "Camera permissions disabled"
+        errorOverlay!.message = (type == .location) ? "LocationDisabled".localized() : "CameraDisabled".localized()
         errorOverlay!.retryButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(removeErrorOverlay)))
         view.addSubview(errorOverlay!)
         errorOverlay!.fillSuperview()

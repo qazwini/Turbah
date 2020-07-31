@@ -58,7 +58,7 @@ class SettingsVC: UITableViewController, MFMailComposeViewControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Settings"
+        title = "Settings".localized()
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(donePressed))
         
         tableView = UITableView(frame: tableView.frame, style: .insetGrouped)
@@ -99,17 +99,17 @@ class SettingsVC: UITableViewController, MFMailComposeViewControllerDelegate {
             return cell
         case .ourApps:
             let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.cellID, for: indexPath)
-            cell.textLabel?.text = "Our apps"
+            cell.textLabel?.text = "OurApps".localized()
             cell.textLabel?.font = .systemFont(ofSize: UIFont.labelFontSize)
             return cell
         case .terms:
             let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.cellID, for: indexPath)
-            cell.textLabel?.text = "Terms and Privacy Policy"
+            cell.textLabel?.text = "TermsPrivacy".localized()
             cell.textLabel?.font = .systemFont(ofSize: UIFont.labelFontSize)
             return cell
         case .share:
             let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.cellID, for: indexPath)
-            cell.textLabel?.text = "Share"
+            cell.textLabel?.text = "Share".localized()
             cell.textLabel?.font = .systemFont(ofSize: UIFont.labelFontSize)
             return cell
         }
@@ -126,7 +126,7 @@ class SettingsVC: UITableViewController, MFMailComposeViewControllerDelegate {
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch sectionArray[section].name {
         case .general, .bottom: return nil
-        case .contact: return "Contact"
+        case .contact: return "Contact".localized()
         }
     }
     
@@ -149,7 +149,7 @@ class SettingsVC: UITableViewController, MFMailComposeViewControllerDelegate {
         case .contact:
             if indexPath.row == 0 {
                 if !MFMailComposeViewController.canSendMail() {
-                    let alert = UIAlertController(title: "Unable to send message", message: "Unable to send message. Please check your internet connection and try again.", preferredStyle: .alert)
+                    let alert = UIAlertController(title: "UnableSendTitle".localized(), message: "UnableSendMessage".localized(), preferredStyle: .alert)
                     let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
                     alert.addAction(action)
                     present(alert, animated: true, completion: nil)
@@ -157,7 +157,7 @@ class SettingsVC: UITableViewController, MFMailComposeViewControllerDelegate {
                     let composeVC = MFMailComposeViewController()
                     composeVC.mailComposeDelegate = self
                     composeVC.setToRecipients(["mmqazwini@yahoo.com"])
-                    composeVC.setSubject("Turbah AR Qibla")
+                    composeVC.setSubject("EmailTitle".localized())
                     composeVC.setMessageBody("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSent From Turbah", isHTML: false)
                     present(composeVC, animated: true, completion: nil)
                 }

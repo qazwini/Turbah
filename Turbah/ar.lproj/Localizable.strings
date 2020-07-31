@@ -6,20 +6,36 @@
   Copyright © 2020 MMQ. All rights reserved.
 */
 
-"Ka'ba" = "";
-"Masjid Al-Nabawi" = "";
-"Masjid Al-Aqsa" = "";
-"Baqi'" = "";
-"Imam Ali Shrine" = "";
-"Imam Hussain Shrine" = "";
-"Imam Ridha Shrine" = "";
-"Askariain Shrine" = "";
-"Sayedah Ma'suma Shrine" = "";
-"Sayedah Zainab Shrine" = "";
+"Kaba" = "الكعبة";
+"MasjidAlNabawi" = "مسجد النبوي";
+"MasjidAlAqsa" = "مسجد الأقصى";
+"Baqi" = "البقيع";
+"ImamAliShrine" = "حضرة الإمام علي";
+"ImamHussainShrine" = "حضرة الإمام الحسين";
+"ImamRidhaShrine" = "حضرة الإمام الرضا";
+"AskariainShrine" = "حضرة الإمامين العسكريين";
+"SayedahMasumaShrine" = "حضرة السيدة معصومة";
+"SayedahZainabShrine" = "حضرة السيدة زينب";
 
-"TurbahDistance" = "";
-"TrueNorth" = "";
-"MagneticNorth" = "";
+"Contact" = "التواصل";
+"TurbahDistance" = "مسافة التربة";
+"TrueNorth" = "الشمال الحقيقي";
+"MagneticNorth" = "الشمال المغنطيسي";
+"OurApps" = "تطبيقاتنا";
+"TermsPrivacy" = "الشروط وسياسة الخصوصية";
+"Share" = "المشاركة";
+"EmailTitle" = "تربة AR قبلة";
+"UnableSendTitle" = "لا يمكن إرسال الرسالة";
+"UnableSendMessage" = "لا يمكن إرسال الرسالة. الرجاء التأكد من اتصال الإنترنت، ثم حاول مرة اخرى.";
 
-"Settings" = "";
-"Retry" = "";
+"Settings" = "الإعدادات";
+"Retry" = "إعادة المحاولة";
+
+"FaceQiblaMessage" = "يرجى مواجهة القبلة ثم اضغط";
+
+"RerunTitle" = "";
+"RerunMessage" = "";
+"Ok" = "حسنا";
+
+"LocationDisabled" = "";
+"CameraDisabled" = "";
