@@ -28,10 +28,10 @@ class ErrorOverlay: UIView {
         titleLabel.font = .systemFont(ofSize: 18, weight: .semibold)
         titleLabel.textColor = .white
         
-        actionButton.title = "Settings"
+        actionButton.title = "Settings".localized()
         actionButton.titleLabel.textAlignment = .center
         actionButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openSettings)))
-        retryButton.title = "Retry"
+        retryButton.title = "Retry".localized()
         retryButton.titleLabel.textAlignment = .center
         
         horizontalStack.axis = .horizontal

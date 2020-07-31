@@ -27,7 +27,7 @@ class CalibrateView: UIVisualEffectView {
         instructionLabel.textAlignment = .center
         instructionLabel.numberOfLines = 2
         instructionLabel.font = .systemFont(ofSize: 16, weight: .semibold)
-        instructionLabel.text = "Calibrate compass before use for better accuracy"
+        instructionLabel.text = "Calibrate compass before use for better accuracy".localized()
         
         calibrateImageView.contentMode = .scaleAspectFit
         calibrateImageView.image = #imageLiteral(resourceName: "calibrate").withRenderingMode(.alwaysTemplate)

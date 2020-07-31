@@ -18,6 +18,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
     var compassView = CompassView()
     var locationButton = VisualEffectButton()
     var settingsButton = VisualEffectButton()
+    var buttonMargins: CGSize { return UIDevice.current.hasNotch ? CGSize(width: 14, height: 0) : CGSize(width: 5, height: 5) }
     
     var locationsView: LocationsListMenu?
     var transparentView: UIView?
@@ -28,10 +29,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
     var turbahAdded = false
     
     var errorOverlay: ErrorOverlay?
-    
-    var buttonMargins: CGSize {
-        return UIDevice.current.hasNotch ? CGSize(width: 14, height: 0) : CGSize(width: 5, height: 5)
-    }
     
     override var prefersStatusBarHidden: Bool { return true }
     
@@ -413,7 +410,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         } else {
             if !didSendFeedback {
                 hapticFeedback(style: .medium)
-                if !didAddCoaching { addCoaching() }
+                if !didAddCoaching { addCoaching(); didAddCoaching = true }
                 didSendFeedback = true
             }
             leftImage.alpha = 0
@@ -465,7 +462,7 @@ fileprivate extension ARView {
         let config = ARWorldTrackingConfiguration()
         config.planeDetection = .horizontal
         config.worldAlignment = .gravityAndHeading //save.trueNorth ? .gravityAndHeading : .gravity
-        session.run(config, options: [.removeExistingAnchors, .resetTracking])
+        session.run(config, options: [.removeExistingAnchors, .resetTracking]) //.resetSceneReconstruction
     }
     
     func pause() {

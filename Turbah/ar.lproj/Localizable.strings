@@ -1,0 +1,25 @@
+/* 
+  Localizable.strings
+  Turbah
+
+  Created by MMQ on 7/30/20.
+  Copyright © 2020 MMQ. All rights reserved.
+*/
+
+"Ka'ba" = "";
+"Masjid Al-Nabawi" = "";
+"Masjid Al-Aqsa" = "";
+"Baqi'" = "";
+"Imam Ali Shrine" = "";
+"Imam Hussain Shrine" = "";
+"Imam Ridha Shrine" = "";
+"Askariain Shrine" = "";
+"Sayedah Ma'suma Shrine" = "";
+"Sayedah Zainab Shrine" = "";
+
+"TurbahDistance" = "";
+"TrueNorth" = "";
+"MagneticNorth" = "";
+
+"Settings" = "";
+"Retry" = "";

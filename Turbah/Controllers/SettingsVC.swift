@@ -189,15 +189,7 @@ class SettingsVC: UITableViewController, MFMailComposeViewControllerDelegate {
     
     
     @objc private func northTypeChanged(_ sender: UISegmentedControl) {
-        if sender.selectedSegmentIndex == 1 {
-            let alert = UIAlertController(title: "Inaccurate Results", message: "Using Magnetic North may sometimes lead to innacurate results.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in sender.selectedSegmentIndex = 0 }))
-            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in save.trueNorth = sender.selectedSegmentIndex == 0 }))
-            present(alert, animated: true)
-            return
-        } else {
-            save.trueNorth = sender.selectedSegmentIndex == 0
-        }
+        save.trueNorth = sender.selectedSegmentIndex == 0
     }
     
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {

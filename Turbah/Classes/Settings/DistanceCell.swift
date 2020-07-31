@@ -22,7 +22,7 @@ class DistanceCell: UITableViewCell {
     private func setupUI() {
         let reverseColor = UIColor { return $0.userInterfaceStyle == .dark ? .white : .black }
         
-        titleLabel.text = "Turbah distance"
+        titleLabel.text = "TurbahDistance".localized()
         
         distanceSlider.minimumValue = 1
         distanceSlider.maximumValue = 5
