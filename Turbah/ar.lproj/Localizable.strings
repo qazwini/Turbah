@@ -24,18 +24,18 @@
 "OurApps" = "تطبيقاتنا";
 "TermsPrivacy" = "الشروط وسياسة الخصوصية";
 "Share" = "المشاركة";
-"EmailTitle" = "تربة AR قبلة";
+"EmailTitle" = "تربة";
 "UnableSendTitle" = "لا يمكن إرسال الرسالة";
 "UnableSendMessage" = "لا يمكن إرسال الرسالة. الرجاء التأكد من اتصال الإنترنت، ثم حاول مرة اخرى.";
 
 "Settings" = "الإعدادات";
 "Retry" = "إعادة المحاولة";
 
-"FaceQiblaMessage" = "يرجى مواجهة القبلة ثم اضغط";
+"FaceQiblaMessage" = "رجاء واجه القبلة ثم اضغط";
 
-"RerunTitle" = "";
-"RerunMessage" = "";
+"RerunTitle" = "اضغط لإعادة التشغيل";
+"RerunMessage" = "سيؤدي النقر على هذا الزر إلى المعايرة ثم وضع التربة";
 "Ok" = "حسنا";
 
-"LocationDisabled" = "";
-"CameraDisabled" = "";
+"LocationDisabled" = "خدمات الموقع معطلة";
+"CameraDisabled" = "صلاحيات الكامرة معطلة";

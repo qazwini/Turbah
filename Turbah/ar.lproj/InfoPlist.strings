@@ -7,5 +7,5 @@
 */
 
 "CFBundleDisplayName" = "تربة";
-"NSCameraUsageDescription" = "";
-"NSLocationWhenInUseUsageDescription" = "";
+"NSCameraUsageDescription" = "منح الصلاححية لتشغيل الواقع المعزز";
+"NSLocationWhenInUseUsageDescription" = "منح الصلاححية لتشغيل البوصلة";

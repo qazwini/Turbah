@@ -39,11 +39,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         setupUI()
         showCalibrateView()
         initManager()
+        addCoaching()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if didAddCoaching { arView.run() }
+        if didRun { arView.run() }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -97,16 +98,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         
         let decreaseValue = 6 - save.distance
         
-        anchor.position.z = -1 * cos(Float(bearingOfKabah)) / decreaseValue + cameraAngles.z
-        anchor.position.x = sin(Float(bearingOfKabah)) / decreaseValue + cameraAngles.x
-        // Is Y adjustment needed?
-        //anchor.position.y += cameraAngles.y
+        anchor.position.z = -1 * cos(Float(bearingOfKabah)) / decreaseValue
+        anchor.position.x = sin(Float(bearingOfKabah)) / decreaseValue
+        anchor.position.y = 0
         print("after", anchor.position)
         
-        let x = sin(Float(bearingOfKabah)) / decreaseValue + cameraAngles.z
-        let z = -1 * cos(Float(bearingOfKabah)) / decreaseValue + cameraAngles.x
-        
-        print("angle", atan(x/z) * 180 / .pi)
+        print("angle", atan(anchor.position.x/anchor.position.z) * 180 / .pi)
         
         let anchorAngles = anchor.transform.matrix.columns.3
         
@@ -157,7 +154,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
 
             return
         }
-        if !didAddCoaching { addCoaching() }
+        if !didRun { arView.run() }
         arView.run()
     }
     
@@ -343,7 +340,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
     }
     
     var didSendFeedback = false
-    var didAddCoaching = false
+    var didRun = false
     
     func locationManager(_ manager: CLLocationManager, didUpdateHeading heading: CLHeading) {
         let chosenHeading = save.trueNorth ? heading.trueHeading : heading.magneticHeading
@@ -371,7 +368,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         } else {
             if !didSendFeedback {
                 hapticFeedback(style: .medium)
-                if !didAddCoaching { addCoaching(); didAddCoaching = true }
+                if !didRun { arView.run(); didRun = true }
                 didSendFeedback = true
             }
             leftImage.alpha = 0
@@ -390,12 +387,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         
         view.addSubview(coachingOverlay)
         coachingOverlay.fillSuperview()
-        
-        arView.run()
     }
     
     public func coachingOverlayViewWillActivate(_ coachingOverlayView: ARCoachingOverlayView) {
-        didAddCoaching = true
+        didRun = true
         UIView.animate(withDuration: 0.2) {
             self.compassView.alpha = 0
             self.settingsButton.alpha = 0
@@ -411,7 +406,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
             self.locationButton.alpha = 1
         }
         
-        guard didSendFeedback, selectedLocation == .kabah else { return }
+        //guard didSendFeedback, selectedLocation == .kabah else { return }
         placeTurbah()
     }
 }

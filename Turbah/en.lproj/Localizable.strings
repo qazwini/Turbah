@@ -17,8 +17,6 @@
 "SayedahMasumaShrine" = "Sayedah Ma'suma Shrine";
 "SayedahZainabShrine" = "Sayedah Zainab Shrine";
 
-
-"Settings" = "Settings";
 "Contact" = "Contact";
 "TurbahDistance" = "Turbah distance";
 "TrueNorth" = "True North";
@@ -26,7 +24,7 @@
 "OurApps" = "Our apps";
 "TermsPrivacy" = "Terms and Privacy Policy";
 "Share" = "Share";
-"EmailTitle" = "Turbah AR Qibla";
+"EmailTitle" = "Turbah";
 "UnableSendTitle" = "Unable to send message";
 "UnableSendMessage" = "Unable to send message. Please check your internet connection and try again.";
 
