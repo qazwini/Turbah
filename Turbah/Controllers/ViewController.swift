@@ -11,6 +11,8 @@ import RealityKit
 import ARKit
 import CoreLocation
 
+var disco = UIDevice.current
+
 class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOverlayViewDelegate {
     
     var arView = ARView()
