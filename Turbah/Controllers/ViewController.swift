@@ -11,8 +11,6 @@ import RealityKit
 import ARKit
 import CoreLocation
 
-var disco = UIDevice.current
-
 class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOverlayViewDelegate {
     
     var arView = ARView()
@@ -36,9 +34,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupUI()
         guard AVCaptureDevice.authorizationStatus(for: .video) == .authorized || AVCaptureDevice.authorizationStatus(for: .video) == .notDetermined else { showErrorAlert(type: .camera); return }
         guard requestLocationAuthorization() else { return }
-        setupUI()
         showCalibrateView()
         initManager()
         addCoaching()
@@ -234,10 +232,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         calibrateView!.centerInSuperview()
         calibrateView!.widthAnchor.constraint(equalToConstant: 273).isActive = true
         
-        UIView.animate(withDuration: 0.2, delay: 0.5, options: [], animations: {
+        UIView.animate(withDuration: 0.2, delay: 5, options: [], animations: {
             self.calibrateView?.alpha = 1
         }) { _ in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
                 self.removeCalibrateView()
             }
         }
@@ -265,6 +263,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         locationManager.desiredAccuracy = kCLLocationAccuracyBest//NearestTenMeters
         locationManager.startUpdatingLocation()
         locationManager.startUpdatingHeading()
+    }
+    
+    func requestCameraAuthorization() -> Bool {
+        AVCaptureDevice.requestAccess(for: AVMediaType.video) { authorized in
+            if !authorized {
+                self.showErrorAlert(type: .camera)
+            }
+        }
+        return AVCaptureDevice.authorizationStatus(for: .video) == .authorized
     }
     
     func requestLocationAuthorization() -> Bool {
@@ -408,7 +415,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
             self.locationButton.alpha = 1
         }
         
-        //guard didSendFeedback, selectedLocation == .kabah else { return }
+        guard didSendFeedback, selectedLocation == .kabah else { return }
         placeTurbah()
     }
 }

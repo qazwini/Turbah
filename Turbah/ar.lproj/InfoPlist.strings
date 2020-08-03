@@ -8,4 +8,4 @@
 
 "CFBundleDisplayName" = "تربة";
 "NSCameraUsageDescription" = "منح الصلاححية لتشغيل الواقع المعزز";
-"NSLocationWhenInUseUsageDescription" = "منح الصلاححية لتشغيل البوصلة";
+"NSLocationWhenInUseUsageDescription" = "سيتم استخدام موقعك لتحديد اتجاه الكعبة";

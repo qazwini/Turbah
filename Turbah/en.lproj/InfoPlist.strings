@@ -8,4 +8,4 @@
 
 "CFBundleDisplayName" = "Turbah";
 "NSCameraUsageDescription" = "Grant access for AR to work.";
-"NSLocationWhenInUseUsageDescription" = "Grant access for compass to work.";
+"NSLocationWhenInUseUsageDescription" = "Your location will be used to determine the direction of the Ka’ba.";

@@ -52,7 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func setupDefaults() {
         save.register(defaults: [
             "TurbahDistance" : 3,
-            "TrueNorth" : true
+            "NorthType" : true
         ])
     }
 
