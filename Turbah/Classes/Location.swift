@@ -45,16 +45,16 @@ enum Locations {
     
     var name: String {
         switch self {
-        case .kabah:     return "Kaba".localized()
-        case .prophet:   return "MasjidAlNabawi".localized()
-        case .aqsa:      return "MasjidAlAqsa".localized()
-        case .baqi:      return "Baqi".localized()
-        case .ali:       return "ImamAliShrine".localized()
-        case .hussain:   return "ImamHussainShrine".localized()
-        case .reza:      return "ImamRidhaShrine".localized()
-        case .askariain: return "AskariainShrine".localized()
-        case .masuma:    return "SayedahMasumaShrine".localized()
-        case .zainab:    return "SayedahZainabShrine".localized()
+        case .kabah:     return "Kaba".localized
+        case .prophet:   return "MasjidAlNabawi".localized
+        case .aqsa:      return "MasjidAlAqsa".localized
+        case .baqi:      return "Baqi".localized
+        case .ali:       return "ImamAliShrine".localized
+        case .hussain:   return "ImamHussainShrine".localized
+        case .reza:      return "ImamRidhaShrine".localized
+        case .askariain: return "AskariainShrine".localized
+        case .masuma:    return "SayedahMasumaShrine".localized
+        case .zainab:    return "SayedahZainabShrine".localized
         }
     }
     

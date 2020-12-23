@@ -13,6 +13,13 @@
 		FA7A250A24BFA497003D8825 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7A250924BFA497003D8825 /* ViewController.swift */; };
 		FA7A251124BFA498003D8825 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA7A251024BFA498003D8825 /* Assets.xcassets */; };
 		FA7A251424BFA498003D8825 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA7A251224BFA498003D8825 /* LaunchScreen.storyboard */; };
+		FA7BA4E72594077500E5C856 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7BA4E62594077500E5C856 /* UIView+Extension.swift */; };
+		FA7BA4EB259407E300E5C856 /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7BA4EA259407E300E5C856 /* UIDevice+Extension.swift */; };
+		FA7BA4EE259407EB00E5C856 /* UIApplication+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7BA4ED259407EB00E5C856 /* UIApplication+Extension.swift */; };
+		FA7BA4F1259407F600E5C856 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7BA4F0259407F600E5C856 /* UIColor+Extension.swift */; };
+		FA7BA4F42594082F00E5C856 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7BA4F32594082F00E5C856 /* String+Extension.swift */; };
+		FA7BA4F82594085500E5C856 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7BA4F72594085500E5C856 /* UIImage+Extension.swift */; };
+		FA7BA4FB259408A400E5C856 /* CALayer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7BA4FA259408A400E5C856 /* CALayer+Extension.swift */; };
 		FA8EC36124BFD452004FF5E2 /* VisualEffectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8EC36024BFD452004FF5E2 /* VisualEffectButton.swift */; };
 		FA8EC36324BFD48D004FF5E2 /* Super.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8EC36224BFD48D004FF5E2 /* Super.swift */; };
 		FA8EC36524C01C3B004FF5E2 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8EC36424C01C3B004FF5E2 /* SettingsVC.swift */; };
@@ -41,6 +48,13 @@
 		FA7A250924BFA497003D8825 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		FA7A251024BFA498003D8825 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FA7A251324BFA498003D8825 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		FA7BA4E62594077500E5C856 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		FA7BA4EA259407E300E5C856 /* UIDevice+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extension.swift"; sourceTree = "<group>"; };
+		FA7BA4ED259407EB00E5C856 /* UIApplication+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extension.swift"; sourceTree = "<group>"; };
+		FA7BA4F0259407F600E5C856 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		FA7BA4F32594082F00E5C856 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		FA7BA4F72594085500E5C856 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
+		FA7BA4FA259408A400E5C856 /* CALayer+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+Extension.swift"; sourceTree = "<group>"; };
 		FA8EC36024BFD452004FF5E2 /* VisualEffectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectButton.swift; sourceTree = "<group>"; };
 		FA8EC36224BFD48D004FF5E2 /* Super.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Super.swift; sourceTree = "<group>"; };
 		FA8EC36424C01C3B004FF5E2 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
@@ -100,12 +114,27 @@
 				FABD9FB624D3B1FD00CC6EDA /* Localizable.strings */,
 				FA8EC36724C01C7F004FF5E2 /* Controllers */,
 				FA8EC36824C01C87004FF5E2 /* Classes */,
+				FA7BA4E52594075C00E5C856 /* Extensions */,
 				FA57BA6B24BFB314009FC13E /* Turbah.rcproject */,
 				FABD9FBA24D3B29F00CC6EDA /* Info.plist */,
 				FABD9FBF24D3B39600CC6EDA /* InfoPlist.strings */,
 				FA7A251024BFA498003D8825 /* Assets.xcassets */,
 			);
 			path = Turbah;
+			sourceTree = "<group>";
+		};
+		FA7BA4E52594075C00E5C856 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				FA7BA4F32594082F00E5C856 /* String+Extension.swift */,
+				FA7BA4F0259407F600E5C856 /* UIColor+Extension.swift */,
+				FA7BA4E62594077500E5C856 /* UIView+Extension.swift */,
+				FA7BA4F72594085500E5C856 /* UIImage+Extension.swift */,
+				FA7BA4FA259408A400E5C856 /* CALayer+Extension.swift */,
+				FA7BA4EA259407E300E5C856 /* UIDevice+Extension.swift */,
+				FA7BA4ED259407EB00E5C856 /* UIApplication+Extension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		FA8EC36724C01C7F004FF5E2 /* Controllers */ = {
@@ -234,19 +263,26 @@
 			files = (
 				FA8EC36324BFD48D004FF5E2 /* Super.swift in Sources */,
 				FAA121F324C52F2F009F12C2 /* ContactCell.swift in Sources */,
+				FA7BA4FB259408A400E5C856 /* CALayer+Extension.swift in Sources */,
 				FACE7EB524C15494002FE5FC /* ErrorOverlay.swift in Sources */,
+				FA7BA4EB259407E300E5C856 /* UIDevice+Extension.swift in Sources */,
 				FAA121FC24C6A935009F12C2 /* DistanceCell.swift in Sources */,
+				FA7BA4EE259407EB00E5C856 /* UIApplication+Extension.swift in Sources */,
 				FA8EC36124BFD452004FF5E2 /* VisualEffectButton.swift in Sources */,
 				FAA1220724CCDD90009F12C2 /* Conversions.swift in Sources */,
+				FA7BA4F42594082F00E5C856 /* String+Extension.swift in Sources */,
 				FACE7EB924C176EB002FE5FC /* Location.swift in Sources */,
 				FACE7EB724C173FE002FE5FC /* LocationsListMenu.swift in Sources */,
 				FAA1220524CCD508009F12C2 /* CalibrateView.swift in Sources */,
 				FAA121EE24C50C4A009F12C2 /* UserDefaults.swift in Sources */,
+				FA7BA4F82594085500E5C856 /* UIImage+Extension.swift in Sources */,
 				FA57BA6C24BFB314009FC13E /* Turbah.rcproject in Sources */,
 				FAA121F124C50CAC009F12C2 /* SegmentedCell.swift in Sources */,
 				FAA121FE24C7A4E6009F12C2 /* TickedSlider.swift in Sources */,
+				FA7BA4F1259407F600E5C856 /* UIColor+Extension.swift in Sources */,
 				FACE7EC324C411FF002FE5FC /* LocationListCell.swift in Sources */,
 				FACE7EC124C4006D002FE5FC /* CompassView.swift in Sources */,
+				FA7BA4E72594077500E5C856 /* UIView+Extension.swift in Sources */,
 				FA7A250A24BFA497003D8825 /* ViewController.swift in Sources */,
 				FA7A250824BFA497003D8825 /* AppDelegate.swift in Sources */,
 				FA8EC36A24C031C7004FF5E2 /* VisualEffectText.swift in Sources */,

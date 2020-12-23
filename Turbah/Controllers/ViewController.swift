@@ -11,11 +11,14 @@ import RealityKit
 import ARKit
 import CoreLocation
 
+typealias MotherFuckingArray = Array
+
 class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOverlayViewDelegate {
     
     var arView = ARView()
     
     var compassView = CompassView()
+    
     var locationButton = VisualEffectButton()
     var settingsButton = VisualEffectButton()
     var buttonMargins: CGSize { return UIDevice.current.hasNotch ? CGSize(width: 14, height: 0) : CGSize(width: 5, height: 5) }
@@ -25,8 +28,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
     
     var rightImage = UIImageView()
     var leftImage = UIImageView()
-    
-    var turbahAdded = false
     
     var errorOverlay: ErrorOverlay?
     
@@ -44,7 +45,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if didRun { arView.run() }
+        didRun = false
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -60,7 +61,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         compassView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         compassView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50).isActive = true
         
-        locationButton.title = "Kaba".localized()
+        locationButton.title = "Kaba".localized
         locationButton.tag = 0
         locationButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(topButtonsClicked(_:))))
         view.addSubview(locationButton)
@@ -87,10 +88,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         leftImage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
     }
     
-    let anchor = AnchorEntity(plane: .horizontal)
-    
     func placeTurbah() {
         guard let turbah = try! Turbah.loadScene().turbah else { print("error"); return }
+        
+        let anchor = AnchorEntity(plane: .horizontal)
         anchor.addChild(turbah)
         arView.scene.addAnchor(anchor)
         
@@ -114,16 +115,24 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         distance: \(length(cameraAngles - anchorAngles) / 3.28084) feet
         
         """)
+    }
+    
+    func placeImage() {
+        guard let currentFrame = arView.session.currentFrame else { return }
+        var translation = matrix_identity_float4x4
+        translation.columns.3.z = -0.3
+        let transform = simd_mul(currentFrame.camera.transform, translation)
         
-        turbahAdded = true
+        let anchor = ARAnchor(transform: transform)
+        arView.session.add(anchor: anchor)
     }
     
     @objc private func redoRun() {
         hapticFeedback()
         guard save.didRerunTutorial else {
             save.didRerunTutorial = true
-            let alert = UIAlertController(title: "RerunTitle".localized(), message: "RerunMessage".localized(), preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok".localized(), style: .default, handler: nil))
+            let alert = UIAlertController(title: "RerunTitle".localized, message: "RerunMessage".localized, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok".localized, style: .default, handler: { _ in self.redoRun() }))
             present(alert, animated: true, completion: nil)
             return
         }
@@ -137,7 +146,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
             view.addSubview(veBackground)
             veBackground.topAnchor.constraint(equalTo: view.topAnchor, constant: 71).isActive = true
             veBackground.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-            veBackground.title = "FaceQiblaMessage".localized()
+            veBackground.title = "FaceQiblaMessage".localized
 
             UIView.animateKeyframes(withDuration: 3, delay: 0, options: .calculationModeCubic, animations: {
                 UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1/15) {
@@ -175,12 +184,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
             locationsView = LocationsListMenu()
             locationsView!.didSelectNewLocation = { location in
                 self.transparentViewClicked()
+                
+                guard location != self.selectedLocation else { return }
+                
                 self.locationButton.newTitle = location.name
                 self.selectedLocation = location
                 self.compassView.location = location
                 
                 self.arView.scene.anchors.removeAll()
-                self.turbahAdded = false
+                self.didRun = false
             }
             locationsView!.alpha = 0
             view.addSubview(locationsView!)
@@ -235,7 +247,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         UIView.animate(withDuration: 0.2, delay: 5, options: [], animations: {
             self.calibrateView?.alpha = 1
         }) { _ in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 7) {
                 self.removeCalibrateView()
             }
         }
@@ -294,7 +306,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
     func showErrorAlert(type: errorType) {
         errorOverlay = ErrorOverlay()
         errorOverlay!.alpha = 0
-        errorOverlay!.message = (type == .location) ? "LocationDisabled".localized() : "CameraDisabled".localized()
+        errorOverlay!.message = (type == .location) ? "LocationDisabled".localized : "CameraDisabled".localized
         errorOverlay!.retryButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(removeErrorOverlay)))
         view.addSubview(errorOverlay!)
         errorOverlay!.fillSuperview()
@@ -415,7 +427,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
             self.locationButton.alpha = 1
         }
         
-        guard didSendFeedback, selectedLocation == .kabah else { return }
+        guard didSendFeedback, selectedLocation == .kabah else { didRun = false; return }
         placeTurbah()
     }
 }
