@@ -125,13 +125,13 @@ class SettingsVC: UITableViewController, MFMailComposeViewControllerDelegate {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch sectionArray[section].name {
-        case .general, .bottom: return nil
         case .contact: return "Contact".localized
+        default: return nil
         }
     }
     
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        if section == tableView.numberOfSections - 1 {
+        if section == (tableView.numberOfSections - 1) {
             return SettingsFooterView()
         }
         return nil

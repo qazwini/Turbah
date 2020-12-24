@@ -11,17 +11,13 @@ import RealityKit
 import ARKit
 import CoreLocation
 
-typealias MotherFuckingArray = Array
-
 class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOverlayViewDelegate {
     
     var arView = ARView()
-    
     var compassView = CompassView()
-    
     var locationButton = VisualEffectButton()
     var settingsButton = VisualEffectButton()
-    var buttonMargins: CGSize { return UIDevice.current.hasNotch ? CGSize(width: 14, height: 0) : CGSize(width: 5, height: 5) }
+    lazy var buttonMargins: CGSize = UIDevice.current.hasNotch ? CGSize(width: 14, height: 0) : CGSize(width: 5, height: 5)
     
     var locationsView: LocationsListMenu?
     var transparentView: UIView?
@@ -75,8 +71,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         settingsButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: buttonMargins.height).isActive = true
         settingsButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -buttonMargins.width).isActive = true
         
-        rightImage.image = UIImage(systemName: "chevron.compact.right", withConfiguration: UIImage.SymbolConfiguration(pointSize: 50, weight: .medium))
-        leftImage.image = UIImage(systemName: "chevron.compact.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 50, weight: .medium))
+        let config = UIImage.SymbolConfiguration(pointSize: 50, weight: .medium)
+        rightImage.image = UIImage(systemName: "chevron.compact.right", withConfiguration: config)
+        leftImage.image = UIImage(systemName: "chevron.compact.left", withConfiguration: config)
         [rightImage, leftImage].forEach {
             $0.tintColor = .white
             $0.alpha = 0
@@ -102,7 +99,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         anchor.position.z = -1 * cos(Float(bearingOfKabah)) / decreaseValue
         anchor.position.x = sin(Float(bearingOfKabah)) / decreaseValue
         anchor.position.y = 0
-        print("after", anchor.position)
         
         print("angle", atan(anchor.position.x/anchor.position.z) * 180 / .pi)
         
@@ -163,7 +159,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
 
             return
         }
-        if !didRun { arView.run() }
         arView.run()
     }
     
@@ -174,7 +169,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
             arView.gestureRecognizers?.forEach { $0.cancelsTouchesInView = false }
             
             transparentView = UIView()
-            transparentView!.backgroundColor = nil
+            transparentView!.backgroundColor = .clear
             let gesture = UITapGestureRecognizer(target: self, action: #selector(transparentViewClicked))
             gesture.cancelsTouchesInView = false
             transparentView!.addGestureRecognizer(gesture)
@@ -219,8 +214,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
         }) { _ in
             self.locationsView?.removeFromSuperview()
             self.transparentView?.removeFromSuperview()
-            self.locationsView = nil
-            self.transparentView = nil
             
             // FIXME: Remove this but make sure nothing is ruined
             //self.arView.gestureRecognizers?.forEach { $0.cancelsTouchesInView = true }
@@ -258,7 +251,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
             self.calibrateView?.alpha = 0
         }) { _ in
             self.calibrateView?.removeFromSuperview()
-            self.calibrateView = nil
         }
     }
     
@@ -272,7 +264,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ARCoachingOve
     
     func initManager() {
         locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest//NearestTenMeters
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest //NearestTenMeters
         locationManager.startUpdatingLocation()
         locationManager.startUpdatingHeading()
     }

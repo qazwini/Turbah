@@ -8,12 +8,7 @@
 
 import Foundation
 
-struct Coordinates {
-    let lat: Double
-    let lon: Double
-}
-
-enum Locations {
+enum Locations: CaseIterable {
     case kabah
     case prophet
     case aqsa
@@ -24,8 +19,6 @@ enum Locations {
     case askariain
     case masuma
     case zainab
-    
-    static let allLocations: [Locations] = [.kabah, .prophet, .aqsa, .baqi, .ali, .hussain, .reza, .askariain, .masuma, .zainab]
     
     var coordinates: Coordinates {
         switch self {
@@ -58,23 +51,23 @@ enum Locations {
         }
     }
     
-    var imageString: String {
-        switch self {
-        case .kabah:     return "Launch"
-        case .prophet:   return "Launch"
-        case .aqsa:      return "Launch"
-        case .baqi:      return "Launch"
-        case .ali:       return "Launch"
-        case .hussain:   return "Launch"
-        case .reza:      return "Launch"
-        case .askariain: return "Launch"
-        case .masuma:    return "Launch"
-        case .zainab:    return "Launch"
-        }
-    }
-    
     var compassIconString: String {
         return self == .kabah ? "kaba" : "shrine"
     }
+    
+//    var imageString: String {
+//        switch self {
+//        case .kabah:     return ""
+//        case .prophet:   return ""
+//        case .aqsa:      return ""
+//        case .baqi:      return ""
+//        case .ali:       return ""
+//        case .hussain:   return ""
+//        case .reza:      return ""
+//        case .askariain: return ""
+//        case .masuma:    return ""
+//        case .zainab:    return ""
+//        }
+//    }
     
 }

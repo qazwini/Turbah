@@ -12,7 +12,7 @@ class LocationsListMenu: UITableView, UITableViewDelegate, UITableViewDataSource
     
     var didSelectNewLocation: ((Locations) -> Void)?
     
-    let locations = Locations.allLocations
+    let locations = Locations.allCases
     let cellHeight: CGFloat = 47
     
     var height: CGFloat { return cellHeight * CGFloat(min(locations.count, 10)) }

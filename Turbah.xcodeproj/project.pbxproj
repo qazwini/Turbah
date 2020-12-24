@@ -20,11 +20,12 @@
 		FA7BA4F42594082F00E5C856 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7BA4F32594082F00E5C856 /* String+Extension.swift */; };
 		FA7BA4F82594085500E5C856 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7BA4F72594085500E5C856 /* UIImage+Extension.swift */; };
 		FA7BA4FB259408A400E5C856 /* CALayer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7BA4FA259408A400E5C856 /* CALayer+Extension.swift */; };
+		FA7BA5042594118500E5C856 /* Coordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7BA5032594118500E5C856 /* Coordinates.swift */; };
 		FA8EC36124BFD452004FF5E2 /* VisualEffectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8EC36024BFD452004FF5E2 /* VisualEffectButton.swift */; };
 		FA8EC36324BFD48D004FF5E2 /* Super.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8EC36224BFD48D004FF5E2 /* Super.swift */; };
 		FA8EC36524C01C3B004FF5E2 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8EC36424C01C3B004FF5E2 /* SettingsVC.swift */; };
 		FA8EC36A24C031C7004FF5E2 /* VisualEffectText.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8EC36924C031C7004FF5E2 /* VisualEffectText.swift */; };
-		FAA121EE24C50C4A009F12C2 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA121ED24C50C4A009F12C2 /* UserDefaults.swift */; };
+		FAA121EE24C50C4A009F12C2 /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA121ED24C50C4A009F12C2 /* UserDefaults+Extension.swift */; };
 		FAA121F124C50CAC009F12C2 /* SegmentedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA121F024C50CAC009F12C2 /* SegmentedCell.swift */; };
 		FAA121F324C52F2F009F12C2 /* ContactCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA121F224C52F2F009F12C2 /* ContactCell.swift */; };
 		FAA121FC24C6A935009F12C2 /* DistanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA121FB24C6A935009F12C2 /* DistanceCell.swift */; };
@@ -55,11 +56,12 @@
 		FA7BA4F32594082F00E5C856 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		FA7BA4F72594085500E5C856 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		FA7BA4FA259408A400E5C856 /* CALayer+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+Extension.swift"; sourceTree = "<group>"; };
+		FA7BA5032594118500E5C856 /* Coordinates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinates.swift; sourceTree = "<group>"; };
 		FA8EC36024BFD452004FF5E2 /* VisualEffectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectButton.swift; sourceTree = "<group>"; };
 		FA8EC36224BFD48D004FF5E2 /* Super.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Super.swift; sourceTree = "<group>"; };
 		FA8EC36424C01C3B004FF5E2 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		FA8EC36924C031C7004FF5E2 /* VisualEffectText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectText.swift; sourceTree = "<group>"; };
-		FAA121ED24C50C4A009F12C2 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
+		FAA121ED24C50C4A009F12C2 /* UserDefaults+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extension.swift"; sourceTree = "<group>"; };
 		FAA121F024C50CAC009F12C2 /* SegmentedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedCell.swift; sourceTree = "<group>"; };
 		FAA121F224C52F2F009F12C2 /* ContactCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactCell.swift; sourceTree = "<group>"; };
 		FAA121FB24C6A935009F12C2 /* DistanceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceCell.swift; sourceTree = "<group>"; };
@@ -113,7 +115,8 @@
 				FA8EC36224BFD48D004FF5E2 /* Super.swift */,
 				FABD9FB624D3B1FD00CC6EDA /* Localizable.strings */,
 				FA8EC36724C01C7F004FF5E2 /* Controllers */,
-				FA8EC36824C01C87004FF5E2 /* Classes */,
+				FA7BA5002594114100E5C856 /* Views */,
+				FA8EC36824C01C87004FF5E2 /* Models */,
 				FA7BA4E52594075C00E5C856 /* Extensions */,
 				FA57BA6B24BFB314009FC13E /* Turbah.rcproject */,
 				FABD9FBA24D3B29F00CC6EDA /* Info.plist */,
@@ -126,6 +129,8 @@
 		FA7BA4E52594075C00E5C856 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				FAA121ED24C50C4A009F12C2 /* UserDefaults+Extension.swift */,
+				FAA1220624CCDD90009F12C2 /* Conversions.swift */,
 				FA7BA4F32594082F00E5C856 /* String+Extension.swift */,
 				FA7BA4F0259407F600E5C856 /* UIColor+Extension.swift */,
 				FA7BA4E62594077500E5C856 /* UIView+Extension.swift */,
@@ -137,6 +142,15 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		FA7BA5002594114100E5C856 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				FAA1220124C7DFEB009F12C2 /* View Controller */,
+				FAA121EF24C50C8E009F12C2 /* Settings */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		FA8EC36724C01C7F004FF5E2 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -146,16 +160,13 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
-		FA8EC36824C01C87004FF5E2 /* Classes */ = {
+		FA8EC36824C01C87004FF5E2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				FA7BA5032594118500E5C856 /* Coordinates.swift */,
 				FACE7EB824C176EB002FE5FC /* Location.swift */,
-				FAA1220624CCDD90009F12C2 /* Conversions.swift */,
-				FAA121ED24C50C4A009F12C2 /* UserDefaults.swift */,
-				FAA121EF24C50C8E009F12C2 /* Settings */,
-				FAA1220124C7DFEB009F12C2 /* Views */,
 			);
-			path = Classes;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		FAA121EF24C50C8E009F12C2 /* Settings */ = {
@@ -170,7 +181,7 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
-		FAA1220124C7DFEB009F12C2 /* Views */ = {
+		FAA1220124C7DFEB009F12C2 /* View Controller */ = {
 			isa = PBXGroup;
 			children = (
 				FACE7EC024C4006D002FE5FC /* CompassView.swift */,
@@ -181,7 +192,7 @@
 				FACE7EC224C411FF002FE5FC /* LocationListCell.swift */,
 				FAA1220424CCD508009F12C2 /* CalibrateView.swift */,
 			);
-			path = Views;
+			path = "View Controller";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -274,7 +285,7 @@
 				FACE7EB924C176EB002FE5FC /* Location.swift in Sources */,
 				FACE7EB724C173FE002FE5FC /* LocationsListMenu.swift in Sources */,
 				FAA1220524CCD508009F12C2 /* CalibrateView.swift in Sources */,
-				FAA121EE24C50C4A009F12C2 /* UserDefaults.swift in Sources */,
+				FAA121EE24C50C4A009F12C2 /* UserDefaults+Extension.swift in Sources */,
 				FA7BA4F82594085500E5C856 /* UIImage+Extension.swift in Sources */,
 				FA57BA6C24BFB314009FC13E /* Turbah.rcproject in Sources */,
 				FAA121F124C50CAC009F12C2 /* SegmentedCell.swift in Sources */,
@@ -284,6 +295,7 @@
 				FACE7EC124C4006D002FE5FC /* CompassView.swift in Sources */,
 				FA7BA4E72594077500E5C856 /* UIView+Extension.swift in Sources */,
 				FA7A250A24BFA497003D8825 /* ViewController.swift in Sources */,
+				FA7BA5042594118500E5C856 /* Coordinates.swift in Sources */,
 				FA7A250824BFA497003D8825 /* AppDelegate.swift in Sources */,
 				FA8EC36A24C031C7004FF5E2 /* VisualEffectText.swift in Sources */,
 				FA51865524C133AD009064F6 /* SettingsFooterView.swift in Sources */,
@@ -444,7 +456,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = SDG37YDN8V;
 				INFOPLIST_FILE = Turbah/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -452,6 +464,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.MMQ.Turbah;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -464,7 +477,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = SDG37YDN8V;
 				INFOPLIST_FILE = Turbah/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -472,6 +485,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.MMQ.Turbah;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
