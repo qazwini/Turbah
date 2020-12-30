@@ -16,7 +16,7 @@ class LocationListCell: UITableViewCell {
     var titleLabel = UILabel()
     
     private func setupUI() {
-        backgroundColor = nil
+        backgroundColor = .clear
         
         vibrancyView.effect = UIVibrancyEffect(blurEffect: blurEffect, style: .secondaryLabel)
         contentView.addSubview(vibrancyView)

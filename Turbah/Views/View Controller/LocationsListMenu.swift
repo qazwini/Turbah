@@ -28,7 +28,7 @@ class LocationsListMenu: UITableView, UITableViewDelegate, UITableViewDataSource
         dataSource = self
         alwaysBounceVertical = false
         verticalScrollIndicatorInsets = UIEdgeInsets(top: 7.5, left: 0, bottom: 7.5, right: 0)
-        backgroundColor = nil
+        backgroundColor = .clear
         backgroundView = UIVisualEffectView(effect: blurEffect)
         separatorEffect = UIVibrancyEffect(blurEffect: blurEffect, style: .separator)
         separatorInset = .zero
