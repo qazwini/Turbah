@@ -39,6 +39,7 @@
 		FACE7EB924C176EB002FE5FC /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE7EB824C176EB002FE5FC /* Location.swift */; };
 		FACE7EC124C4006D002FE5FC /* CompassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE7EC024C4006D002FE5FC /* CompassView.swift */; };
 		FACE7EC324C411FF002FE5FC /* LocationListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE7EC224C411FF002FE5FC /* LocationListCell.swift */; };
+		FAEDF1E32617F90D0084C10D /* UITableViewCell+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEDF1E22617F90D0084C10D /* UITableViewCell+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,6 +79,7 @@
 		FACE7EB824C176EB002FE5FC /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		FACE7EC024C4006D002FE5FC /* CompassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompassView.swift; sourceTree = "<group>"; };
 		FACE7EC224C411FF002FE5FC /* LocationListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationListCell.swift; sourceTree = "<group>"; };
+		FAEDF1E22617F90D0084C10D /* UITableViewCell+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,8 +131,8 @@
 		FA7BA4E52594075C00E5C856 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				FAA121ED24C50C4A009F12C2 /* UserDefaults+Extension.swift */,
 				FAA1220624CCDD90009F12C2 /* Conversions.swift */,
+				FAA121ED24C50C4A009F12C2 /* UserDefaults+Extension.swift */,
 				FA7BA4F32594082F00E5C856 /* String+Extension.swift */,
 				FA7BA4F0259407F600E5C856 /* UIColor+Extension.swift */,
 				FA7BA4E62594077500E5C856 /* UIView+Extension.swift */,
@@ -138,6 +140,7 @@
 				FA7BA4FA259408A400E5C856 /* CALayer+Extension.swift */,
 				FA7BA4EA259407E300E5C856 /* UIDevice+Extension.swift */,
 				FA7BA4ED259407EB00E5C856 /* UIApplication+Extension.swift */,
+				FAEDF1E22617F90D0084C10D /* UITableViewCell+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -290,6 +293,7 @@
 				FA57BA6C24BFB314009FC13E /* Turbah.rcproject in Sources */,
 				FAA121F124C50CAC009F12C2 /* SegmentedCell.swift in Sources */,
 				FAA121FE24C7A4E6009F12C2 /* TickedSlider.swift in Sources */,
+				FAEDF1E32617F90D0084C10D /* UITableViewCell+Extension.swift in Sources */,
 				FA7BA4F1259407F600E5C856 /* UIColor+Extension.swift in Sources */,
 				FACE7EC324C411FF002FE5FC /* LocationListCell.swift in Sources */,
 				FACE7EC124C4006D002FE5FC /* CompassView.swift in Sources */,

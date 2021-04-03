@@ -19,7 +19,3 @@ let blurEffect = UIBlurEffect(style: .systemThinMaterial)
 func hapticFeedback(style: UIImpactFeedbackGenerator.FeedbackStyle = .light) {
     UIImpactFeedbackGenerator(style: style).impactOccurred()
 }
-
-extension UITableViewCell {
-    static let cellID = "cellID"
-}
