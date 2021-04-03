@@ -33,8 +33,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func setupDefaults() {
         save.register(defaults: [
-            "TurbahDistance" : 3,
-            "NorthType" : true
+            UserDefaults.SaveKeys.TurbahDistance : 3,
+            UserDefaults.SaveKeys.NorthType : true
         ])
     }
 
