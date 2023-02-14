@@ -11,11 +11,11 @@ import SwiftUI
 
 struct Provider: TimelineProvider {
     func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), equations: "Names of Allah")
+        SimpleEntry(date: Date(), namesallah: "Names of Allah")
     }
 
     func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let entry = SimpleEntry(date: Date(), equations: "Names of Allah")
+        let entry = SimpleEntry(date: Date(), namesallah: "Names of Allah")
         completion(entry)
     }
 
@@ -26,7 +26,7 @@ struct Provider: TimelineProvider {
         let currentDate = Date()
         for hourOffset in 0 ..< 5 {
             let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = SimpleEntry(date: entryDate, equations: MyDataProvider.getequations())
+            let entry = SimpleEntry(date: entryDate, namesallah: MyDataProvider.namesallah())
             entries.append(entry)
         }
 
@@ -37,7 +37,7 @@ struct Provider: TimelineProvider {
 
 struct SimpleEntry: TimelineEntry {
     let date: Date
-    let equations: String
+    let namesallah: String
 }
 
 struct TurbahWidgetEntryView : View {
@@ -46,7 +46,7 @@ struct TurbahWidgetEntryView : View {
     var body: some View {
         ZStack{
             Color.green.edgesIgnoringSafeArea(.all)
-            Text(entry.equations)
+            Text(entry.namesallah)
                 .foregroundColor(.white)
                 .fontWeight(.bold)
                 .font(.largeTitle)
@@ -68,13 +68,13 @@ struct TurbahWidget: Widget {
 
 struct TurbahWidget_Previews: PreviewProvider {
     static var previews: some View {
-        TurbahWidgetEntryView(entry: SimpleEntry(date: Date(), equations: "Names of Allah"))
+        TurbahWidgetEntryView(entry: SimpleEntry(date: Date(), namesallah: "Names of Allah"))
             .previewContext(WidgetPreviewContext(family: .systemSmall))
     }
 }
 
 class MyDataProvider{
-    static func getequations()-> String{
+    static func namesallah()-> String{
         let strings = [
         "1) AR-RAHMAAN - The Beneficent",
         "2) AR-RAHEEM - The Merciful",
